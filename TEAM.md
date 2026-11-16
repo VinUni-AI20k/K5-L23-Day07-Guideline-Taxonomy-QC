@@ -4,7 +4,7 @@
 - Mã thành viên (ba chữ số): 111, 222, 333, 444
 - Người điều phối: 444
 - Người review bản cuối: 111
-- Commit chốt bài (điền ở kênh nộp sau khi commit):
+- Commit chốt bài (điền ở kênh nộp sau khi commit): c03e849
 
 ## Kết quả tóm tắt (điền cuối bài)
 
