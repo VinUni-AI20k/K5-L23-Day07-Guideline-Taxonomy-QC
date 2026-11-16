@@ -18,6 +18,7 @@ import logging
 import re
 import sys
 import unicodedata
+from getpass import getpass
 from pathlib import Path
 
 # Tắt cảnh báo log không cần thiết
@@ -38,7 +39,6 @@ QC_ASSIGNMENTS_DIR = ROOT / "submission" / "qc" / "assignments"
 ASSIGNMENT_CSV = ROOT / "submission" / "qc" / "assignment.csv"
 
 SERVER_URL = "http://localhost:8080"
-LOCAL_TOKEN = "079bc5bacb31db877c2a1882baa4de81c81db885"
 PROJECT_NAME = "Day07_T005"
 
 # Danh sách chuẩn 5 thành viên của nhóm T005
@@ -170,9 +170,13 @@ def main():
 
     # 2. Kết nối tới CVAT Local
     print(f"\n[*] Đang kết nối tới CVAT Local ({SERVER_URL})...")
-    client = make_client(SERVER_URL)
-    client.api_client.configuration.api_key['tokenAuth'] = LOCAL_TOKEN
-    client.api_client.configuration.api_key_prefix['tokenAuth'] = 'Token'
+    client = make_client(
+        SERVER_URL,
+        credentials=(
+            input("CVAT username: ").strip(),
+            getpass("CVAT password: "),
+        ),
+    )
 
     project_id = get_or_create_project(client)
 
