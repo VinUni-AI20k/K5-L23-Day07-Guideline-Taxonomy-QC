@@ -42,7 +42,7 @@
   "attributes": [
     {"name": "occluded_level", "type": "select", "values": ["0", "1", "2", "3"], "default": "0"},
     {"name": "truncated", "type": "select", "values": ["no", "yes"], "default": "no"},
-    {"name": "can_review", "type": "checkbox", "values": [], "default": "false"}
+    {"name": "can_review", "type": "checkbox", "values": ["false"], "default": "false"}
   ],
   "rules": {
     "min_box_height_px": 20,

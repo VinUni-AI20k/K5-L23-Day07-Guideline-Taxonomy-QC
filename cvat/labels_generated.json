@@ -1,6 +1,7 @@
 [
   {
     "name": "car",
+    "type": "rectangle",
     "color": "#e6194b",
     "attributes": [
       {
@@ -30,12 +31,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "truck",
+    "type": "rectangle",
     "color": "#3cb44b",
     "attributes": [
       {
@@ -65,12 +67,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "van",
+    "type": "rectangle",
     "color": "#4363d8",
     "attributes": [
       {
@@ -100,12 +103,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "motorcycle",
+    "type": "rectangle",
     "color": "#f58231",
     "attributes": [
       {
@@ -135,12 +139,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "person",
+    "type": "rectangle",
     "color": "#911eb4",
     "attributes": [
       {
@@ -170,12 +175,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "bicycle",
+    "type": "rectangle",
     "color": "#46c8c8",
     "attributes": [
       {
@@ -205,12 +211,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "bus",
+    "type": "rectangle",
     "color": "#f032e6",
     "attributes": [
       {
@@ -240,12 +247,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "three_wheel",
+    "type": "rectangle",
     "color": "#9a6324",
     "attributes": [
       {
@@ -275,12 +283,13 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": ["false"]
       }
     ]
   },
   {
     "name": "ignore_region",
+    "type": "rectangle",
     "color": "#808080",
     "attributes": []
   }
