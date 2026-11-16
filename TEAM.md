@@ -1,9 +1,15 @@
 # Thông tin nhóm
 
-- Tên nhóm:
+- Tên nhóm: TOPS
 - Mã thành viên (ba chữ số):
-- Người điều phối:
-- Người review bản cuối:
+ 051,
+061,
+217,
+049,
+064
+
+- Người điều phối: Vi Thanh Đức
+- Người review bản cuối: 
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
 ## Kết quả tóm tắt (điền cuối bài)
