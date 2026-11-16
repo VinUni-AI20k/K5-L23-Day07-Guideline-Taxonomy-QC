@@ -1,65 +1,105 @@
-# HƯỚNG DẪN NHẬN VIỆC & TỰ ĐỘNG TẠO TASK TRÊN CVAT LOCAL (NHÓM T005)
+# HƯỚNG DẪN TỰ ĐỘNG PHÂN VIỆC & TẠO TASK TRÊN CVAT (NHÓM T005)
 
-Hệ thống được thiết kế theo đúng quy trình **phân job theo yêu cầu (on-demand)**: 
-Task của thành viên nào sẽ **CHỈ ĐƯỢC TẠO khi thành viên đó chạy đúng câu lệnh Họ tên và Mã sinh viên** của mình trong Terminal.
-
----
-
-## 1. Bảng Câu Lệnh Phân Việc Cho Từng Thành Viên
-
-Mỗi bạn mở Terminal tại thư mục dự án và copy đúng câu lệnh của mình để nhận 24 ảnh và tự động tạo Task trên CVAT Local (`http://localhost:8080`):
-
-| STT | Thành viên | Mã sinh viên | Câu lệnh chạy Terminal để nhận job & tạo Task |
-|:---:|:---|:---:|:---|
-| 1 | **NGUYỄN ĐỨC CƯỜNG** | `2A202603040` | `python scripts/setup_cvat.py "NGUYỄN ĐỨC CƯỜNG" 2A202603040` |
-| 2 | **HOÀNG NHẬT ANH** | `2A202603183` | `python scripts/setup_cvat.py "HOÀNG NHẬT ANH" 2A202603183` |
-| 3 | **NGUYỄN BÁ DUY** | `2A202603192` | `python scripts/setup_cvat.py "NGUYỄN BÁ DUY" 2A202603192` |
-| 4 | **ĐỖ HUY KIÊN** | `2A202603216` | `python scripts/setup_cvat.py "ĐỖ HUY KIÊN" 2A202603216` |
-| 5 | **PHẠM MẠNH HÙNG** | `2A202603240` | `python scripts/setup_cvat.py "PHẠM MẠNH HÙNG" 2A202603240` |
-
-> **Cơ chế hoạt động:**
-> - Ai chạy câu lệnh thì CVAT Local **mới tạo đúng Task của người đó** và upload đúng 24 ảnh được phân công.
-> - Người nào chưa chạy câu lệnh thì trên CVAT Local hoàn toàn **chưa có Task của người đó**.
-> - Nếu người dùng chạy lại câu lệnh lần 2, hệ thống sẽ tự nhận diện Task đã tạo và trả về link gán nhãn, không tạo trùng lặp.
+Script `scripts/setup_cvat.py` đã được nâng cấp toàn diện, **hỗ trợ linh hoạt cả 3 hình thức máy chủ CVAT**:
+1. **CVAT Cloud:** `https://app.cvat.ai` (máy nào cũng vào được).
+2. **CVAT Local:** `http://localhost:8080` (nhập username và password của máy local).
+3. **Tự nhập đường dẫn link tùy chọn:** Tự gõ IP máy chủ của nhóm (ví dụ `http://192.168.1.15:8080`, máy chủ phòng lab, v.v.).
 
 ---
 
-## 2. Phân Bổ Ảnh Đảm Bảo Đề Bài (> 2 người gán)
+## 1. Bảng Câu Lệnh Cho Từng Thành Viên Nhóm T005
 
-* **Tổng số ảnh**: 40 ảnh.
-* **Số thành viên**: 5 người.
-* **Số người gán mỗi ảnh**: $K = 3$ người (thỏa mãn $> 2$).
-* **Khối lượng**: Mỗi thành viên được giao đúng **24 ảnh** (không ai nhiều hơn, không ai ít hơn).
-* **Ma trận phân công**: Đã lưu tại `submission/qc/assignment.csv`.
+Mỗi bạn mở Terminal tại thư mục của repo và chạy đúng câu lệnh của mình:
+
+| Thành viên | Mã sinh viên | Câu lệnh chạy Terminal |
+|:---|:---:|:---|
+| **NGUYỄN ĐỨC CƯỜNG** | `2A202603040` | `python scripts/setup_cvat.py "NGUYỄN ĐỨC CƯỜNG" 2A202603040` |
+| **HOÀNG NHẬT ANH** | `2A202603183` | `python scripts/setup_cvat.py "HOÀNG NHẬT ANH" 2A202603183` |
+| **NGUYỄN BÁ DUY** | `2A202603192` | `python scripts/setup_cvat.py "NGUYỄN BÁ DUY" 2A202603192` |
+| **ĐỖ HUY KIÊN** | `2A202603216` | `python scripts/setup_cvat.py "ĐỖ HUY KIÊN" 2A202603216` |
+| **PHẠM MẠNH HÙNG** | `2A202603240` | `python scripts/setup_cvat.py "PHẠM MẠNH HÙNG" 2A202603240` |
 
 ---
 
-## 3. Quy Trình Sau Khi Chạy Câu Lệnh
+## 2. Menu Lựa Chọn Máy Chủ & Đăng Nhập Khi Chạy Lệnh
 
-1. **Nhận link Task:**
-   Ngay khi chạy câu lệnh, màn hình Terminal sẽ in ra đường link Task trên CVAT Local:
+Ngay khi gõ câu lệnh trên, Terminal sẽ hiện menu để bạn chọn máy chủ:
+
+```text
+============================================================
+          CHỌN MÁY CHỦ CVAT BẠN MUỐN KẾT NỐI
+============================================================
+  [1] CVAT Cloud (https://app.cvat.ai)  [Mặc định]
+  [2] CVAT Local máy này (http://localhost:8080)
+  [3] Tự nhập đường dẫn link CVAT (URL tùy chọn / LAN / IP máy khác)
+============================================================
+Nhập lựa chọn của bạn (1, 2 hoặc 3) [mặc định 1]:
+```
+
+### 👉 LỰA CHỌN 1: Nếu chọn [1] - CVAT Cloud (`https://app.cvat.ai`)
+* Terminal hỏi tài khoản `app.cvat.ai`:
+  * Nếu đăng ký trực tiếp bằng Email/Pass: Chọn `[1]` và nhập Email + Mật khẩu.
+  * Nếu đăng nhập qua Google: Chọn `[2]` và dán chuỗi **Personal Access Token** (Lấy tại `https://app.cvat.ai` $\rightarrow$ Avatar góc phải $\rightarrow$ Profile $\rightarrow$ Personal access tokens).
+
+### 👉 LỰA CHỌN 2: Nếu chọn [2] - CVAT Local (`http://localhost:8080`)
+* Terminal sẽ hỏi **Username** và **Password** trên CVAT Local:
+  * Bạn nhập Username và Password tài khoản local của mình.
+  * *(Nếu chạy trên máy chủ host của bạn Duy: có thể nhấn Enter để dùng tài khoản mặc định `basduy05`)*.
+
+### 👉 LỰA CHỌN 3: Nếu chọn [3] - Tự nhập đường dẫn link máy chủ tùy chọn
+* Terminal sẽ yêu cầu bạn dán link máy chủ:
+  ```text
+  Nhập đường dẫn link máy chủ CVAT (VD: http://192.168.1.15:8080):
+  ```
+* Sau đó nhập tiếp **Username** và **Password** tương ứng của máy chủ đó!
+
+---
+
+## 3. Chạy Nhanh Một Dòng Lệnh Không Cần Hỏi (Dành cho thành thạo)
+
+Bạn có thể truyền thẳng các tham số `--server` và `--auth` vào lệnh:
+
+```bash
+# Ví dụ 1: Chạy thẳng trên CVAT Local với tài khoản/mật khẩu
+python scripts/setup_cvat.py "NGUYỄN BÁ DUY" 2A202603192 --server http://localhost:8080 --auth "admin:password"
+
+# Ví dụ 2: Tự nhập đường dẫn link IP máy của bạn trong mạng LAN
+python scripts/setup_cvat.py "HOÀNG NHẬT ANH" 2A202603183 --server http://192.168.1.15:8080 --auth "anh:123456"
+
+# Ví dụ 3: Chạy thẳng trên CVAT Cloud với Email và Mật khẩu
+python scripts/setup_cvat.py "ĐỖ HUY KIÊN" 2A202603216 --server https://app.cvat.ai --auth "kien@gmail.com:matkhau"
+```
+
+---
+
+## 4. Kết Quả Sau Khi Tạo Task
+
+Hệ thống sẽ:
+1. Đảm bảo phân chia đúng **24 ảnh** của bạn từ `data/images/`.
+2. Tạo Project `Day07_T005` (nếu chưa có).
+3. Tạo Task `day07-<MSHV>-<HoTen>` và upload đúng 24 ảnh.
+4. Trả về đường link:
    ```text
-   🎉 TẠO TASK THÀNH CÔNG CHO: NGUYỄN BÁ DUY (2A202603192)!
-     - Task ID  : 29
-     - Tên Task : day07-2A202603192-NguyenBaDuy
+   🎉 TẠO TASK THÀNH CÔNG CHO: HOÀNG NHẬT ANH (2A202603183)!
+     - Server   : https://app.cvat.ai (hoặc link bạn chọn)
+     - Task ID  : 123456
      - Số ảnh   : 24 ảnh
      - Bấm vào link dưới đây để mở CVAT và gán nhãn ngay:
-       👉 http://localhost:8080/tasks/29 👈
+       👉 https://app.cvat.ai/tasks/123456 👈
    ```
 
-2. **Gán nhãn trên CVAT:**
-   Bấm vào link task để mở giao diện CVAT và thực hiện gán 24 ảnh theo guideline nhóm.
+---
 
-3. **Export nhãn COCO 1.0:**
-   - Tại Task CVAT: bấm **Actions** $\rightarrow$ **Export task dataset** $\rightarrow$ chọn **COCO 1.0** (tắt ô *Save images*).
-   - Tải file zip về, lấy `instances_default.json` đổi tên thành `<MSHV>_<HoTen>.json` bỏ vào thư mục `submission/labels/`:
-     * Nguyễn Đức Cường: `submission/labels/2A202603040_NguyenDucCuong.json`
-     * Hoàng Nhật Anh: `submission/labels/2A202603183_HoangNhatAnh.json`
-     * Nguyễn Bá Duy: `submission/labels/2A202603192_NguyenBaDuy.json`
-     * Đỗ Huy Kiên: `submission/labels/2A202603216_DoHuyKien.json`
-     * Phạm Mạnh Hùng: `submission/labels/2A202603240_PhamManhHung.json`
+## 5. Export Dữ Liệu & Kiểm Tra Sau Khi Gán Xong
 
-4. **Kiểm tra hợp lệ:**
+1. **Export nhãn:** Vào giao diện Task $\rightarrow$ **Actions** $\rightarrow$ **Export task dataset** $\rightarrow$ Chọn **COCO 1.0** (bỏ tick *Save images*).
+2. **Đổi tên:** Lấy file `instances_default.json` đổi tên thành `<MSHV>_<HoTen>.json` rồi bỏ vào thư mục `submission/labels/`:
+   * `2A202603040_NguyenDucCuong.json`
+   * `2A202603183_HoangNhatAnh.json`
+   * `2A202603192_NguyenBaDuy.json`
+   * `2A202603216_DoHuyKien.json`
+   * `2A202603240_PhamManhHung.json`
+3. **Kiểm tra tự động:**
    ```bash
    python scripts/validate_labels.py --all
    ```
