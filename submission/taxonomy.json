@@ -5,6 +5,7 @@
     {"name": "car", "definition": "Ô tô con, SUV, crossover, hatchback, taxi 4 bánh."},
     {"name": "truck", "definition": "Xe tải, xe bán tải (pickup), xe chở hàng có thùng riêng hoặc rơ-moóc."},
     {"name": "van", "definition": "Xe ô tô thùng kín cỡ nhỏ đến vừa, khoang hàng gắn liền cabin."},
+    {"name": "bus", "definition": "Xe buýt chở khách công cộng cỡ lớn hoặc vừa, xe khách du lịch nhiều chỗ."},
     {"name": "motorcycle", "definition": "Xe máy, mô tô 2-3 bánh có gắn động cơ đốt trong hoặc động cơ điện."},
     {"name": "tuk_tuk", "definition": "Xe tuk-tuk, auto rickshaw, xe lam 3 bánh gắn động cơ chở khách hoặc hàng nhẹ."},
     {"name": "bicycle", "definition": "Xe đạp thể thao/thông thường, xe xích lô đạp chân, phương tiện thô sơ 2-3 bánh vận hành bằng bàn đạp sức người."},

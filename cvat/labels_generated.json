@@ -105,7 +105,7 @@
     ]
   },
   {
-    "name": "motorcycle",
+    "name": "bus",
     "color": "#f58231",
     "attributes": [
       {
@@ -140,7 +140,7 @@
     ]
   },
   {
-    "name": "tuk_tuk",
+    "name": "motorcycle",
     "color": "#911eb4",
     "attributes": [
       {
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "name": "bicycle",
+    "name": "tuk_tuk",
     "color": "#46c8c8",
     "attributes": [
       {
@@ -210,8 +210,43 @@
     ]
   },
   {
-    "name": "person",
+    "name": "bicycle",
     "color": "#f032e6",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": []
+      }
+    ]
+  },
+  {
+    "name": "person",
+    "color": "#9a6324",
     "attributes": [
       {
         "name": "occluded_level",
