@@ -1,7 +1,7 @@
-# Guideline gán nhãn — v0.2 (cá nhân) — mã 102
+# Guideline gán nhãn — v0.2 (cá nhân) — mã 040
 
 - **Phiên bản:** v0.2 (bản cá nhân, viết từ `guideline_v0_starter.md`)
-- **Mã thành viên:** 102
+- **Mã thành viên:** 040
 - **Người viết:** Bùi Văn Thịnh (MSSV 2A202604040)
 - **Ngày:** 16/11/2026
 - **Áp dụng cho:** Bounding Box 2D trên ảnh đường phố (CVAT → COCO 1.0)
