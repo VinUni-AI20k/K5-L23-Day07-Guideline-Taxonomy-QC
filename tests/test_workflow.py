@@ -105,7 +105,7 @@ class WorkflowTest(unittest.TestCase):
 
     def test_ignore_disagreement_is_actionable(self):
         self.assignments()
-        self.coco(self.sub / "labels" / "101.json", additional=[
+        self.coco(self.sub / "labels" / "102.json", additional=[
             {"id": 3, "image_id": 1, "category_id": 1, "bbox": [50, 0, 20, 60],
              "attributes": {"occluded_level": "0", "truncated": "no", "can_review": False}},
         ])
@@ -123,7 +123,7 @@ class WorkflowTest(unittest.TestCase):
         obj = {"id": 3, "image_id": 1, "category_id": 1, "bbox": [25, 35, 10, 20],
                "attributes": {"occluded_level": "0", "truncated": "no", "can_review": False}}
         region = {"id": 4, "image_id": 1, "category_id": 2, "bbox": [28, 15, 65, 75]}
-        self.coco(self.sub / "labels" / "101.json", additional=[
+        self.coco(self.sub / "labels" / "102.json", additional=[
             obj, {**region, "bbox": [38, 15, 60, 75]},
         ])
         self.coco(self.sub / "labels" / "102.json", additional=[region])

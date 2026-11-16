@@ -242,11 +242,11 @@ def load_all_labels(tax: Taxonomy) -> Dict[str, LabelFile]:
     files = list_label_files()
     if not files:
         die("Chưa có file nhãn nào trong submission/labels/. Mỗi thành viên export COCO 1.0 từ CVAT, "
-            "đặt tên theo mã, ví dụ 101.json.")
+            "đặt tên theo mã, ví dụ 102.json.")
     out: Dict[str, LabelFile] = {}
     for p in files:
         if not MEMBER_RE.fullmatch(p.stem):
-            die(f"{p.name}: đặt tên theo mã ba chữ số, ví dụ 101.json.")
+            die(f"{p.name}: đặt tên theo mã ba chữ số, ví dụ 102.json.")
         try:
             lf = load_coco(p, tax)
         except Exception as e:  # noqa

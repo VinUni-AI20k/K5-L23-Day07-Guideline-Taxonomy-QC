@@ -18,7 +18,7 @@ def main() -> None:
     tax = load_taxonomy()
     for path in paths:
         if path.suffix != ".json" or not MEMBER_RE.fullmatch(path.stem):
-            die("Đặt file theo mã thành viên, ví dụ 101.json.")
+            die("Đặt file theo mã thành viên, ví dụ 102.json.")
         labels = require_valid_labels(path, tax)
         expected = {image for image, members in assignment.items() if labels.member in members}
         if not expected or expected != labels.images.keys():
