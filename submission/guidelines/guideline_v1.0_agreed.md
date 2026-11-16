@@ -19,9 +19,9 @@
 Tập dữ liệu này được xây dựng nhằm chuẩn hóa bộ nhãn huấn luyện mô hình thị giác máy tính 2D Object Detection (YOLO, Faster R-CNN, DETR) phục vụ hệ thống lái xe tự động (Autonomous Driving - AD) và giám sát giao thông thông minh (ITS) trong môi trường giao thông đô thị hỗn hợp châu Á.
 
 ### Ý nghĩa an toàn kỹ thuật:
-1. **Bảo vệ đối tượng dễ tổn thương (Vulnerable Road Users - VRU):** Bỏ sót người đi bộ (`person`), người điều khiển xe máy (`motorcycle`) hoặc xe đạp/xích lô (`bicycle`) là lỗi nghiêm trọng mức độ tối cao (Critical Hazard), dẫn đến nguy cơ tai nạn đâm va trực tiếp đe dọa tính mạng con người.
+1. **Bảo vệ đối tượng dễ tổn thương (Vulnerable Road Users - VRU):** Bỏ sót người đi bộ (`person`), người điều khiển xe máy (`motorcycle`), xe đạp (`bicycle`) hoặc xe xích lô (`cyclo`) là lỗi nghiêm trọng mức độ tối cao (Critical Hazard), dẫn đến nguy cơ tai nạn đâm va trực tiếp đe dọa tính mạng con người.
 2. **Ước lượng ranh giới động học và khoảng cách phanh an toàn:**
-   - Phân biệt rõ xe con (`car`), xe tải (`truck`), xe van (`van`), xe buýt (`bus`), xe 3 bánh (`tuk_tuk`) và xe thô sơ (`bicycle`) giúp bộ lập quỹ đạo (Motion Planner) tính toán chính xác quán tính dừng, điểm mù phương tiện và không gian lách vượt an toàn.
+   - Phân biệt rõ xe con (`car`), xe tải (`truck`), xe van (`van`), xe buýt (`bus`), xe 3 bánh có động cơ (`tuk_tuk`), xe đạp (`bicycle`) và xe xích lô (`cyclo`) giúp bộ lập quỹ đạo (Motion Planner) tính toán chính xác quán tính dừng, điểm mù phương tiện và không gian lách vượt an toàn.
    - Nhầm lẫn xe tải/buýt thành xe con sẽ khiến xe tự lái tính thiếu khoảng cách an toàn, dễ gây va chạm tạt đầu hoặc lọt vào điểm mù xe lớn.
 3. **Chống kích hoạt phanh khẩn cấp ảo (Phantom Braking Mitigation):**
    - Không gán nhãn cho các ảo ảnh quang học (hình phản chiếu trong gương chiếu hậu, kính cửa sổ, mặt đường ướt) và các vật mô phỏng (tượng đá, hình in quảng cáo, búp bê, mô hình xe đồ chơi). Gán nhãn các vật này sẽ khiến xe tự lái nhận diện vật cản ảo ngay trước đầu xe và phanh khẩn cấp vô cớ khi đang di chuyển tốc độ cao, dẫn đến tai nạn dồn toa từ phía sau.
@@ -30,19 +30,20 @@ Tập dữ liệu này được xây dựng nhằm chuẩn hóa bộ nhãn huấ
 
 ## 2. Lớp đối tượng và Thuộc tính
 
-### 2.1. Taxonomy chính thức (9 lớp đối tượng)
+### 2.1. Taxonomy chính thức (10 lớp đối tượng)
 
-Sau phiên họp Pha 2, nhóm T005 thống nhất bổ sung 3 lớp phương tiện đặc thù (`bus`, `tuk_tuk`, `bicycle`) vào bộ 6 lớp cơ sở của v0, tạo thành taxonomy 9 lớp hoàn chỉnh được quản lý tại `submission/taxonomy.json`:
+Sau phiên họp Pha 2, nhóm T005 thống nhất bổ sung 4 lớp phương tiện đặc thù (`bus`, `tuk_tuk`, `bicycle`, `cyclo`) vào bộ 6 lớp cơ sở của v0, tạo thành taxonomy 10 lớp hoàn chỉnh được quản lý tại `submission/taxonomy.json`:
 
 | Lớp | Định nghĩa cốt lõi và Dấu hiệu phân biệt | Ví dụ trong bộ 40 ảnh | Phản ví dụ / Dễ nhầm lẫn |
 |:---|:---|:---|:---|
 | `car` | Ô tô con 4 bánh có kết cấu thân vỏ chở người nhỏ (dưới 9 chỗ): sedan, hatchback, crossover, SUV, wagon, taxi, xe diễu hành 4 bánh có người lái. | Xe sedan `img_023`; wagon đen `img_024`; taxi `img_040`; xe diễu hành Danger Mouse `img_019`. | Xe bán tải (`truck`), xe van chở hàng kín (`van`), xe buýt (`bus`), xe tuk-tuk 3 bánh (`tuk_tuk`), mô hình ô tô đồ chơi `img_038`. |
 | `truck` | Xe cơ giới chuyên dụng chở hàng hóa, có cabin và thùng/sàn chở hàng tách biệt về kết cấu (thùng hở, thùng kín, rơ-moóc hoặc sàn chở xe). Bao gồm xe bán tải (pickup truck). | Xe tải nhẹ `img_001`, `img_007`, `img_036`; xe bán tải chở hàng `img_012`; pickup có nắp thùng `img_037`; xe chuyên dụng chở ô tô `img_002`. | Xe van khoang liền cabin (`van`), xe ô tô con chở người (`car`), tượng đài xe bán tải `img_027` (nền âm tính). |
 | `van` | Xe ô tô thân thùng kín cỡ nhỏ đến vừa (khoảng 9–16 chỗ hoặc chở hàng kín), khoang lái và khoang hàng gắn liền thành một khối khí động học; không có thùng hàng độc lập. | Xe thân hộp phía sau xe máy `img_005`; xe van trắng `img_016`. | Xe tải nhỏ cabin rời `img_036` là `truck`; xe bán tải lắp nắp thùng cao `img_037` vẫn là `truck`; xe khách lớn là `bus`. |
-| `bus` | Phương tiện cơ giới chở khách công cộng cỡ lớn hoặc vừa (trên 16 chỗ), xe buýt hai tầng, xe khách đường dài liên tỉnh. | Xe khách thân dài giữa cảnh `img_009`; xe buýt nội đô `img_031`, `img_032`, `img_037`, `img_040`. | Xe van 9–16 chỗ (`van`), xe ô tô 7 chỗ (`car`), xe tải chở hàng (`truck`). |
-| `motorcycle` | Xe máy, mô tô 2–3 bánh có gắn động cơ đốt trong hoặc động cơ điện. Bao gồm cả xe tay ga (scooter) và tổ hợp mô tô gắn thùng phụ bên hông (sidecar cố định). | Scooter `img_010`, `img_026`; mô tô sidecar 3 bánh `img_022`; xe máy chở hàng `img_029`. | Xe đạp `bicycle`, xe xích lô `bicycle`, xe tuk-tuk chuyên dụng `tuk_tuk`, các tác phẩm mô phỏng xe bằng kim loại `img_011`. |
-| `tuk_tuk` | Xe 3 bánh cơ giới gắn động cơ (auto-rickshaw, xe lam, tuk-tuk), có cụm cabin và khoang chở khách hoặc hàng nhẹ trên khung xe 3 bánh chuyên dụng. | Tuk-tuk Thái Lan `img_035`; auto-rickshaw Ấn Độ `img_004`, `img_016`, `img_040`. | Mô tô 2 bánh thông thường (`motorcycle`); mô tô gắn sidecar `img_022` (vẫn là `motorcycle`); xe xích lô đạp chân (`bicycle`). |
-| `bicycle` | Phương tiện thô sơ 2–3 bánh vận hành bằng bàn đạp sử dụng sức người (hoặc trợ lực điện nhẹ): xe đạp thể thao, xe đạp thông thường, xe xích lô du lịch 3 bánh đạp chân. | Xe đạp `img_006`, `img_029`, `img_039`; xe xích lô chở khách `img_006`, `img_009`, `img_023`, `img_034`. | Xe máy chạy xăng (`motorcycle`), xe tuk-tuk có động cơ (`tuk_tuk`), xe đẩy tay hàng rong (ngoài taxonomy). |
+| `bus` | Phương tiện cơ giới chở khách công cộng cỡ lớn hoặc vừa (trên 16 chỗ), xe buýt hai tầng, xe khách đường dài liên tỉnh. | Xe khách thân dài giữa cảnh `img_009`; xe buýt nội đô `img_031`, `img_032`, `img_037`, `img_040`. | Xe van 9–16 chỗ (`van`), xe ô tô con 7 chỗ (`car`), xe tải chở hàng (`truck`). |
+| `motorcycle` | Xe máy, mô tô 2–3 bánh có gắn động cơ đốt trong hoặc động cơ điện. Bao gồm cả xe tay ga (scooter) và tổ hợp mô tô gắn thùng phụ bên hông (sidecar cố định). | Scooter `img_010`, `img_026`; mô tô sidecar 3 bánh `img_022`; xe máy chở hàng `img_029`. | Xe đạp `bicycle`, xe xích lô `cyclo`, xe tuk-tuk chuyên dụng `tuk_tuk`, các tác phẩm mô phỏng xe bằng kim loại `img_011`. |
+| `tuk_tuk` | Xe 3 bánh cơ giới gắn động cơ (auto-rickshaw, xe lam, tuk-tuk), có cụm cabin và khoang chở khách hoặc hàng nhẹ trên khung xe 3 bánh chuyên dụng. | Tuk-tuk Thái Lan `img_035`; auto-rickshaw Ấn Độ `img_004`, `img_016`, `img_040`. | Mô tô 2 bánh thông thường (`motorcycle`); mô tô gắn sidecar `img_022` (vẫn là `motorcycle`); xe xích lô đạp chân (`cyclo`). |
+| `bicycle` | Phương tiện thô sơ 2 bánh vận hành bằng bàn đạp sử dụng sức người (hoặc trợ lực điện nhẹ): xe đạp thể thao, xe đạp mini, xe đạp cào cào. | Xe đạp `img_006`, `img_029`, `img_039`. | Xe máy có động cơ (`motorcycle`), xe xích lô 3 bánh (`cyclo`), xe đẩy tay hàng rong (ngoài taxonomy). |
+| `cyclo` | Xe xích lô 3 bánh dùng bàn đạp sức người, có ghế/khoang hành khách phía trước và vị trí người đạp phía sau. | Xích lô du lịch tại Huế `img_006`, xích lô chở khách ở trung tâm `img_023`, `img_009`, `img_034`. | Xe đạp 2 bánh (`bicycle`), xe ba bánh có động cơ (`tuk_tuk`). |
 | `person` | Con người sống thật nhìn thấy trực tiếp ở mọi tư thế: đi bộ, đứng, ngồi, lái xe, đạp xe, bốc dỡ hàng hóa. | Người bán hàng `img_003`; người đi bộ `img_014`; người điều khiển và hành khách trên xe `img_026`, `img_040`. | Tượng điêu khắc `img_017`, chân dung trên billboard `img_018`, ma-nơ-canh `img_033`, búp bê đồ chơi `img_038`, ảnh phản chiếu gương. |
 | `ignore_region` | Hình chữ nhật xác định vùng không gian không gán chi tiết từng đối tượng do quá xa, mờ nhòe, hoặc tập hợp đông đúc dưới ngưỡng phát hiện ($< 20\text{ px}$). Bỏ sót trong vùng này không tính là lỗi. | Cụm người/xe ở hậu cảnh xa xôi `img_021`, đám đông xếp hàng ở trạm buýt ngoài cự ly `img_032`. | Không phủ lên tượng, đồ chơi, hình in đã biết là vật âm tính; không phủ lên toàn ảnh để trốn tránh việc vẽ box. |
 
@@ -50,7 +51,7 @@ Sau phiên họp Pha 2, nhóm T005 thống nhất bổ sung 3 lớp phương ti�
 
 ### 2.2. Thuộc tính đo lường định lượng
 
-Mỗi bounding box thuộc 8 lớp đối tượng thực bắt buộc phải điền đủ 3 thuộc tính sau (`ignore_region` không có thuộc tính):
+Mỗi bounding box thuộc 9 lớp đối tượng thực bắt buộc phải điền đủ 3 thuộc tính sau (`ignore_region` không có thuộc tính):
 
 1. **`occluded_level` (Mức độ che khuất):**
    Đo bằng tỷ lệ diện tích $r$ của hình dạng đối tượng bị vật thể khác che khuất trên **phần cơ thể/thân xe lẽ ra phải nhìn thấy được trong ảnh**.
@@ -82,9 +83,10 @@ Mỗi bounding box thuộc 8 lớp đối tượng thực bắt buộc phải đ
 - **Hàng hóa rời cồng kềnh:** Nông sản, bao tải lưới (`img_012`), thanh kim loại dài (`img_029`), bọc xốp chở quá tải (`img_029`, `img_035`) là **hàng rời**, không dùng làm điểm cực trị để nới rộng box xe. Box xe bám sát kết cấu cơ học của phương tiện nhằm bảo toàn tỷ lệ khung hình (aspect ratio) chuẩn của mô hình thị giác.
 
 ### 3.3. Quy tắc ghép đôi Người và Phương tiện 2/3 bánh (Coupling & Overlap)
-- Đối với xe máy (`motorcycle`), xe đạp/xích lô (`bicycle`), hoặc tuk-tuk hở (`tuk_tuk`):
+- Đối với xe máy (`motorcycle`), xe đạp (`bicycle`), xe xích lô (`cyclo`), hoặc tuk-tuk hở (`tuk_tuk`):
   - Người và xe là **hai đối tượng độc lập**, box chấp nhận chồng lấn lên nhau.
   - Một xe chở $N$ người nhìn thấy rõ: Vẽ **1 box xe** bao toàn bộ kết cấu cơ học xe + **$N$ box `person`** riêng biệt cho từng người (từ đỉnh nón bảo hiểm đến bàn chân).
+  - Đối với xe xích lô (`cyclo`): Vẽ 1 box `cyclo` cho toàn bộ khung xe xích lô + 1 box `person` cho người đạp phía sau + 1 box `person` cho mỗi hành khách ngồi ở khoang trước.
 
 ### 3.4. Quy tắc Xe buýt (`bus`) và Xe buồng lái kín
 - Box `bus` ôm sát toàn bộ thân vỏ xe buýt nhìn thấy được.
@@ -121,10 +123,10 @@ Mỗi bounding box thuộc 8 lớp đối tượng thực bắt buộc phải đ
 | [img_003](../../data/images/img_003.jpg) | Người bán hàng mang đòn gánh hoa quả, xe đạp và xe máy. | Gán `person`, `bicycle`, `motorcycle` riêng; đòn gánh và thúng hoa quả là hàng rời, không mở rộng box người. | Hàng hóa rời không tính vào kích thước cơ thể người. |
 | [img_004](../../data/images/img_004.jpg) | Hai xe auto-rickshaw 3 bánh có người ngồi bên trong. | Gán từng xe là `tuk_tuk`; người nhìn thấy rõ $\ge 20\text{ px}$ gán từng box `person`. | Phân lớp chuẩn xác xe 3 bánh cơ giới chở khách đặc thù châu Á. |
 | [img_005](../../data/images/img_005.jpg) | Người đi xe máy sát nhau, xe thân hộp phía sau. | Người và xe máy gán riêng (1 `person` + 1 `motorcycle`); xe thân hộp phía sau gán `van`. | Xe thân hộp liền khối là `van`; phân tách người và phương tiện. |
-| [img_006](../../data/images/img_006.jpg) | Xe xích lô du lịch chở khách tại Huế, xe đạp và xe máy. | Xích lô gán `bicycle`; 2 `person` cho người đạp và du khách; xe đạp dùng `bicycle`, xe máy dùng `motorcycle`. | Xích lô là phương tiện thô sơ đạp bằng sức người, quy chuẩn vào `bicycle`. |
+| [img_006](../../data/images/img_006.jpg) | Xe xích lô du lịch chở khách tại Huế, xe đạp và xe máy. | Xích lô gán `cyclo`; 2 `person` cho người đạp và du khách; xe đạp dùng `bicycle`, xe máy dùng `motorcycle`. | Xích lô 3 bánh đạp chân có lớp riêng `cyclo`. |
 | [img_007](../../data/images/img_007.jpg) | Xe tải thùng kín và pickup trong kho tối. | Xe có thùng tách cabin gán `truck`; xe máy gán `motorcycle`; thiếu sáng không tự động tăng mức che. | Cấu trúc thùng tách rời cabin là `truck`; bóng tối không đồng nghĩa bị che. |
 | [img_008](../../data/images/img_008.jpg) | Bãi xe máy đỗ dày, người in trên mặt sau áo. | Gán từng `motorcycle` đỗ và từng `person` thật; không gán hình chân dung in trên áo. | Xe đỗ vẫn là chướng ngại vật; hình in trên áo là nền âm tính. |
-| [img_009](../../data/images/img_009.jpg) | Xe khách thân dài giữa cảnh, xe xích lô và người. | Xe khách gán `bus`; xe xích lô gán `bicycle` + `person`; người và xe máy xung quanh theo lớp riêng. | Xe khách lớn quy chuẩn vào `bus` để cảnh báo vùng an toàn đón trả khách. |
+| [img_009](../../data/images/img_009.jpg) | Xe khách thân dài giữa cảnh, xe xích lô và người. | Xe khách gán `bus`; xe xích lô gán `cyclo` + `person`; người và xe máy xung quanh theo lớp riêng. | Xe khách lớn quy chuẩn vào `bus` để cảnh báo vùng an toàn đón trả khách. |
 | [img_010](../../data/images/img_010.jpg) | Người lái scooter và xe đẩy chở hoa quả bán rong. | Gán 1 `person` + 1 `motorcycle`; xe đẩy hoa quả bằng tay ngoài taxonomy (không gán xe), chỉ gán `person`. | Xe đẩy tay không có động cơ, không thuộc phương tiện cơ giới. |
 | [img_011](../../data/images/img_011.jpg) | Nhân vật Predator tiền cảnh và tạo hình xe kim loại. | Predator là người thật hóa trang $\rightarrow$ gán `person` (`can_review=true`); các mô hình xe kim loại không có động cơ $\rightarrow$ không gán xe. | Không gán xe mô phỏng không có chức năng giao thông. |
 | [img_012](../../data/images/img_012.jpg) | Xe bán tải chở rau củ đầy thùng sát camera; SUV bên cạnh. | SUV là `car`; xe bán tải là `truck` (box ôm cabin và thành thùng xe, không nới theo ngọn rau); loại bỏ ego nếu có. | Rau củ là hàng rời; box xe bám sát kết cấu cơ học thùng xe. |
@@ -138,7 +140,7 @@ Mỗi bounding box thuộc 8 lớp đối tượng thực bắt buộc phải đ
 | [img_020](../../data/images/img_020.jpg) | Gương chiếu hậu buồng lái nhìn thấy xe cộ phía sau. | Loại bỏ xe phản chiếu trong gương và phần xe chủ (gương/khung cửa). Ảnh không có annotation hợp lệ. | Hình ảnh trong gương là ảnh ảo; gán nhãn sẽ kích hoạt phanh khẩn cấp vô cớ. |
 | [img_021](../../data/images/img_021.jpg) | Dòng xe máy cực đông tại giao lộ, xe xa chỉ lộ một phần. | Gán riêng từng người và xe máy ở cự ly gần; cụm xe/người ở quá xa $< 20\text{ px}$ khoanh `ignore_region`. | Không gom cả đám đông vào một box; xử lý vật siêu nhỏ bằng ignore. |
 | [img_022](../../data/images/img_022.jpg) | Mô tô cổ gắn thùng phụ chở khách bên hông (Sidecar). | 1 box `motorcycle` bao trọn cụm mô tô và thùng phụ; gán 2 box `person` (1 người lái, 1 người trong sidecar). | Thùng phụ gắn cố định vào mô tô tạo thành một phương tiện 3 bánh thống nhất. |
-| [img_023](../../data/images/img_023.jpg) | Xích lô du lịch ở trung tâm và ô tô đen bên trái. | Gán 1 `bicycle` cho khung xe xích lô; 1 `person` cho người đạp; ô tô đen gán `car`. | Phân định rõ phương tiện thô sơ đạp chân và ô tô con. |
+| [img_023](../../data/images/img_023.jpg) | Xích lô du lịch ở trung tâm và ô tô đen bên trái. | Gán 1 `cyclo` cho khung xe xích lô; 1 `person` cho người đạp; ô tô đen gán `car`. | Phân định rõ xích lô 3 bánh `cyclo` và ô tô con `car`. |
 | [img_024](../../data/images/img_024.jpg) | Xe wagon đen thật trong khu trưng bày, mô hình vàng trên nóc. | Wagon đen gán `car`; vật mô hình nhỏ màu vàng trên nóc loại bỏ (không gán); các xe thật xung quanh gán `car`. | Mô hình trưng bày thu nhỏ không phải là xe thật được chuyên chở. |
 | [img_025](../../data/images/img_025.jpg) | Người đi bộ ở xa, xe máy gắn giỏ phụ bên hông. | Gán riêng `person` và `motorcycle`; giỏ phụ gắn cố định thuộc khung xe máy; kiểm tra ngưỡng 20 px ở xa. | Bộ phận cơ học gắn cố định thuộc về phương tiện; đo vật xa cẩn thận. |
 | [img_026](../../data/images/img_026.jpg) | Hai người ngồi trên xe máy trong hầm, tranh tường phía sau. | Gán 1 `motorcycle`, 2 `person` riêng biệt cho 2 người; kiểm tra cắt mép chân; tranh tường không gán. | Tách bạch từng người ngồi trên xe máy; tranh vẽ là nền âm tính. |
@@ -177,7 +179,7 @@ Toàn bộ các ngưỡng kỹ thuật kiểm soát chất lượng được áp
 ### 5.2. Năm mã lỗi chuẩn trong phiếu QC (`qc_review.csv`)
 1. `bo_sot`: Bỏ sót đối tượng hợp lệ trong ảnh (để trống `object_id`, ghi rõ mô tả vùng `region`).
 2. `thua`: Gán nhãn cho vật không hợp lệ (tượng, đồ chơi, hình in, phản chiếu gương).
-3. `sai_lop`: Nhầm lẫn phân loại giữa các lớp trong taxonomy (ví dụ: nhầm `truck` thành `van`, `car` thành `tuk_tuk`).
+3. `sai_lop`: Nhầm lẫn phân loại giữa các lớp trong taxonomy (ví dụ: nhầm `truck` thành `van`, `car` thành `tuk_tuk`, `bicycle` thành `cyclo`).
 4. `sai_vi_tri_kich_thuoc`: Box vẽ không ôm sát biên nhìn thấy, box quá rộng do kéo theo hàng rời, hoặc lấn ra ngoài ảnh.
 5. `sai_thuoc_tinh`: Sai sót trong việc chọn giá trị `occluded_level` hoặc `truncated`.
 *Ảnh không có lỗi nào:* Ghi 1 dòng với `error_type = khong`.
@@ -191,7 +193,7 @@ Toàn bộ các ngưỡng kỹ thuật kiểm soát chất lượng được áp
 - **`v0` (15/11/2026):** Bản khởi tạo sơ khởi của đề bài, 6 lớp cơ bản, thiếu định nghĩa ca khó và ngưỡng đo.
 - **`v0.1` (16/11/2026):** Bản đề xuất cá nhân độc lập của các thành viên (Cường, Anh, Duy, Kiên, Hùng).
 - **`v1.0-agreed` (16/11/2026):** Bản đồng thuận chính thức của Nhóm T005:
-  - Bổ sung 3 lớp `bus`, `tuk_tuk`, `bicycle` hoàn thiện taxonomy 9 lớp tương thích tuyệt đối với CVAT Local/Cloud.
+  - Bổ sung 4 lớp `bus`, `tuk_tuk`, `bicycle`, `cyclo` hoàn thiện taxonomy 10 lớp tương thích tuyệt đối với CVAT Local/Cloud.
   - Chuẩn hóa quy tắc hàng rời không kéo rộng box xe, quy tắc không gán hành khách trong kính xe buýt.
   - Định lượng hóa ngưỡng che khuất theo các mốc chuẩn: $0\%$, $1-30\%$, $31-70\%$, $>70\%$.
   - Chốt quyết định đồng thuận cho toàn bộ 40/40 ảnh cảnh giao thông châu Á.

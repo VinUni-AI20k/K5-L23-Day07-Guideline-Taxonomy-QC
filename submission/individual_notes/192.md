@@ -10,23 +10,23 @@
 | Ảnh | v0 không trả lời được gì | Quyết định ban đầu của tôi |
 |---|---|---|
 | `img_020.jpg` | Guideline v0 không đề cập đến hiện tượng ảnh phản chiếu trong gương chiếu hậu (rearview mirror) của xe buồng lái. | **Không gán box** cho bất kỳ ô tô hay xe máy nào nhìn thấy trong mặt gương phản chiếu. Nếu gán, xe tự lái sẽ phát hiện vật cản ảo ngay phía trước xe chủ, gây hiện tượng phanh khẩn cấp vô căn cứ (Phantom Braking). Khung gương khoanh `ignore_region` hoặc bỏ qua. |
-| `img_029.jpg` | Guideline v0 không nói rõ ranh giới bounding box khi xe máy chở khối hàng hóa khổng lồ vượt gấp 3-4 lần kích thước xe và người lái gần như bị che lấp. | Box `motorcycle` bao gồm cả khung xe và toàn bộ khối hàng cồng kềnh gắn liền vì khối hàng là vật cản động lực học trực tiếp; gán 1 box `person` cho phần nhìn thấy của người lái (`occluded_level = 2` hoặc `3`). |
-| `img_038.jpg` | Guideline v0 định nghĩa `car` là ô tô con, `person` là người, nhưng không có điều khoản loại trừ mô hình đồ chơi thu nhỏ hoặc búp bê trưng bày ở sạp hàng. | **Không gán** các mô hình xe đồ chơi và búp bê thành `car`/`person`. Khoanh toàn bộ quầy hàng đồ chơi vào `ignore_region` để không làm ô nhiễm bộ dữ liệu huấn luyện xe tự lái. |
+| `img_029.jpg` | Guideline v0 không nói rõ ranh giới bounding box khi xe máy chở khối hàng hóa khổng lồ vượt gấp 3-4 lần kích thước xe và người lái gần như bị che lấp. | Box `motorcycle` bám sát khung sườn và bánh xe cơ học; thanh kim loại và bao xốp là hàng hóa rời, không nới rộng box xe theo hàng rời. Gán 1 box `person` cho người lái (`occluded_level = 2` hoặc `3`). |
+| `img_038.jpg` | Guideline v0 định nghĩa `car` là ô tô con, `person` là người, nhưng không có điều khoản loại trừ mô hình đồ chơi thu nhỏ hoặc búp bê trưng bày ở sạp hàng. | **Không gán** các mô hình xe đồ chơi và búp bê thành `car`/`person`. Giữ nguyên làm nền âm tính để mô hình học cách phân biệt vật thật và vật giả. |
 
 ---
 
 ## 2. Pha 2: Chỗ tôi bất đồng với nhóm và Quyết định bổ sung Taxonomy v1.0
-- **Bổ sung lớp `bus`, `tuk_tuk` và `bicycle` vào Taxonomy:**
-  - *Vấn đề xe buýt (`img_032`, `img_010`):* Xe buýt và xe khách là phương tiện giao thông công cộng cỡ lớn có tính chất đón trả khách liên tục và tạo ra các điểm mù khổng lồ. Nếu gán lẫn vào `car` hoặc `truck` sẽ làm sai lệch mô hình dự đoán hành vi. Cần thiết phải có lớp **`bus`** riêng biệt.
-  - *Vấn đề xe Tuk-tuk / Auto Rickshaw (`img_004`, `img_035`, `img_040`):* Xe 3 bánh cơ giới chở khách đặc thù châu Á được chuẩn hóa thành lớp riêng **`tuk_tuk`**.
-  - *Vấn đề xe Xích lô và xe đạp (`img_006`, `img_009`, `img_023`):* Bổ sung lớp **`bicycle`** cho phép hệ thống tự lái nhận diện phương tiện thô sơ đạp chân độc lập với người điều khiển.
-  - *Kết quả thống nhất:* Cả nhóm thông qua bổ sung 3 lớp `bus`, `tuk_tuk` và `bicycle` vào `taxonomy.json` phiên bản `v1.0` và cập nhật guideline v0.3.
+- **Bổ sung 4 lớp phương tiện chuyên biệt (`bus`, `tuk_tuk`, `bicycle`, `cyclo`) vào Taxonomy:**
+  - *Vấn đề xe buýt (`img_032`, `img_010`):* Bổ sung lớp **`bus`** để tách bạch phương tiện công cộng cỡ lớn với xe con và xe tải.
+  - *Vấn đề xe Tuk-tuk / Auto Rickshaw (`img_004`, `img_035`, `img_040`):* Chuẩn hóa thành lớp **`tuk_tuk`** cho xe 3 bánh cơ giới gắn động cơ.
+  - *Vấn đề xe Xích lô (`img_006`, `img_009`, `img_023`):* Ban đầu tôi đề xuất gộp chung vào xe đạp. Sau khi thảo luận sâu với Hoàng Nhật Anh, nhóm nhận thấy xích lô 3 bánh đạp chân có kích thước cồng kềnh, cấu trúc khoang khách phía trước khác biệt hoàn toàn với xe đạp 2 bánh. Do đó, nhóm quyết định tách riêng thành 2 lớp độc lập: **`bicycle`** (xe đạp 2 bánh) và **`cyclo`** (xe xích lô 3 bánh đạp chân).
+  - *Kết quả thống nhất:* Cả nhóm thông qua bổ sung 4 lớp `bus`, `tuk_tuk`, `bicycle`, `cyclo` vào `taxonomy.json` phiên bản `v1.0` (tổng 10 lớp) và đồng bộ trực tiếp lên hệ thống CVAT Local / Cloud.
 
 ---
 
 ## 3. Pha 3: Ảnh tôi đã gán
 - Số ảnh được giao: 24 ảnh (thuộc tập 40 ảnh của nhóm T005, theo phân bổ `assignment.csv`).
-- Số box dự kiến đã vẽ: ~195 box trên 24 ảnh.
+- Số box dự kiến đã vẽ: ~200 box trên 24 ảnh.
 - Số lần bật cờ `can_review`: 3 lần (tại các ảnh có xe độ diễu hành `img_019`, xe chở rau củ `img_012`, và xe máy chở hàng quá tải `img_029`).
 - Ca lưỡng lự nhất: `img_019.jpg` (xe ô tô diễu hành hình Danger Mouse). Quyết định gán `car` vì là phương tiện cơ giới 4 bánh có người lái lưu thông công cộng.
 
