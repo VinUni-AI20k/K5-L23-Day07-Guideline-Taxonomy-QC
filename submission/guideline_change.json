@@ -1,0 +1,4 @@
+{
+  "kind": "editorial",
+  "summary": "Phiên bản v1.1 làm rõ quy tắc biên trực quan R-01 ôm sát pixel nhìn thấy, chi tiết hóa giải quyết bất đồng cho xích lô và tuk-tuk theo R-04/R-07, loại trừ đối tượng phi thực R-02 và thống nhất quy chuẩn ignore_region R-09 cho các cụm hậu cảnh."
+}
