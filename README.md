@@ -1,4 +1,4 @@
-# Day 07 Lab — Guideline, Taxonomy & QC
+# Day 07 Lab — Nhóm T005: 2A202603040 - NGUYỄN ĐỨC CƯỜNG, 2A202603183 - HOÀNG NHẬT ANH, 2A202603192 - NGUYỄN BÁ DUY, 2A202603216 - ĐỖ HUY KIÊN, 2A202603240 - PHẠM MẠNH HÙNG
 
 **Nhóm 2–5 người · 4 giờ · 40 ảnh đường phố · gán box bằng CVAT**
 

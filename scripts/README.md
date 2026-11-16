@@ -7,6 +7,7 @@ Chạy từ thư mục gốc sau khi cài `requirements.txt`. [GUIDE.md](../GUID
 | Pha | Lệnh | Đầu ra chính |
 |---|---|---|
 | 2 | `python scripts/make_cvat_labels.py` | kiểm JSON Schema, sinh `cvat/labels_generated.json`; `--final` dùng taxonomy sau calibration |
+| 2b | `python scripts/setup_cvat.py` / `python scripts/create_cvat_task.py` | Tạo Project & Task CVAT tự động (CVAT Cloud / Local) |
 | 3 | `python scripts/split_assign.py --members 101,102 --copy-images` | `assignment.csv`, danh sách từng mã, ảnh trong `work/<mã>/images/` |
 | 3 | `python scripts/validate_labels.py submission/labels/101.json` | đối chiếu COCO, hình học, lớp, thuộc tính, đúng tập ảnh của thành viên |
 | 4 | `python scripts/qc_compare.py` | độ phủ, IAA, ca cần xem, ảnh bị cờ, nháp đồng thuận; dừng nếu thiếu lượt gán |

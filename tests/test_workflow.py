@@ -235,8 +235,11 @@ class WorkflowTest(unittest.TestCase):
         self.run_script("split_assign", "--members", "../data,102", "--copy-images", success=False)
         output = self.root / "work"
         output.mkdir()
-        (output / "101").symlink_to(self.root / "data", target_is_directory=True)
-        self.run_script("split_assign", "--members", "101,102", "--copy-images", success=False)
+        try:
+            (output / "101").symlink_to(self.root / "data", target_is_directory=True)
+            self.run_script("split_assign", "--members", "101,102", "--copy-images", success=False)
+        except OSError:
+            pass  # Windows standard user without SeCreateSymbolicLinkPrivilege
         self.assertEqual(sorted(path.name for path in self.images.iterdir()), self.names)
 
     def test_full_cli_handoff_checks_final_decision_and_rejects_tampering(self):

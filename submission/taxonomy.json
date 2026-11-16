@@ -1,12 +1,16 @@
 {
-  "version": "v0",
+  "version": "v1.0",
   "ignore_class": "ignore_region",
   "classes": [
-    {"name": "car", "definition": "Ô tô con, SUV."},
-    {"name": "truck", "definition": "Xe tải, xe có thùng hàng riêng."},
-    {"name": "van", "definition": "Xe thùng kín cỡ nhỏ."},
-    {"name": "motorcycle", "definition": "Xe máy, mô tô."},
-    {"name": "person", "definition": "Người đi bộ hoặc người ngồi trên xe."},
+    {"name": "car", "definition": "Ô tô con, SUV, crossover, hatchback, taxi 4 bánh."},
+    {"name": "truck", "definition": "Xe tải, xe bán tải (pickup), xe chở hàng có thùng riêng hoặc rơ-moóc."},
+    {"name": "van", "definition": "Xe ô tô thùng kín cỡ nhỏ đến vừa, khoang hàng gắn liền cabin."},
+    {"name": "bus", "definition": "Xe buýt chở khách công cộng cỡ lớn hoặc vừa, xe khách du lịch nhiều chỗ."},
+    {"name": "motorcycle", "definition": "Xe máy, mô tô 2-3 bánh có gắn động cơ đốt trong hoặc động cơ điện."},
+    {"name": "tuk_tuk", "definition": "Xe tuk-tuk, auto rickshaw, xe lam 3 bánh gắn động cơ chở khách hoặc hàng nhẹ."},
+    {"name": "bicycle", "definition": "Xe đạp thể thao/thông thường 2 bánh vận hành bằng bàn đạp sức người."},
+    {"name": "cyclo", "definition": "Xe xích lô 3 bánh vận hành bằng bàn đạp sức người, có ghế/khoang hành khách và vị trí người đạp riêng."},
+    {"name": "person", "definition": "Con người ở mọi tư thế (đi bộ, đứng, ngồi, lái xe)."},
     {"name": "ignore_region", "definition": "Vùng bỏ qua (không phải vật): nơi không gán từng vật, bỏ sót ở đây không tính là lỗi."}
   ],
   "attributes": [
