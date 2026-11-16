@@ -8,12 +8,12 @@
 
 ## Danh sách thành viên
 
-| STT | Họ và tên | Mã thành viên | Vai trò | Git Account / Email |
+| STT | Họ và tên | Mã thành viên | Vai trò | Email/MSSV |
 |:---:|---|:---:|---|---|
-| 1 | Đặng Gia Tuấn | 111 | Reviewer bản cuối / Annotator | `Dang Gia Tuan` (`danggiatuan.work@gmail.com`) |
-| 2 | Tạ Ngọc Huyền Trang | 222 | Người điều phối / Annotator | `Trang Ta Ngoc Huyen` (`tnhtrang.works@gmail.com`) |
-| 3 | Lâm Hoài Kim Ngân | 333 | Annotator | `Lam Hoai Kim Ngan` (`watanabilinlin@gmail.com`, branch `nganlam`) |
-| 4 | Nguyễn Tùng | 444 | Annotator | username github: `entity-solo` (branch `member-444`) |
+| 1 | Đặng Gia Tuấn | 111 | Reviewer bản cuối / Annotator | `danggiatuan.work@gmail.com`; 2A202603067 |
+| 2 | Tạ Ngọc Huyền Trang | 222 | Người điều phối / Annotator | `tnhtrang.works@gmail.com`; 2A202603251 |
+| 3 | Lâm Hoài Kim Ngân | 333 | Annotator | `watanabilinlin@gmail.com`; 2A202603305 |
+| 4 | Nguyễn Thế Tùng | 444 | Annotator | `26ai.tungnt4@vinuni.edu.vn`; 2A202603320 |
 
 ## Kết quả tóm tắt (điền cuối bài)
 
@@ -24,4 +24,3 @@
 - Tỉ lệ lỗi: 0.0% theo ảnh (0/40), 0.0% theo đối tượng (0/502)
 - **Quyết định** (Release / Hold / Rework) và lý do một dòng: **Release** — Toàn bộ 40 ảnh đạt chuẩn kiểm định chất lượng (tỉ lệ lỗi 0.0% <= 2.0%, giải tỏa 100% cờ can_review).
 
-## Danh sách thành viên
