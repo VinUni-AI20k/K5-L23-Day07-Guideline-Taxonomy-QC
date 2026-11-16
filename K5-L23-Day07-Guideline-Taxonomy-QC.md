@@ -188,7 +188,7 @@ python scripts/split_assign.py --members 101,102,103 --copy-images
 5. Kiểm tra cấu trúc và phạm vi ảnh được giao trước khi nộp riêng cho người điều phối:
 
 ```bash
-python scripts/validate_labels.py submission/labels/101.json
+python scripts/validate_labels.py submission/labels/102.json
 ```
 
    Output đạt chuẩn báo rõ `submission\labels\101.json: hợp lệ về cấu trúc, 26 ảnh.` (và lưu ý reviewer kiểm nội dung box bằng mắt). Nếu thấy cảnh báo `[WARN] ... rà lại quy tắc vật nhỏ`, kiểm tra lại các box có chiều cao `< 20 px`.

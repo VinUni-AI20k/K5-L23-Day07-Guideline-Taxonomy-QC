@@ -60,7 +60,7 @@ Việc của mỗi người:
 2. Box chưa chắc: tick `can_review`. Chưa vẽ được box: ghi ảnh, vùng, lý do để nhóm thu vào `submission/qc/image_issues.csv` (cột `image,annotator,region,note`) **sau khi khóa nhãn**.
 3. Export COCO 1.0, lưu `submission/labels/<mã>.json`, rồi kiểm:
    ```bash
-   python scripts/validate_labels.py submission/labels/101.json
+   python scripts/validate_labels.py submission/labels/102.json
    ```
 4. **Gửi riêng.** Chỉ tập hợp nhãn của cả nhóm khi tất cả đã nộp.
 

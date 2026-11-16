@@ -1,10 +1,12 @@
 [
   {
     "name": "car",
+    "id": 64,
     "color": "#e6194b",
     "type": "rectangle",
     "attributes": [
       {
+        "id": 1,
         "name": "occluded_level",
         "input_type": "select",
         "mutable": false,
@@ -17,6 +19,7 @@
         "default_value": "0"
       },
       {
+        "id": 2,
         "name": "truncated",
         "input_type": "select",
         "mutable": false,
@@ -27,6 +30,7 @@
         "default_value": "no"
       },
       {
+        "id": 3,
         "name": "can_review",
         "input_type": "checkbox",
         "mutable": false,
@@ -39,10 +43,12 @@
   },
   {
     "name": "truck",
+    "id": 65,
     "color": "#3cb44b",
     "type": "rectangle",
     "attributes": [
       {
+        "id": 4,
         "name": "occluded_level",
         "input_type": "select",
         "mutable": false,
@@ -55,6 +61,7 @@
         "default_value": "0"
       },
       {
+        "id": 5,
         "name": "truncated",
         "input_type": "select",
         "mutable": false,
@@ -65,6 +72,7 @@
         "default_value": "no"
       },
       {
+        "id": 6,
         "name": "can_review",
         "input_type": "checkbox",
         "mutable": false,
@@ -77,10 +85,12 @@
   },
   {
     "name": "van",
+    "id": 66,
     "color": "#4363d8",
     "type": "rectangle",
     "attributes": [
       {
+        "id": 7,
         "name": "occluded_level",
         "input_type": "select",
         "mutable": false,
@@ -93,6 +103,7 @@
         "default_value": "0"
       },
       {
+        "id": 8,
         "name": "truncated",
         "input_type": "select",
         "mutable": false,
@@ -103,6 +114,7 @@
         "default_value": "no"
       },
       {
+        "id": 9,
         "name": "can_review",
         "input_type": "checkbox",
         "mutable": false,
@@ -115,10 +127,12 @@
   },
   {
     "name": "motorcycle",
+    "id": 67,
     "color": "#f58231",
     "type": "rectangle",
     "attributes": [
       {
+        "id": 10,
         "name": "occluded_level",
         "input_type": "select",
         "mutable": false,
@@ -131,6 +145,7 @@
         "default_value": "0"
       },
       {
+        "id": 11,
         "name": "truncated",
         "input_type": "select",
         "mutable": false,
@@ -141,6 +156,7 @@
         "default_value": "no"
       },
       {
+        "id": 12,
         "name": "can_review",
         "input_type": "checkbox",
         "mutable": false,
@@ -153,10 +169,12 @@
   },
   {
     "name": "person",
+    "id": 68,
     "color": "#911eb4",
     "type": "rectangle",
     "attributes": [
       {
+        "id": 13,
         "name": "occluded_level",
         "input_type": "select",
         "mutable": false,
@@ -169,6 +187,7 @@
         "default_value": "0"
       },
       {
+        "id": 14,
         "name": "truncated",
         "input_type": "select",
         "mutable": false,
@@ -179,6 +198,7 @@
         "default_value": "no"
       },
       {
+        "id": 15,
         "name": "can_review",
         "input_type": "checkbox",
         "mutable": false,
@@ -191,12 +211,14 @@
   },
   {
     "name": "ignore_region",
+    "id": 69,
     "color": "#808080",
     "type": "rectangle",
     "attributes": []
   },
   {
     "name": "three_wheeler",
+    "id": 70,
     "color": "#aaf0d1",
     "type": "rectangle",
     "attributes": [
@@ -235,6 +257,7 @@
   },
   {
     "name": "bus",
+    "id": 71,
     "color": "#f59331",
     "type": "rectangle",
     "attributes": [
@@ -273,6 +296,7 @@
   },
   {
     "name": "bicycle",
+    "id": 72,
     "color": "#f078f0",
     "type": "rectangle",
     "attributes": [
