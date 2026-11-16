@@ -14,13 +14,16 @@ Bộ nhãn dùng để huấn luyện mô hình phát hiện **người và phư
 | Lớp | Định nghĩa (một câu) | Ví dụ | Phản ví dụ / dễ nhầm với |
 |---|---|---|---|
 | `car` | Ô tô con 4–7 chỗ có khoang hành lý liền thân. | Sedan, hatchback, SUV, MPV, taxi. | Không gồm xe bán tải có thùng hàng (`truck`), không gồm xe van/minibus (`van`). |
-| `truck` | Xe chở hàng có thùng tách rời hoặc thùng hở (gồm cả xe bán tải/pickup). | Xe tải thùng, xe ben, pickup thùng hở. | Không gồm xe tải van kín liền thân (`van`). |
-| `van` | Xe thùng kín liền thân cỡ nhỏ/trung chở hàng hoặc chở khách kiểu minibus. | Xe van giao hàng, xe khách 16 chỗ. | Không gồm SUV/MPV gia đình (`car`) hay xe tải thùng rời (`truck`). |
-| `motorcycle` | Xe hai bánh (hoặc ba bánh nhỏ) gắn động cơ. | Xe máy, xe tay ga, mô tô, xe máy điện. | Không gồm xe đạp không động cơ; không gộp luôn người ngồi vào box xe. |
+| `truck` | Xe chở hàng có thùng tách rời hoặc thùng hở (gồm cả xe bán tải/pickup). | Xe tải thùng, xe ben, pickup thùng hở. | Không gồm xe tải van kín liền thân (`van`). **Ca giáp ranh (`img_037`):** bán tải gắn nắp thùng cao dễ nhầm với `van` → cần hỏi reviewer chốt `truck` hay `van`. |
+| `van` | Xe thùng kín liền thân cỡ nhỏ/trung chở hàng hoặc chở khách kiểu minibus. | Xe van giao hàng, xe khách 16 chỗ. | Không gồm SUV/MPV gia đình (`car`), không gồm xe tải thùng rời (`truck`), không gồm xe buýt lớn (`img_009`). |
+| `motorcycle` | Xe hai bánh gắn động cơ. | Xe máy, xe tay ga, mô tô, xe máy điện. | Không gồm xe đạp không động cơ; không gộp người ngồi vào box xe. **Ca giáp ranh (`img_004`, `img_035`):** tuk-tuk / xe 3 bánh có cabin không nằm rõ trong `motorcycle` → tạm xếp `ignore_region` và hỏi reviewer. |
 | `person` | Con người thật đang đứng, đi bộ hoặc ngồi/lái trên phương tiện. | Người đi bộ, người lái xe máy, người ngồi sau. | Không gồm tượng, ma-nơ-canh, hình in quảng cáo, bóng phản chiếu. |
-| `ignore_region` | Vùng không gán từng vật (đám đông dày đặc hoặc cụm vật quá nhỏ `< 20 px`). | Đám đông xa, bãi xe xa chồng lấn. | Không dùng cho 1–2 vật riêng lẻ nhìn rõ và cao ≥ 20 px. |
+| `ignore_region` | Vùng không gán từng vật (đám đông dày đặc, cụm vật `< 20 px`, hoặc tạm dùng cho ca ngoài taxonomy chờ chốt). | Đám đông xa, bãi xe xa chồng lấn, tạm phủ tuk-tuk (`img_004`, `img_035`) / bus (`img_009`). | Không dùng cho 1–2 vật thuộc 5 lớp chính nhìn rõ và cao ≥ 20 px. |
 
-- **Vật ngoài 6 lớp trên** (tuk-tuk, xe buýt, bán tải nắp thùng cao, xe đạp...): Ghi nhận vào Mục 4 để **hỏi reviewer / chốt chung ở Pha 2** (tạm đề xuất: không gán hoặc đưa vào `ignore_region` / lớp mới tùy kết quả họp).
+- **Định nghĩa & hướng xử lý các ca ngoài 5 lớp / giáp ranh (cần hỏi reviewer ở Pha 2):**
+  1. **Tuk-tuk / xe 3 bánh (`img_004`, `img_035`):** Phương tiện 3 bánh có mái che/cabin chở khách. Không có trong 5 lớp gốc v0 → **tạm xếp `ignore_region`** để tránh người gán `motorcycle`, người gán `car`; đề xuất họp Pha 2 chốt gộp vào `motorcycle` hoặc thêm lớp mới (`tuktuk`).
+  2. **Xe buýt (`img_009`):** Xe chở khách cỡ lớn (> 24 chỗ, thân dài hơn hẳn `van`). Nằm ngoài 5 lớp gốc v0 → **không gán nhầm sang `van`/`truck`**, tạm xếp `ignore_region` và đề xuất họp Pha 2 thêm lớp `bus` (hoặc giữ `ignore_region` nếu bài toán không cần).
+  3. **Xe bán tải có nắp thùng cao (`img_037`):** Xe pickup có khung gầm/cabin bán tải nhưng phía sau lắp nắp thùng kín cao ngang nóc. Nằm giữa `truck` và `van` → đề xuất giữ **`truck`** (theo bản chất xe bán tải), nhưng đưa ra họp Pha 2 chốt 1 quy tắc duy nhất (`truck` hoặc `van`).
 
 ### Thuộc tính
 | Thuộc tính | Giá trị | Nghĩa từng mức & Ngưỡng đo được |
