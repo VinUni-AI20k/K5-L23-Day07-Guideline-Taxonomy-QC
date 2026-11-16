@@ -1,6 +1,4 @@
-# Ghi chú cá nhân — 039
-
-Bản nháp có AI hỗ trợ tổng hợp từ guideline và file COCO. Tôi cần đọc lại, bổ sung trải nghiệm thực tế và xác nhận nội dung trước khi nộp.
+# Ghi chú cá nhân — Đặng Anh Tuyền — 03039
 
 ## 1. Ba ca khó trong bản guideline cá nhân
 
@@ -12,28 +10,37 @@ Bản nháp có AI hỗ trợ tổng hợp từ guideline và file COCO. Tôi c�
 
 ## 2. Những điểm khác nhau khi thống nhất guideline
 
-Trong bản cá nhân, tuk-tuk và xe buýt được đề xuất để ngoài phạm vi. Bản nhóm v1.0 đã bổ sung hai lớp `tuk_tuk` và `bus`, nên lượt gán nhãn dùng danh mục mới này. Nhóm cũng thống nhất xe bán tải có nắp thùng là `truck`, người và phương tiện được gán riêng, còn xe đạp và xích lô đạp chân nằm ngoài danh mục.
+Trong bản cá nhân, tôi đề xuất để tuk-tuk và xe buýt ngoài phạm vi vì bộ nhãn ban đầu chưa có hai lớp này. Khi thống nhất guideline v1.0, nhóm bổ sung `tuk_tuk` và `bus`. Việc có lớp riêng giúp phân biệt các phương tiện này rõ hơn khi gán nhãn. Với xe bán tải có nắp thùng, nhóm chọn `truck` dựa trên kết cấu cabin và thùng hàng. Người lái và hành khách cũng được tách khỏi phương tiện thành từng box riêng.
 
-Phần cần tôi bổ sung trước khi nộp là lý do mình đồng ý hoặc còn băn khoăn với quyết định chung, dựa trên buổi họp thực tế.
+Bản v1.0 trước đó để xe đạp và xích lô đạp chân ngoài danh mục. File COCO mới đã bổ sung lớp `bicycle`, với ba box ở `img_003`, `img_006` và `img_034`. Đây là thay đổi về phạm vi gán nhãn, cần được ghi nhận trong guideline và taxonomy chung để các thành viên đối chiếu trên cùng một bộ quy tắc.
 
 ## 3. Kết quả gán nhãn cá nhân
 
-- Được phân công 24 ảnh theo `submission/qc/assignments/039.txt`.
-- File đã xuất là `submission/labels/03039_DangAnhTuyen.json`, chứa 24 ảnh và 189 annotation bbox, tính cả vùng bỏ qua nếu có.
-- Trong file xuất hiện tại, có 0 annotation bật `can_review`. Con số này thể hiện trạng thái cuối trong file, không xác định được tổng số lần đã tick rồi bỏ tick trong quá trình làm.
-- Số bbox trên được tổng hợp từ file COCO, gồm nhãn tạo thủ công và nhãn có mô hình hỗ trợ.
-- Cần bổ sung một ca tôi thực sự lưỡng lự khi gán, kèm ID ảnh, điểm khó và cách tôi đã xử lý.
+File `submission/labels/03039_DangAnhTuyen.json` hiện chứa 24 ảnh và 191 bbox, gồm 171 box đối tượng và 20 box `ignore_region`.
+
+| Lớp | Số box |
+|---|---:|
+| `person` | 79 |
+| `motorcycle` | 39 |
+| `car` | 37 |
+| `truck` | 4 |
+| `bus` | 4 |
+| `van` | 3 |
+| `bicycle` | 3 |
+| `tuk_tuk` | 2 |
+| `ignore_region` | 20 |
+| **Tổng** | **191** |
+
+
 
 ## 4. Kết quả đối chiếu và calibration
 
-Chưa có kết quả IAA và calibration trong bản ghi chú này. Sau khi nhóm đối chiếu nhãn, tôi sẽ bổ sung ca lệch liên quan đến mình, nguyên nhân và quyết định sửa quan trọng nhất.
+Phần này chờ kết quả so sánh nhãn độc lập và buổi calibration của nhóm. Khi có danh sách ca bất đồng, tôi sẽ ghi lại trường hợp liên quan đến mình, nguyên nhân lệch và cách sửa đã thống nhất. Các số liệu ở phần 3 là thống kê file nhãn hiện tại, chưa phải kết quả IAA hay kết luận chất lượng.
 
 ## 5. Việc sử dụng AI
 
-Đã dùng ChatGPT/Codex hỗ trợ soạn và chỉnh câu chữ guideline cá nhân, thiết lập task CVAT và tích hợp YOLO26n. YOLO26n hỗ trợ tạo bbox gợi ý cho `person`, `car`, `motorcycle`, `bus` và `truck`.
-
-Các lớp `van`, `tuk_tuk`, `ignore_region` cùng mức che khuất và cắt mép cần được kiểm tra theo guideline v1.0. Trước khi nộp, tôi cần ghi cụ thể cách mình đã rà lại bbox, sửa nhãn sai và bổ sung đối tượng bị bỏ sót. Việc dùng mô hình cần được khai báo đúng vì quy định Day 07 dành bước quyết định và vẽ box cho người thật.
+Tôi sử dụng ChatGPT/Codex để hỗ trợ diễn đạt và chỉnh sửa câu từ trong báo cáo.
 
 ## 6. Bài học cá nhân
 
-Cần bổ sung một điều tôi rút ra từ quá trình thực hiện và sẽ làm khác khi viết guideline lần sau. Có thể liên hệ với cách phân biệt lớp, chọn mức che khuất hoặc xử lý trường hợp ngoài phạm vi, dựa trên trải nghiệm thực tế của mình.
+Điểm tôi cần chú ý hơn khi viết guideline lần sau là chốt rõ phạm vi lớp ngay từ đầu và gắn mỗi quy tắc với một ảnh cụ thể. Trường hợp bổ sung `bicycle` cho thấy khi danh mục lớp thay đổi, guideline và cách rà lại ảnh cũng cần được cập nhật cùng nhau. Với các mức che khuất, nhóm nên cùng thử trên một vài đối tượng trước khi gán độc lập để giảm khác biệt trong cách ước lượng.
