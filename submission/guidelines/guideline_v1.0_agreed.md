@@ -23,7 +23,7 @@ Bộ nhãn dùng để huấn luyện mô hình **Object Detection 2D (bounding 
 | `bicycle` | Xe 2 bánh không có động cơ, di chuyển bằng sức người đạp (kể cả xe đạp chở hàng). | `img_006.jpg` (xe đạp rìa phải), `img_010.jpg`. | Không gồm xe máy (`motorcycle`) và xe ba bánh (`cyclo`). |
 | `cyclo` | Xe 3 bánh không có động cơ, đạp bằng sức người, có khoang chở khách hoặc hàng. | `img_023.jpg`, `img_034.jpg`, `img_039.jpg`. | Không gồm xe 3 bánh gắn máy (`tuk_tuk`) và xe đạp 2 bánh (`bicycle`). |
 | `person` | Con người thật đang đi bộ, đứng, ngồi hoặc điều khiển phương tiện (giữ 1 lớp chung, không tách vai trò). | `img_001.jpg`, `img_003.jpg`, `img_005.jpg`, `img_014.jpg`, `img_026.jpg`. | Không gồm tượng (`img_011.jpg`, `img_017.jpg`), ma-nơ-canh (`img_033.jpg`), người trên biển quảng cáo (`img_018.jpg`), hay ảnh trong gương (`img_020.jpg`). |
-| `ignore_region` | Vùng bỏ qua (không phải vật thể): đám đông dày đặc chồng lấn hoặc cụm nhiều vật quá nhỏ (`< 20 px`) không thể tách box đáng tin cậy. | `img_021.jpg` (cụm xe máy dày đặc phía xa). | Không dùng để che 1–2 vật đứng riêng lẻ nhìn rõ và cao ≥ 20 px; không dùng thay cho quy tắc loại tượng/gương. |
+| `ignore_region` | Vùng bỏ qua (không phải vật thể): đám đông dày đặc chồng lấn, cụm nhiều vật quá nhỏ (`< 20 px`), hoặc vùng ảnh mờ/nhòe (`blur`) không thể nhận diện chắc chắn vật thể. | `img_021.jpg` (cụm xe máy dày đặc phía xa), vùng chuyển động mờ nhòe nặng (`blur`). | Không dùng để che 1–2 vật đứng riêng lẻ nhìn rõ và cao ≥ 20 px; không dùng thay cho quy tắc loại tượng/gương. |
 
 - **Vật không thuộc lớp nào** (tượng, ma-nơ-canh, đồ chơi/mô hình, hình in/biển quảng cáo, ảnh phản chiếu qua gương, hàng hóa rời): **Không gán box** và **không** phủ `ignore_region`.
 
@@ -47,7 +47,7 @@ Bộ nhãn dùng để huấn luyện mô hình **Object Detection 2D (bounding 
 | `R-04` | **Xe chở xe** | Vẽ **1 box `truck`** cho xe vận tải đang chở, và vẽ **box `car` riêng** cho từng ô tô con nhìn thấy trên thùng có chiều cao `≥ 20 px` (`img_002.jpg`: 1 `truck` + 8 `car`). Nếu cụm xe trên thùng `< 20 px` không tách được → phủ `ignore_region`. |
 | `R-05` | **Vật không thật** | Tuyệt đối **không gán** tượng, ma-nơ-canh, đồ chơi/mô hình, hình in trên biển quảng cáo/thân xe, thân vỏ xe rời không thể vận hành. |
 | `R-06` | **Loại gương & Xe chủ (Ego)** | **Có gương là loại gương:** Không gán bất kỳ vật nào chỉ xuất hiện qua ảnh phản chiếu trong gương chiếu hậu/kính (`img_020.jpg`), và không gán các bộ phận của xe chủ gắn camera (nắp capo, gương, khung kính). |
-| `R-07` | **Vật nhỏ `< 20 px` & Đám đông** | Vật đơn lẻ cao `< 20 px` → bỏ qua không gán. Cụm nhiều vật `< 20 px` hoặc đám đông chồng lấn dày đặc không tách được ranh giới → vẽ 1 `ignore_region` bao cụm đó; vật rõ ở tiền cảnh vẫn tách box riêng. |
+| `R-07` | **Vật nhỏ `< 20 px`, Đám đông & Vùng mờ (`blur`)** | Vật đơn lẻ cao `< 20 px` → bỏ qua không gán. Cụm nhiều vật `< 20 px`, đám đông chồng lấn dày đặc, hoặc vùng ảnh mờ/nhòe (`blur`) không nhận diện chắc chắn ranh giới/lớp → vẽ 1 `ignore_region` bao cụm đó; vật rõ ở tiền cảnh vẫn tách box riêng. |
 | `R-08` | **Người ngồi trong ô tô** | Chỉ gán `person` nếu nhìn thấy đủ rõ phần đầu/thân qua kính hoặc cửa mở (`≥ 20 px`); không suy đoán người bị khuất hoàn toàn trong cabin. |
 | `R-09` | **Bán tải nắp thùng cao** | Chốt gán **`truck`** cho xe bán tải gắn nắp thùng cao (`img_037.jpg`). |
 | `R-10` | **Khóa guideline trong Pha 3** | Từ khi chốt `v1.0` tới hết Pha 3 không tự ý sửa quy tắc; ca lưỡng lự tick `can_review = true`. |
@@ -62,7 +62,7 @@ Bộ nhãn dùng để huấn luyện mô hình **Object Detection 2D (bounding 
 | `img_037.jpg` | Xe buýt và bán tải nắp thùng cao | `R-09` | Xe buýt → `bus`; bán tải nắp thùng cao → **`truck`** | Thống nhất 1 lớp duy nhất cho bán tải, tránh lẫn `van`/`truck` |
 | `img_011.jpg`, `img_017.jpg`, `img_018.jpg`, `img_027.jpg`, `img_033.jpg`, `img_038.jpg` | Tượng, ma-nơ-canh, đồ chơi/mô hình, hình in quảng cáo | `R-05` | **Không gán** (không dùng `ignore_region`) | Không phải thực thể giao thông thật |
 | `img_020.jpg` | Ảnh phản chiếu trong gương chiếu hậu | `R-06` | **Loại gương — không gán** | Ảnh ảo phản chiếu và bộ phận xe chủ không thuộc phạm vi phát hiện |
-| `img_014.jpg` | Người đi bộ bị mờ chuyển động | `R-01`, `R-02` | Vẫn gán `person` ôm phần nhìn thấy nếu nhận diện chắc chắn; biên quá nhòe tick `can_review` | Tránh bỏ sót người đi bộ |
+| `img_014.jpg` | Người đi bộ bị mờ chuyển động (`blur`) | `R-01`, `R-07` | Người còn nhận diện chắc chắn → gán `person` phần nhìn thấy; vùng/người mờ nhòe nặng không rõ ranh giới → khoanh `ignore_region` | Tránh bỏ sót người rõ và tránh lệch IoU ở vùng quá mờ |
 | `img_021.jpg`, `img_030.jpg` | Đám đông xe máy dày đặc, che khuất | `R-07` | Tách box tiền cảnh nhìn rõ (`occluded_level` 1–3); cụm chồng lấn/`< 20 px` phía sau → `ignore_region` | Cân bằng giữa không bỏ sót vật rõ và không ép gán vùng bất khả thi |
 
 ## 5. QC và phiên bản
