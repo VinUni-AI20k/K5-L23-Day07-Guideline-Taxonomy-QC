@@ -1,0 +1,10 @@
+{
+  "round": 2,
+  "reviewer_inputs": {
+    "guideline_gap": 1,
+    "data_problem": 0
+  },
+  "decision": "HOLD",
+  "labels_sha256": "e2945df0863bc0f8112b75e0f4e093c1aa412073106b4eb44bf6ea27b92a41a8",
+  "review_sha256": "c91712c8229e33d806618db388d222460b63113f666dfd4145ae68276b5ec5e7"
+}

@@ -1,0 +1,3 @@
+# Preserve exact evidence bytes because QC manifests contain SHA-256 checksums.
+submission/** -text
+data/ATTRIBUTION.csv -text
