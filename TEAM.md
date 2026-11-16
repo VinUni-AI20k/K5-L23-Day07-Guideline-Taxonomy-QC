@@ -1,9 +1,9 @@
 # Thông tin nhóm
 
 - Tên nhóm: Group-01
-- Mã thành viên (ba chữ số): 444, 445
+- Mã thành viên (ba chữ số): 111, 222, 444
 - Người điều phối: 444
-- Người review bản cuối: 445
+- Người review bản cuối: 111
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
 ## Kết quả tóm tắt (điền cuối bài)
