@@ -196,61 +196,61 @@ Các mục dưới đây mô tả ca nổi bật sau khi xem ảnh, **không ph�
 
 | Ảnh | Tình huống, quyết định đề xuất và quy tắc |
 |---|---|
-| [img_001](../data/images/img_001.jpg) | pickup là `truck`; gán riêng người phía trước và người trong quán đủ điều kiện. Xe bị cắt mép phải đặt `truncated=yes`; bàn ghế che người thuộc che khuất. Áp dụng R-04, R-07, R-11, R-12. |
-| [img_002](../data/images/img_002.jpg) | một tổ hợp xe vận chuyển là `truck`; mỗi xe trên giá chở có box riêng theo kiểu thân xe, không mặc định tất cả là `car`. Khung giá chở che xe là occlusion. R-03, R-04, R-09, R-10. |
-| [img_003](../data/images/img_003.jpg) | tách người bán hàng, người đi xe và xe máy; không gộp gánh hàng vào person; xe đạp nằm ngoài taxonomy. R-07–R-10. |
-| [img_004](../data/images/img_004.jpg) | hai tuk-tuk bị loại theo phạm vi; người ngồi trong xe vẫn được gán khi đủ điều kiện. Không gán cả tuk-tuk thành `motorcycle` hoặc dùng ignore cho toàn xe. R-06–R-08. |
-| [img_005](../data/images/img_005.jpg) | xe thân van bạc phía sau là `van`; tách từng người và xe máy, kể cả người chỉ thấy một phần. Mũ bảo hiểm đang đội thuộc box người. R-05, R-09–R-12. |
-| [img_006](../data/images/img_006.jpg) | người đi xe đạp vẫn là `person`; xe đạp bị loại. Người và xe máy có box riêng; không gộp hai người ngồi cùng xe. R-08, R-09. |
-| [img_007](../data/images/img_007.jpg) | pickup có kết cấu thùng cao và xe tải bên phải đều là `truck`; độ cao thùng không làm thành `van`. Không gán phản chiếu trên nền ướt. R-02, R-04. |
-| [img_008](../data/images/img_008.jpg) | xe máy đang đỗ vẫn được gán; tách người đứng/ngồi với từng xe. Chỉ vùng xa không tách được mới xét ignore, không phủ cả bãi xe. R-01, R-09, R-14. |
-| [img_009](../data/images/img_009.jpg) | xe buýt giữa ảnh nằm ngoài taxonomy; người và xe máy xung quanh vẫn xét riêng. Người sau kính chỉ gán nếu thấy thật, định vị được và đạt ngưỡng. R-02, R-08, R-13. |
-| [img_010](../data/images/img_010.jpg) | người bán hàng, người lái và người ngồi sau là các cá thể riêng; hàng rau quả và xe đẩy không thuộc lớp mục tiêu. Box xe không mở rộng theo hàng hóa. R-07–R-10. |
+| [img_001](../../../data/images/img_001.jpg) | pickup là `truck`; gán riêng người phía trước và người trong quán đủ điều kiện. Xe bị cắt mép phải đặt `truncated=yes`; bàn ghế che người thuộc che khuất. Áp dụng R-04, R-07, R-11, R-12. |
+| [img_002](../../../data/images/img_002.jpg) | một tổ hợp xe vận chuyển là `truck`; mỗi xe trên giá chở có box riêng theo kiểu thân xe, không mặc định tất cả là `car`. Khung giá chở che xe là occlusion. R-03, R-04, R-09, R-10. |
+| [img_003](../../../data/images/img_003.jpg) | tách người bán hàng, người đi xe và xe máy; không gộp gánh hàng vào person; xe đạp nằm ngoài taxonomy. R-07–R-10. |
+| [img_004](../../../data/images/img_004.jpg) | hai tuk-tuk bị loại theo phạm vi; người ngồi trong xe vẫn được gán khi đủ điều kiện. Không gán cả tuk-tuk thành `motorcycle` hoặc dùng ignore cho toàn xe. R-06–R-08. |
+| [img_005](../../../data/images/img_005.jpg) | xe thân van bạc phía sau là `van`; tách từng người và xe máy, kể cả người chỉ thấy một phần. Mũ bảo hiểm đang đội thuộc box người. R-05, R-09–R-12. |
+| [img_006](../../../data/images/img_006.jpg) | người đi xe đạp vẫn là `person`; xe đạp bị loại. Người và xe máy có box riêng; không gộp hai người ngồi cùng xe. R-08, R-09. |
+| [img_007](../../../data/images/img_007.jpg) | pickup có kết cấu thùng cao và xe tải bên phải đều là `truck`; độ cao thùng không làm thành `van`. Không gán phản chiếu trên nền ướt. R-02, R-04. |
+| [img_008](../../../data/images/img_008.jpg) | xe máy đang đỗ vẫn được gán; tách người đứng/ngồi với từng xe. Chỉ vùng xa không tách được mới xét ignore, không phủ cả bãi xe. R-01, R-09, R-14. |
+| [img_009](../../../data/images/img_009.jpg) | xe buýt giữa ảnh nằm ngoài taxonomy; người và xe máy xung quanh vẫn xét riêng. Người sau kính chỉ gán nếu thấy thật, định vị được và đạt ngưỡng. R-02, R-08, R-13. |
+| [img_010](../../../data/images/img_010.jpg) | người bán hàng, người lái và người ngồi sau là các cá thể riêng; hàng rau quả và xe đẩy không thuộc lớp mục tiêu. Box xe không mở rộng theo hàng hóa. R-07–R-10. |
 
 #### Ảnh 011–020
 
 | Ảnh | Tình huống, quyết định đề xuất và quy tắc |
 |---|---|
-| [img_011](../data/images/img_011.jpg) | gán người thật ở nền và xe thật nhận diện được. Nhân vật Predator lớn và các xe trang trí cần rà kỹ tính người thật/xe thật so với mô hình; ghi ca chưa chắc theo mục 4.3, không loại chỉ vì hình dáng lạ. R-01, R-16. |
-| [img_012](../data/images/img_012.jpg) | pickup tiền cảnh là `truck`, SUV bên trái là `car`; không mở rộng box pickup theo các kiện hàng. Không tự loại pickup thành ego chỉ vì gần camera. R-02–R-04, R-10. |
-| [img_013](../data/images/img_013.jpg) | gán người và xe thật trong cảnh đêm; bỏ phản chiếu người/đèn/xe trên đường ướt. Đo vật xa trước khi áp dụng ignore. R-02, R-13, R-15. |
-| [img_014](../data/images/img_014.jpg) | hai người đi bộ rõ được gán riêng. Dải xe chuyển động nhòe phía sau áp dụng R-15 theo từng vùng; không suy ra số xe từ số vệt nhòe. |
-| [img_015](../data/images/img_015.jpg) | xe ở mép trái/phải vẫn là đối tượng nếu đủ điều kiện và có `truncated=yes`. Các xe nhòe ở giữa cần đánh giá đường biên riêng; phản chiếu trên đường bị loại. R-02, R-12, R-15. |
-| [img_016](../data/images/img_016.jpg) | scooter giữa ảnh là `motorcycle`, người lái là `person`; van trắng phía sau là `van`. Tuk-tuk hai bên bị loại nhưng người trong đó vẫn xét riêng. R-05–R-09. |
-| [img_017](../data/images/img_017.jpg) | tượng người cưỡi ngựa không có nhãn `person`; ngựa cũng ngoài taxonomy. Không đặt ignore quanh tượng. R-01, R-08. |
-| [img_018](../data/images/img_018.jpg) | chân dung trên billboard bị loại; xe thật sau hàng rào vẫn được gán nếu đủ điều kiện, với mức che phù hợp. Không nhầm nhìn qua khe rào thành phản chiếu. R-01, R-03, R-11. |
-| [img_019](../data/images/img_019.jpg) | đề xuất gán xe diễu hành vàng là `car` dựa trên thân xe, bánh và khoang người lái nhìn thấy; người lái và người xem gán riêng. Nhân vật chuột cần xác minh người mặc trang phục hay mô hình trước khi chốt. R-01, R-03, R-07, R-14, R-16. |
-| [img_020](../data/images/img_020.jpg) | gương/cửa xe chủ và hình trong gương bị loại. Không tạo nhãn xe từ hình phản chiếu. Nếu không còn vật trực tiếp hợp lệ, ảnh vẫn phải có trong COCO với không annotation. R-02. |
+| [img_011](../../../data/images/img_011.jpg) | gán người thật ở nền và xe thật nhận diện được. Nhân vật Predator lớn và các xe trang trí cần rà kỹ tính người thật/xe thật so với mô hình; ghi ca chưa chắc theo mục 4.3, không loại chỉ vì hình dáng lạ. R-01, R-16. |
+| [img_012](../../../data/images/img_012.jpg) | pickup tiền cảnh là `truck`, SUV bên trái là `car`; không mở rộng box pickup theo các kiện hàng. Không tự loại pickup thành ego chỉ vì gần camera. R-02–R-04, R-10. |
+| [img_013](../../../data/images/img_013.jpg) | gán người và xe thật trong cảnh đêm; bỏ phản chiếu người/đèn/xe trên đường ướt. Đo vật xa trước khi áp dụng ignore. R-02, R-13, R-15. |
+| [img_014](../../../data/images/img_014.jpg) | hai người đi bộ rõ được gán riêng. Dải xe chuyển động nhòe phía sau áp dụng R-15 theo từng vùng; không suy ra số xe từ số vệt nhòe. |
+| [img_015](../../../data/images/img_015.jpg) | xe ở mép trái/phải vẫn là đối tượng nếu đủ điều kiện và có `truncated=yes`. Các xe nhòe ở giữa cần đánh giá đường biên riêng; phản chiếu trên đường bị loại. R-02, R-12, R-15. |
+| [img_016](../../../data/images/img_016.jpg) | scooter giữa ảnh là `motorcycle`, người lái là `person`; van trắng phía sau là `van`. Tuk-tuk hai bên bị loại nhưng người trong đó vẫn xét riêng. R-05–R-09. |
+| [img_017](../../../data/images/img_017.jpg) | tượng người cưỡi ngựa không có nhãn `person`; ngựa cũng ngoài taxonomy. Không đặt ignore quanh tượng. R-01, R-08. |
+| [img_018](../../../data/images/img_018.jpg) | chân dung trên billboard bị loại; xe thật sau hàng rào vẫn được gán nếu đủ điều kiện, với mức che phù hợp. Không nhầm nhìn qua khe rào thành phản chiếu. R-01, R-03, R-11. |
+| [img_019](../../../data/images/img_019.jpg) | đề xuất gán xe diễu hành vàng là `car` dựa trên thân xe, bánh và khoang người lái nhìn thấy; người lái và người xem gán riêng. Nhân vật chuột cần xác minh người mặc trang phục hay mô hình trước khi chốt. R-01, R-03, R-07, R-14, R-16. |
+| [img_020](../../../data/images/img_020.jpg) | gương/cửa xe chủ và hình trong gương bị loại. Không tạo nhãn xe từ hình phản chiếu. Nếu không còn vật trực tiếp hợp lệ, ảnh vẫn phải có trong COCO với không annotation. R-02. |
 
 #### Ảnh 021–030
 
 | Ảnh | Tình huống, quyết định đề xuất và quy tắc |
 |---|---|
-| [img_021](../data/images/img_021.jpg) | đám đông xe máy phải tách người và xe có thể nhận diện; vùng xa dưới 20 px hoặc không tách được mới dùng ignore. Không phủ cả nút giao. R-09, R-13, R-14. |
-| [img_022](../data/images/img_022.jpg) | mô tô và sidecar gắn liền là một `motorcycle`; bao toàn bộ phần nhìn thấy của tổ hợp. Không tạo lớp xe ba bánh mới. R-06, R-10. |
-| [img_023](../data/images/img_023.jpg) | người đạp xích lô là `person`; xích lô bị loại. Ô tô đen bên trái là `car`; xe máy ở phía xa xét riêng. R-03, R-07–R-09. |
-| [img_024](../data/images/img_024.jpg) | wagon đen và xe thật xung quanh thuộc `car` dù ở nơi trưng bày. Vật hình xe vàng trên nóc nhỏ và khác cấu trúc xe bên dưới: chưa đủ căn cứ khẳng định xe thật hay mô hình, cần quyết định riêng; không gộp vào box xe đen. R-01, R-09, R-10, R-16. |
-| [img_025](../data/images/img_025.jpg) | người đi bộ gần và xa đều xét theo chiều cao phần thấy; xe bên phải vẫn cần gán. Không dùng một vùng ignore bao toàn đường dạo vì có nhiều người nhỏ. R-01, R-13, R-14. |
-| [img_026](../data/images/img_026.jpg) | hai người trên một xe tạo hai `person` và một `motorcycle` nếu đủ điều kiện; đánh giá mép dưới cho xe và người riêng. Không gộp người ngồi sau với người lái. R-09, R-12. |
-| [img_027](../data/images/img_027.jpg) | pickup là tượng/đài tưởng niệm trên bệ, bị loại khỏi `truck`; không tạo ignore để thay thế. Căn cứ bổ sung có trong tên nguồn ở `data/ATTRIBUTION.csv`. R-01. |
-| [img_028](../data/images/img_028.jpg) | pickup thật là `truck`; tượng ngựa trên thùng bị loại, box xe không kéo lên theo tượng. SUV đỏ phía sau là `car`; không gộp hai xe. R-03, R-04, R-09, R-10. |
-| [img_029](../data/images/img_029.jpg) | gán xe máy và người riêng; thanh dài vận chuyển không mở rộng box xe/người. Xe đạp bị loại nhưng người đi xe đạp vẫn gán. R-08–R-10. |
-| [img_030](../data/images/img_030.jpg) | xe máy đỗ sát nhau vẫn cần tách từng chiếc có căn cứ; không đếm mỗi gương thành một xe. Chỉ cụm không phân biệt cá thể mới dùng ignore. Người thật bên phải xét riêng; chân dung quảng cáo bị loại. R-01, R-11, R-14. |
+| [img_021](../../../data/images/img_021.jpg) | đám đông xe máy phải tách người và xe có thể nhận diện; vùng xa dưới 20 px hoặc không tách được mới dùng ignore. Không phủ cả nút giao. R-09, R-13, R-14. |
+| [img_022](../../../data/images/img_022.jpg) | mô tô và sidecar gắn liền là một `motorcycle`; bao toàn bộ phần nhìn thấy của tổ hợp. Không tạo lớp xe ba bánh mới. R-06, R-10. |
+| [img_023](../../../data/images/img_023.jpg) | người đạp xích lô là `person`; xích lô bị loại. Ô tô đen bên trái là `car`; xe máy ở phía xa xét riêng. R-03, R-07–R-09. |
+| [img_024](../../../data/images/img_024.jpg) | wagon đen và xe thật xung quanh thuộc `car` dù ở nơi trưng bày. Vật hình xe vàng trên nóc nhỏ và khác cấu trúc xe bên dưới: chưa đủ căn cứ khẳng định xe thật hay mô hình, cần quyết định riêng; không gộp vào box xe đen. R-01, R-09, R-10, R-16. |
+| [img_025](../../../data/images/img_025.jpg) | người đi bộ gần và xa đều xét theo chiều cao phần thấy; xe bên phải vẫn cần gán. Không dùng một vùng ignore bao toàn đường dạo vì có nhiều người nhỏ. R-01, R-13, R-14. |
+| [img_026](../../../data/images/img_026.jpg) | hai người trên một xe tạo hai `person` và một `motorcycle` nếu đủ điều kiện; đánh giá mép dưới cho xe và người riêng. Không gộp người ngồi sau với người lái. R-09, R-12. |
+| [img_027](../../../data/images/img_027.jpg) | pickup là tượng/đài tưởng niệm trên bệ, bị loại khỏi `truck`; không tạo ignore để thay thế. Căn cứ bổ sung có trong tên nguồn ở `data/ATTRIBUTION.csv`. R-01. |
+| [img_028](../../../data/images/img_028.jpg) | pickup thật là `truck`; tượng ngựa trên thùng bị loại, box xe không kéo lên theo tượng. SUV đỏ phía sau là `car`; không gộp hai xe. R-03, R-04, R-09, R-10. |
+| [img_029](../../../data/images/img_029.jpg) | gán xe máy và người riêng; thanh dài vận chuyển không mở rộng box xe/người. Xe đạp bị loại nhưng người đi xe đạp vẫn gán. R-08–R-10. |
+| [img_030](../../../data/images/img_030.jpg) | xe máy đỗ sát nhau vẫn cần tách từng chiếc có căn cứ; không đếm mỗi gương thành một xe. Chỉ cụm không phân biệt cá thể mới dùng ignore. Người thật bên phải xét riêng; chân dung quảng cáo bị loại. R-01, R-11, R-14. |
 
 #### Ảnh 031–040
 
 | Ảnh | Tình huống, quyết định đề xuất và quy tắc |
 |---|---|
-| [img_031](../data/images/img_031.jpg) | gán xe/người thật trong đêm; loại nhân vật in trên biển hiệu và phản chiếu ánh đèn trên mặt đường. Mỗi vật thiếu sáng áp dụng R-15 riêng. |
-| [img_032](../data/images/img_032.jpg) | người đứng tại trạm xe buýt còn tách được thì gán từng người; ô tô bên trái bị cắt mép vẫn gán. Không đồng nhất “đám đông” với ignore. R-07, R-12, R-14. |
-| [img_033](../data/images/img_033.jpg) | ma-nơ-canh, hình quảng cáo và phản chiếu cửa kính không phải `person`. Chỉ gán người thật nếu quan sát trực tiếp có căn cứ; không tự sinh người từ dáng giống người. R-01, R-02. |
-| [img_034](../data/images/img_034.jpg) | người băng đường là một `person`; xe phía sau và người đi xe có box riêng. Người/xe bị cắt ở mép phải dùng `truncated` cho từng đối tượng. R-09, R-11, R-12. |
-| [img_035](../data/images/img_035.jpg) | auto-rickshaw, kể cả xe chở hàng cao, nằm ngoài taxonomy; không gán thành `truck` vì có hàng. Mô tô và người lái ở giữa cùng ô tô phía sau vẫn gán. R-04, R-06–R-09. |
-| [img_036](../data/images/img_036.jpg) | xe xanh là `truck` nhờ cabin và thùng riêng, dù kích thước nhỏ. Mui bạt cố định trên kết cấu thùng thuộc box xe; xe máy phía sau vẫn xét nếu đủ điều kiện. R-04, R-10, R-11. |
-| [img_037](../data/images/img_037.jpg) | pickup trắng có khoang thiết bị/nắp thùng là `truck`, không phải `van`. Xe buýt ở nền bị loại; người thật bên trái gán riêng. R-04, R-07, R-08. |
-| [img_038](../data/images/img_038.jpg) | xe mô hình, búp bê và đồ chơi trong tủ bị loại; không tạo `car`, `truck`, `person` hoặc ignore chỉ từ các đồ chơi. R-01. |
-| [img_039](../data/images/img_039.jpg) | xét người, xe máy chạy và xe đỗ ở hai bên; người đi xe đạp vẫn là person trong khi xe đạp bị loại. Vật xa đo chiều cao trên ảnh gốc. R-01, R-08, R-13. |
-| [img_040](../data/images/img_040.jpg) | người đội mũ ở tiền cảnh là `person`; chỉ gán xe máy nếu các phần xe thấy được đủ xác định một cá thể và đạt ngưỡng. Taxi xanh và SUV phía sau là `car`; tuk-tuk và xe buýt bị loại. Hình phản chiếu trên mũ/gương không tạo box mới. R-02, R-03, R-08, R-11–R-13. |
+| [img_031](../../../data/images/img_031.jpg) | gán xe/người thật trong đêm; loại nhân vật in trên biển hiệu và phản chiếu ánh đèn trên mặt đường. Mỗi vật thiếu sáng áp dụng R-15 riêng. |
+| [img_032](../../../data/images/img_032.jpg) | người đứng tại trạm xe buýt còn tách được thì gán từng người; ô tô bên trái bị cắt mép vẫn gán. Không đồng nhất “đám đông” với ignore. R-07, R-12, R-14. |
+| [img_033](../../../data/images/img_033.jpg) | ma-nơ-canh, hình quảng cáo và phản chiếu cửa kính không phải `person`. Chỉ gán người thật nếu quan sát trực tiếp có căn cứ; không tự sinh người từ dáng giống người. R-01, R-02. |
+| [img_034](../../../data/images/img_034.jpg) | người băng đường là một `person`; xe phía sau và người đi xe có box riêng. Người/xe bị cắt ở mép phải dùng `truncated` cho từng đối tượng. R-09, R-11, R-12. |
+| [img_035](../../../data/images/img_035.jpg) | auto-rickshaw, kể cả xe chở hàng cao, nằm ngoài taxonomy; không gán thành `truck` vì có hàng. Mô tô và người lái ở giữa cùng ô tô phía sau vẫn gán. R-04, R-06–R-09. |
+| [img_036](../../../data/images/img_036.jpg) | xe xanh là `truck` nhờ cabin và thùng riêng, dù kích thước nhỏ. Mui bạt cố định trên kết cấu thùng thuộc box xe; xe máy phía sau vẫn xét nếu đủ điều kiện. R-04, R-10, R-11. |
+| [img_037](../../../data/images/img_037.jpg) | pickup trắng có khoang thiết bị/nắp thùng là `truck`, không phải `van`. Xe buýt ở nền bị loại; người thật bên trái gán riêng. R-04, R-07, R-08. |
+| [img_038](../../../data/images/img_038.jpg) | xe mô hình, búp bê và đồ chơi trong tủ bị loại; không tạo `car`, `truck`, `person` hoặc ignore chỉ từ các đồ chơi. R-01. |
+| [img_039](../../../data/images/img_039.jpg) | xét người, xe máy chạy và xe đỗ ở hai bên; người đi xe đạp vẫn là person trong khi xe đạp bị loại. Vật xa đo chiều cao trên ảnh gốc. R-01, R-08, R-13. |
+| [img_040](../../../data/images/img_040.jpg) | người đội mũ ở tiền cảnh là `person`; chỉ gán xe máy nếu các phần xe thấy được đủ xác định một cá thể và đạt ngưỡng. Taxi xanh và SUV phía sau là `car`; tuk-tuk và xe buýt bị loại. Hình phản chiếu trên mũ/gương không tạo box mới. R-02, R-03, R-08, R-11–R-13. |
 
 ### 4.2. Các cặp ảnh dùng để tự kiểm quy tắc
 
@@ -337,9 +337,9 @@ Sau calibration, lưu `guideline_v1.1_calibrated.md` và `submission/guideline_c
 
 ### 5.6. Tài liệu đối chiếu
 
-- [Hướng dẫn quy trình](../GUIDE.md), [quy tắc làm bài và AI](../RULES.md), [rubric](../RUBRIC.md).
-- [Taxonomy hiện tại](../submission/taxonomy.json), [schema](../schemas/taxonomy.schema.json).
-- [QC cheatsheet](../docs/QC_CHEATSHEET.md), [hướng dẫn script và phiếu QC](../scripts/README.md).
-- [Nguồn và giấy phép ảnh](../data/README.md), [ghi công từng ảnh](../data/ATTRIBUTION.csv).
+- [Hướng dẫn quy trình](../../../GUIDE.md), [quy tắc làm bài và AI](../../../RULES.md), [rubric](../../../RUBRIC.md).
+- [Taxonomy hiện tại](../../../submission/taxonomy.json), [schema](../../../schemas/taxonomy.schema.json).
+- [QC cheatsheet](../../../docs/QC_CHEATSHEET.md), [hướng dẫn script và phiếu QC](../../../scripts/README.md).
+- [Nguồn và giấy phép ảnh](../../../data/README.md), [ghi công từng ảnh](../../../data/ATTRIBUTION.csv).
 
 Giữ tên ảnh và ghi công gốc. Tài liệu này không thay thế việc người học quan sát ảnh, quyết định nhãn và vẽ box theo quy định Day 07.
