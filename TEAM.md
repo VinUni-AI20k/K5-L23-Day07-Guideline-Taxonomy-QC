@@ -1,7 +1,7 @@
 # Thông tin nhóm
 
 - Tên nhóm:
-- Mã thành viên (ba chữ số):
+- Mã thành viên (ba chữ số):064,061,050
 - Người điều phối:
 - Người review bản cuối:
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
