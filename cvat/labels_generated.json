@@ -6,9 +6,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -36,9 +41,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -66,9 +76,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -96,9 +111,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -126,9 +146,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -156,9 +181,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",
@@ -186,9 +216,14 @@
       {
         "name": "occluded_level",
         "mutable": false,
-        "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
       },
       {
         "name": "truncated",

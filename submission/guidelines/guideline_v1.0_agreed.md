@@ -1,8 +1,8 @@
 # Guideline gán nhãn — v1.0 — Nhóm Lab 402
 
-> Tài liệu đặc tả gán nhãn chính thức của Nhóm Lab 402 cho bài toán phát hiện đối tượng 2D trên ảnh giao thông đường phố (Day 07). Bản này được xây dựng trên cơ sở đối chiếu, tổng hợp và giải quyết triệt để các bất đồng giữa 5 bản guideline cá nhân (`03039`, `03223`, `03224`, `03228`, `03238`) sau khi khảo sát độc lập toàn bộ 40 ảnh thực tế (`img_001.jpg` đến `img_040.jpg`). Cập nhật v1.0: Đơn giản hóa thuộc tính che khuất (`occluded_level`) thành nhị phân, không chia level.
+> Tài liệu đặc tả gán nhãn chính thức của Nhóm Lab 402 cho bài toán phát hiện đối tượng 2D trên ảnh giao thông đường phố (Day 07). Bản này được xây dựng trên cơ sở đối chiếu, tổng hợp và giải quyết triệt để các bất đồng giữa 5 bản guideline cá nhân (`03039`, `03223`, `03224`, `03228`, `03238`) sau khi khảo sát độc lập toàn bộ 40 ảnh thực tế (`img_001.jpg` đến `img_040.jpg`).
 
-- **Phiên bản:** v1.0 
+- **Phiên bản:** v1.0 (Bản thống nhất toàn nhóm trước khi gán độc lập)
 - **Ngày thống nhất:** 16/11/2026
 - **Nhóm thực hiện:** Nhóm Lab 402
   - **Người điều phối:** 328 (Nguyễn Quốc Khánh)
@@ -63,10 +63,6 @@ Sau khi đối chiếu 5 bản guideline cá nhân, nhóm đã phân tích và t
 6. **Xử lý tượng, mô hình đồ chơi, tranh ảnh 2D (`img_011`, `img_017`, `img_018`, `img_024`, `img_027`, `img_033`, `img_038`):**
    - *Bất đồng:* Bản 328 từng đề xuất các lớp `person_model`, `car_model`; các bản khác đề xuất loại bỏ.
    - *Quyết định v1.0:* Thống nhất KHÔNG tạo các lớp `_model` trong taxonomy. Tất cả các tượng, ma-nơ-canh, xe mô hình đồ chơi, tranh vẽ/biển quảng cáo 2D phẳng, ảnh phản chiếu qua kính/gương đều là vật thể phi thực tế $\rightarrow$ **TUYỆT ĐỐI KHÔNG GÁN NHÃN** `person` hay `car` (đóng vai trò hard negatives).
-7. **Đơn giản hóa thuộc tính che khuất (Không chia level `occluded`):**
-   - *Bất đồng ban đầu:* Bản v0 và các bản cá nhân chia 4 mức `occluded_level` ($0, 1, 2, 3$) với các ngưỡng $30\%, 70\%$, dẫn đến sự bất đồng chủ quan liên tục giữa các người gán (người ước lượng che $25\%$ chọn mức 1, người ước lượng $35\%$ chọn mức 2), làm giảm điểm đồng thuận IAA giả tạo.
-   - *Quyết định v1.0:* Thống nhất **KHÔNG CHIA LEVEL** cho thuộc tính che khuất. Chuyển `occluded_level` sang dạng nhị phân kiểu `checkbox` (`false`: không che, `true`: bị che).
-   - *Lý do:* Giúp thao tác trên CVAT nhanh chóng (chỉ cần 1 click checkbox), triệt tiêu tranh chấp ranh giới giữa các mức $30\%$ hay $70\%$, tập trung độ chuẩn xác vào vị trí bounding box và phân lớp.
 
 ---
 
@@ -103,11 +99,11 @@ Mọi bounding box thuộc 7 lớp đối tượng (ngoại trừ `ignore_region
 
 | Tên thuộc tính | Kiểu / Giá trị | Mặc định | Ý nghĩa | Ngưỡng đo lường định lượng cụ thể | Quy tắc liên kết |
 |---|---|---|---|---|---|
-| `occluded_level` | `checkbox`<br>(`true`, `false`) | `false` | Đánh giá vật thể có bị che khuất bởi vật cản khác (cột, cây cối, xe khác, người khác) hay không. *(Không chia level 0, 1, 2, 3).* | • `false` (Không tick / mặc định): Nhìn thấy trọn vẹn hoặc phần bị che khuất không đáng kể ($< 5\%$ diện tích).<br>• `true` (Tick chọn checkbox): Vật thể bị che khuất một phần bởi vật thể khác.<br>*(Lưu ý: Nếu bị che quá nặng $> 90\%$ không còn nhận dạng chắc chắn thì bỏ qua không gán).* | `R-02` |
+| `occluded_level` | `select`<br>(`0`, `1`, `2`, `3`) | `0` | Đánh giá tỉ lệ diện tích hình chiếu của vật bị vật khác che khuất trong khung ảnh. | • `0` (Không che): Nhìn thấy trọn vẹn hoặc bị che $< 5\%$ diện tích.<br>• `1` (Che nhẹ): Bị che khuất từ $5\%$ đến $30\%$ diện tích.<br>• `2` (Che vừa): Bị che khuất từ $31\%$ đến $70\%$ diện tích.<br>• `3` (Che nặng): Bị che khuất $> 70\%$ diện tích (nhưng phần còn lại $\ge 10-15\%$ vẫn đủ nhận diện chắc chắn lớp).<br>*(Lưu ý: Nếu bị che $> 90\%$ không còn nhận dạng chắc chắn thì bỏ qua không gán).* | `R-02` |
 | `truncated` | `select`<br>(`no`, `yes`) | `no` | Đánh giá vật thể có bị đường viền khung ảnh cắt cụt hay không. | • `no`: Vật thể nằm trọn vẹn trong khung ảnh hoặc mép ngoài chỉ chạm sát viền làm mất $< 10\%$ diện tích.<br>• `yes`: Một cạnh của box tiếp xúc đúng mép ảnh và phần thân vật thể bị cắt mất từ $10\%$ diện tích trở lên.<br>*(Lưu ý: Nếu phần lọt vào ảnh quá nhỏ $< 20\text{ px}$ chiều cao/rộng thì bỏ qua không gán).* | `R-03` |
-| `can_review` | `checkbox`<br>(`true`, `false`) | `false` | Đánh dấu các ca biên, ca khó hoặc trường hợp còn phân vân để kiểm tra chéo. | • `false`: Tự tin gán theo đúng quy tắc guideline.<br>• `true`: Bật khi phân vân giữa 2 lớp (vd: bán tải nắp kín giữa `truck`/`van`), vật bị che khuất nghiêm trọng khó xác định, hoặc vật thể mờ nhòe. | `R-12` |
+| `can_review` | `checkbox`<br>(`true`, `false`) | `false` | Đánh dấu các ca biên, ca khó hoặc trường hợp còn phân vân để kiểm tra chéo. | • `false`: Tự tin gán theo đúng quy tắc guideline.<br>• `true`: Bật khi phân vân giữa 2 lớp (vd: bán tải nắp kín giữa `truck`/`van`), vật bị che khuất nghiêm trọng ở ngưỡng phân vân giữa mức 2 và 3, hoặc vật thể mờ nhòe. | `R-12` |
 
-> *Lưu ý về thuộc tính của `ignore_region`:* Sử dụng giá trị kỹ thuật mặc định (`occluded_level=false`, `truncated=no`, `can_review=false`) để phục vụ xuất COCO hợp lệ.
+> *Lưu ý về thuộc tính của `ignore_region`:* Sử dụng giá trị kỹ thuật mặc định (`occluded_level=0`, `truncated=no`, `can_review=false`) để phục vụ xuất COCO hợp lệ.
 
 ---
 
@@ -120,15 +116,16 @@ Mọi thành viên bắt buộc tuân thủ 12 quy tắc chuẩn hóa dưới đ
 - **Tuyệt đối KHÔNG ước lượng hay vẽ bù** phần thân thể hoặc bộ phận xe bị khuất sau vật khác hoặc nằm ngoài khung hình.
 - Độ dung sai viền nền (background margin) cho phép tối đa 3–5 pixel. Không được cắt lẹm chi tiết nhìn thấy của vật và không vẽ thừa khoảng trống nền.
 
-### R-02: Xử lý che khuất và vật thể bị chia cắt (Occlusion Handling — Không chia level)
-- Box chỉ bao bọc các phần thực tế nhìn thấy của vật thể; phần bị che bởi vật cản phía trước nằm trong bounding box nhưng thuộc tính `occluded_level` được đánh dấu tick chọn (`true`).
-- **Nguyên tắc không chia level:**
-  - `occluded_level = false` (mặc định / không tick): Áp dụng khi vật thể nhìn thấy trọn vẹn, không có vật khác chắn trước mặt (hoặc che lấp không đáng kể $< 5\%$).
-  - `occluded_level = true` (tick chọn checkbox): Áp dụng cho mọi trường hợp vật thể bị một vật khác che khuất một phần thân thể hoặc phương tiện. Nhóm **không phân chia thành các mức 1, 2, 3** để loại bỏ hoàn toàn sự tranh cãi về tỷ lệ $30\%$ hay $70\%$.
+### R-02: Xử lý che khuất và vật thể bị chia cắt (Occlusion Handling)
+- Box chỉ bao bọc các phần thực tế nhìn thấy của vật thể; phần bị che bởi vật cản phía trước nằm trong bounding box nhưng thuộc tính `occluded_level` phải được tăng tương ứng.
 - **Trường hợp vật thể bị che cắt rời thành 2 mảnh nhìn thấy:**
-  - Nếu hai mảnh nhìn thấy rõ ràng thuộc về cùng một đối tượng duy nhất (ví dụ: thân xe ô tô bị cột đèn chắn ngang chính giữa): Vẽ **01 box duy nhất** bao trọn cả hai mảnh phần nhìn thấy, tick chọn `occluded_level = true`.
+  - Nếu hai mảnh nhìn thấy rõ ràng thuộc về cùng một đối tượng duy nhất (ví dụ: thân xe ô tô bị cột đèn chắn ngang chính giữa): Vẽ **01 box duy nhất** bao trọn cả hai mảnh phần nhìn thấy, gán `occluded_level` phù hợp (mức 1 hoặc 2).
   - Nếu phần bị che quá lớn ($> 80\%$) và hai mảnh nằm quá xa nhau khiến không thể khẳng định chắc chắn chúng thuộc cùng một vật: Không gán box gộp to mà chỉ gán phần nhận diện được chắc chắn hoặc bật `can_review = true`.
-- Nếu vật thể bị che khuất trên $90\%$ diện tích và không còn đủ đặc trưng nhận diện chắc chắn: **Bỏ qua không gán**.
+- **Gán thuộc tính `occluded_level`**:
+  - `0`: Không bị che khuất (nhìn thấy trọn vẹn hoặc bị che $< 5\%$ diện tích).
+  - `1`: Bị che khuất nhẹ (từ $5\%$ đến $30\%$ diện tích).
+  - `2`: Bị che khuất vừa (từ $31\%$ đến $70\%$ diện tích).
+  - `3`: Bị che khuất nặng ($> 70\%$ diện tích, nhưng phần còn lại vẫn đủ nhận diện chắc chắn). Nếu vật bị che $> 90\%$ không còn nhận dạng được: **Bỏ qua không gán**.
 
 ### R-03: Xử lý vật thể bị cắt ở mép ảnh (Truncation & Boundary Coordinates)
 - Bounding box phải nằm hoàn toàn trong tọa độ ảnh: $0 \le x_{\min} < x_{\max} \le W$, $0 \le y_{\min} < y_{\max} \le H$. Box dừng đúng tại đường biên ảnh, không mở rộng ra ngoài canvas.
@@ -258,5 +255,4 @@ Toàn bộ quá trình kiểm tra chất lượng (QC) và đo lường độ đ
 | Phiên bản | Ngày | Nội dung thay đổi trọng tâm | Lý do / Ca thực tế kích hoạt |
 |---|---|---|---|
 | `v0` | 16/11/2026 | Bản khung khởi tạo từ Giảng viên (chỉ có 5 lớp cơ bản: `car`, `truck`, `van`, `motorcycle`, `person`). Định nghĩa định tính, thiếu quy tắc ca biên. | Điểm xuất phát của bài lab; chưa đủ chi tiết để gán thực tế. |
-| `v1.0` | 16/11/2026 | **Bản thống nhất ban đầu của nhóm:**<br>1. Bổ sung thêm 2 lớp mới: `bus` và `tuk_tuk` (nâng tổng số lên 8 lớp).<br>2. Khóa cứng 12 quy tắc vẽ box (`R-01` $\rightarrow$ `R-12`): tách người và xe máy (`R-08`), gán ô tô con trên xe tải chuyên chở (`R-09`), loại bỏ tượng/mô hình/ảnh in/phản chiếu/xe chủ (`R-04`, `R-05`), khóa kích thước tối thiểu $20\text{ px}$ (`R-06`), xử lý bán tải có mui là `truck` (`R-10`).<br>3. Lập bảng hướng dẫn xử lý 35+ ca khó trên toàn bộ 40 ảnh. | Đối chiếu và giải quyết toàn diện bất đồng giữa 5 bản cá nhân (`03039`, `03223`, `03224`, `03228`, `03238`) trên các ca `img_002`, `img_004`, `img_009`, `img_011`, `img_017`, `img_024`, `img_037`. |
-| `v1.0` | 16/11/2026 | **Đơn giản hóa thuộc tính che khuất (`occluded_level`):** Chuyển từ phân chia 4 mức level ($0, 1, 2, 3$) sang trạng thái nhị phân kiểu checkbox (`false`: không che, `true`: bị che). Bỏ toàn bộ việc ước lượng tỷ lệ phần trăm $30\%, 70\%$ phức tạp để loại bỏ bất đồng chủ quan giữa các người gán nhãn, tăng tốc thao tác trên CVAT và nâng cao độ đồng thuận IAA. | Quyết định thống nhất toàn nhóm trước khi bước vào Pha 3 gán nhãn độc lập. |
+| `v1.0` | 16/11/2026 | **Bản thống nhất chính thức của nhóm:**<br>1. Bổ sung thêm 2 lớp mới: `bus` và `tuk_tuk` (nâng tổng số lên 8 lớp).<br>2. Định lượng hóa 4 mức `occluded_level` ($0, 1, 2, 3$) và ngưỡng `truncated = yes` ($\ge 10\%$).<br>3. Khóa cứng 12 quy tắc vẽ box (`R-01` $\rightarrow$ `R-12`): tách người và xe máy (`R-08`), gán ô tô con trên xe tải chuyên chở (`R-09`), loại bỏ tượng/mô hình/ảnh in/phản chiếu/xe chủ (`R-04`, `R-05`), khóa kích thước tối thiểu $20\text{ px}$ (`R-06`), xử lý bán tải có mui là `truck` (`R-10`).<br>4. Lập bảng hướng dẫn xử lý 35+ ca khó trên toàn bộ 40 ảnh. | Đối chiếu và giải quyết toàn diện bất đồng giữa 5 bản cá nhân (`03039`, `03223`, `03224`, `03228`, `03238`) trên các ca `img_002`, `img_004`, `img_009`, `img_011`, `img_017`, `img_024`, `img_037`. |
