@@ -56,7 +56,7 @@ def main() -> int:
     labels = load_all_labels(load_taxonomy())
     if set(labels) != members:
         errors.append("Danh sách file nhãn phải khớp mã thành viên trong assignment.csv.")
-    starter = ROOT / "guideline" / "guideline_v0_starter.md"
+    starter = ROOT / "guideline" / "guideline_350.md"
     for member in sorted(members):
         draft = SUB / "guidelines" / "individual" / f"guideline_{member}.md"
         if draft.is_file() and digest(draft) == digest(starter):
