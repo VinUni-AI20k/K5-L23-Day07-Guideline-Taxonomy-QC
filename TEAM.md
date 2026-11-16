@@ -11,9 +11,9 @@
 | STT | Họ và tên | Mã thành viên | Vai trò | Git Account / Email |
 |:---:|---|:---:|---|---|
 | 1 | Đặng Gia Tuấn | 111 | Reviewer bản cuối / Annotator | `Danq Tuan` (`danqgiatuan@gmail.com`) |
-| 2 | Tạ Ngọc Huyền Trang | 222 | Annotator | `Trang Ta Ngoc Huyen` (`tnhtrang.works@gmail.com`) |
-| 3 | Lâm Thúy Ngân (Lâm Ngân) | 333 | Annotator | `unknown` (`watanabilinlin@gmail.com`, branch `nganlam`) |
-| 4 | [Thành viên 444] | 444 | Người điều phối / Annotator | `entity-solo` (branch `member-444`) |
+| 2 | Tạ Ngọc Huyền Trang | 222 | Người điều phối / Annotator | `Trang Ta Ngoc Huyen` (`tnhtrang.works@gmail.com`) |
+| 3 | Lâm Hoài Kim Ngân | 333 | Annotator | `unknown` (`watanabilinlin@gmail.com`, branch `nganlam`) |
+| 4 | Nguyễn Tùng | 444 | Annotator | username github: `entity-solo` (branch `member-444`) |
 
 ## Kết quả tóm tắt (điền cuối bài)
 
