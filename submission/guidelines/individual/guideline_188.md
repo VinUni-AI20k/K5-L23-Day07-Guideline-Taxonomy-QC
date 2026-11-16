@@ -1,8 +1,8 @@
-# Guideline gán nhãn cá nhân — v0.1 — 03188
+# Guideline gán nhãn cá nhân — v0.1 — 188
 
 - **Phiên bản:** v0.1 (đề xuất cá nhân, dựa trên taxonomy v0)
 - **Ngày:** 2026-11-16
-- **Người viết:** thành viên 03188
+- **Người viết:** thành viên 188
 - **Người duyệt:** chưa duyệt
 - **Loại nhãn:** bounding box 2D trên ảnh đường phố
 - **Công cụ / định dạng:** CVAT, xuất COCO 1.0

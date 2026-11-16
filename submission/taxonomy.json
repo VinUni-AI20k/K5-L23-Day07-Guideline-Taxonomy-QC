@@ -1,13 +1,15 @@
 {
-  "version": "v0",
+  "version": "v1.0",
   "ignore_class": "ignore_region",
   "classes": [
-    {"name": "car", "definition": "Ô tô con, SUV."},
-    {"name": "truck", "definition": "Xe tải, xe có thùng hàng riêng."},
-    {"name": "van", "definition": "Xe thùng kín cỡ nhỏ."},
-    {"name": "motorcycle", "definition": "Xe máy, mô tô."},
-    {"name": "person", "definition": "Người đi bộ hoặc người ngồi trên xe."},
-    {"name": "ignore_region", "definition": "Vùng bỏ qua (không phải vật): nơi không gán từng vật, bỏ sót ở đây không tính là lỗi."}
+    {"name": "car", "definition": "Ô tô chở người, gồm sedan, hatchback, coupe, SUV và crossover."},
+    {"name": "truck", "definition": "Phương tiện cơ giới chở hàng có thùng hoặc sàn riêng, gồm xe tải chuyên dụng và pickup."},
+    {"name": "van", "definition": "Phương tiện thân hộp cỡ nhỏ đến trung bình, khoang lái nối liền khoang kín chở hàng hoặc hành khách."},
+    {"name": "bus", "definition": "Phương tiện chở khách có cấu hình xe buýt hoặc xe khách đường dài."},
+    {"name": "tuk_tuk", "definition": "Phương tiện cơ giới ba bánh dùng chở người hoặc hàng, gồm tuk-tuk, xe lam và xe lôi có động cơ."},
+    {"name": "motorcycle", "definition": "Phương tiện cơ giới hai bánh, gồm xe máy, mô tô, xe tay ga và xe gắn máy điện."},
+    {"name": "person", "definition": "Người thật trong cảnh, gồm người đi bộ, người lái và hành khách nhìn thấy được."},
+    {"name": "ignore_region", "definition": "Vùng nhỏ đánh dấu mục tiêu thuộc phạm vi nhưng không thể gán riêng đáng tin cậy do quá nhỏ hoặc quá dày."}
   ],
   "attributes": [
     {"name": "occluded_level", "type": "select", "values": ["0", "1", "2", "3"], "default": "0"},
