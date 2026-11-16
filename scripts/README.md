@@ -10,6 +10,7 @@ Các script đọc lớp/thuộc tính/ngưỡng từ `submission/taxonomy.json`
 |---|---|---|---|
 | 1 | Chuẩn bị CVAT | `python scripts/make_cvat_labels.py` | `cvat/labels_generated.json` (dán vào CVAT: Labels → Raw) |
 | 2 | Chia ảnh | `python scripts/split_assign.py --members 123,456,789 --copy-images` | `assignment.csv`, `assignments/<MSHV>.txt`, `work/<MSHV>/images/` |
+| 2b| Tự động tạo Task | `python scripts/create_cvat_task.py --mshv <MSHV>` | Task trên CVAT, tự upload ảnh |
 | 3 | Gán nhãn | (CVAT, export COCO 1.0) | `submission/labels/<MSHV>_<HoTen>.json` |
 | 4 | Kiểm nhãn | `python scripts/validate_labels.py --all` | in màn hình; exit 1 nếu lỗi |
 | 5 | So sánh, IAA | `python scripts/qc_compare.py` | `submission/qc/` (bảng dưới) |

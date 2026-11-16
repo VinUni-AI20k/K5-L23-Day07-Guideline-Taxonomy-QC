@@ -1,15 +1,17 @@
 # Thông tin nhóm
 
-- Tên nhóm:
-- Repo bài nộp (URL):
+- Tên nhóm: T005
+- Repo bài nộp (URL): https://github.com/T005/K5-L23-DAY07-T005-GuidelineQC
 - Commit chốt bài (hash):
-- Số thành viên: …  → số người gán mỗi ảnh (K): …
+- Số thành viên: 5  → số người gán mỗi ảnh (K): 3
 
 | STT | MSHV | Họ và tên | Lớp (L2 / L3 / khác) | Tài khoản GitHub |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | 2A202603040 | NGUYỄN ĐỨC CƯỜNG | | |
+| 2 | 2A202603183 | HOÀNG NHẬT ANH | | |
+| 3 | 2A202603192 | NGUYỄN BÁ DUY | | |
+| 4 | 2A202603216 | ĐỖ HUY KIÊN | | |
+| 5 | 2A202603240 | PHẠM MẠNH HÙNG | | |
 
 Danh sách trên phải khớp dòng tiêu đề của `README.md` (đã đổi theo [SUBMISSION.md](SUBMISSION.md)) và `--members` đã dùng ở `scripts/split_assign.py`.
 
