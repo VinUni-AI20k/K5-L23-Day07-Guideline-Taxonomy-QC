@@ -1,8 +1,8 @@
-# Guideline gán nhãn — v0.1 (bản cá nhân) — <mã thành viên>
+# Guideline gán nhãn — v0.1 (bản cá nhân) — <2A202603228>
 
 - Phiên bản: v0.1 (cá nhân, trước họp nhóm)
 - Ngày: 2026-11-16
-- Người viết: 2A202603228
+- Người viết: Đoàn Quang Minh
 - Cơ sở: xem cả 40 ảnh `data/images/img_001..040`; sửa từ [guideline v0](../../../guideline/guideline_v0_starter.md)
 
 
