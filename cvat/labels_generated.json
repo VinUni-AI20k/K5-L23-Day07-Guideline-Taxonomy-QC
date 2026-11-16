@@ -2,181 +2,311 @@
   {
     "name": "car",
     "color": "#e6194b",
+    "type": "rectangle",
     "attributes": [
       {
         "name": "occluded_level",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "0",
+        "mutable": false,
         "values": [
           "0",
           "1",
           "2",
           "3"
-        ]
+        ],
+        "default_value": "0"
       },
       {
         "name": "truncated",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "no",
+        "mutable": false,
         "values": [
           "no",
           "yes"
-        ]
+        ],
+        "default_value": "no"
       },
       {
         "name": "can_review",
-        "mutable": false,
         "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
       }
     ]
   },
   {
     "name": "truck",
     "color": "#3cb44b",
+    "type": "rectangle",
     "attributes": [
       {
         "name": "occluded_level",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "0",
+        "mutable": false,
         "values": [
           "0",
           "1",
           "2",
           "3"
-        ]
+        ],
+        "default_value": "0"
       },
       {
         "name": "truncated",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "no",
+        "mutable": false,
         "values": [
           "no",
           "yes"
-        ]
+        ],
+        "default_value": "no"
       },
       {
         "name": "can_review",
-        "mutable": false,
         "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
       }
     ]
   },
   {
     "name": "van",
     "color": "#4363d8",
+    "type": "rectangle",
     "attributes": [
       {
         "name": "occluded_level",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "0",
+        "mutable": false,
         "values": [
           "0",
           "1",
           "2",
           "3"
-        ]
+        ],
+        "default_value": "0"
       },
       {
         "name": "truncated",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "no",
+        "mutable": false,
         "values": [
           "no",
           "yes"
-        ]
+        ],
+        "default_value": "no"
       },
       {
         "name": "can_review",
-        "mutable": false,
         "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
       }
     ]
   },
   {
     "name": "motorcycle",
     "color": "#f58231",
+    "type": "rectangle",
     "attributes": [
       {
         "name": "occluded_level",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "0",
+        "mutable": false,
         "values": [
           "0",
           "1",
           "2",
           "3"
-        ]
+        ],
+        "default_value": "0"
       },
       {
         "name": "truncated",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "no",
+        "mutable": false,
         "values": [
           "no",
           "yes"
-        ]
+        ],
+        "default_value": "no"
       },
       {
         "name": "can_review",
-        "mutable": false,
         "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
       }
     ]
   },
   {
     "name": "person",
     "color": "#911eb4",
+    "type": "rectangle",
     "attributes": [
       {
         "name": "occluded_level",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "0",
+        "mutable": false,
         "values": [
           "0",
           "1",
           "2",
           "3"
-        ]
+        ],
+        "default_value": "0"
       },
       {
         "name": "truncated",
-        "mutable": false,
         "input_type": "select",
-        "default_value": "no",
+        "mutable": false,
         "values": [
           "no",
           "yes"
-        ]
+        ],
+        "default_value": "no"
       },
       {
         "name": "can_review",
-        "mutable": false,
         "input_type": "checkbox",
-        "default_value": "false",
-        "values": []
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
       }
     ]
   },
   {
     "name": "ignore_region",
     "color": "#808080",
+    "type": "rectangle",
     "attributes": []
+  },
+  {
+    "name": "three_wheeler",
+    "color": "#aaf0d1",
+    "type": "rectangle",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "default_value": "0"
+      },
+      {
+        "name": "truncated",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "no",
+          "yes"
+        ],
+        "default_value": "no"
+      },
+      {
+        "name": "can_review",
+        "input_type": "checkbox",
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
+      }
+    ]
+  },
+  {
+    "name": "bus",
+    "color": "#f59331",
+    "type": "rectangle",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "default_value": "0"
+      },
+      {
+        "name": "truncated",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "no",
+          "yes"
+        ],
+        "default_value": "no"
+      },
+      {
+        "name": "can_review",
+        "input_type": "checkbox",
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
+      }
+    ]
+  },
+  {
+    "name": "bicycle",
+    "color": "#f078f0",
+    "type": "rectangle",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "default_value": "0"
+      },
+      {
+        "name": "truncated",
+        "input_type": "select",
+        "mutable": false,
+        "values": [
+          "no",
+          "yes"
+        ],
+        "default_value": "no"
+      },
+      {
+        "name": "can_review",
+        "input_type": "checkbox",
+        "mutable": false,
+        "values": [
+          "false"
+        ],
+        "default_value": "false"
+      }
+    ]
   }
 ]
