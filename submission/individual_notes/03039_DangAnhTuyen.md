@@ -12,11 +12,9 @@
 
 Trong bản cá nhân, tôi đề xuất để tuk-tuk và xe buýt ngoài phạm vi vì bộ nhãn ban đầu chưa có hai lớp này. Khi thống nhất guideline v1.0, nhóm bổ sung `tuk_tuk` và `bus`. Việc có lớp riêng giúp phân biệt các phương tiện này rõ hơn khi gán nhãn. Với xe bán tải có nắp thùng, nhóm chọn `truck` dựa trên kết cấu cabin và thùng hàng. Người lái và hành khách cũng được tách khỏi phương tiện thành từng box riêng.
 
-Bản v1.0 trước đó để xe đạp và xích lô đạp chân ngoài danh mục. File COCO mới đã bổ sung lớp `bicycle`, với ba box ở `img_003`, `img_006` và `img_034`. Đây là thay đổi về phạm vi gán nhãn, cần được ghi nhận trong guideline và taxonomy chung để các thành viên đối chiếu trên cùng một bộ quy tắc.
-
 ## 3. Kết quả gán nhãn cá nhân
 
-File `submission/labels/03039_DangAnhTuyen.json` hiện chứa 24 ảnh và 191 bbox, gồm 171 box đối tượng và 20 box `ignore_region`.
+File `submission/labels/03039_DangAnhTuyen.json` mới nhất chứa 24 ảnh và 202 bbox, gồm 182 box đối tượng và 20 box `ignore_region`.
 
 | Lớp | Số box |
 |---|---:|
@@ -28,10 +26,10 @@ File `submission/labels/03039_DangAnhTuyen.json` hiện chứa 24 ảnh và 191 
 | `van` | 3 |
 | `bicycle` | 3 |
 | `tuk_tuk` | 2 |
+| `traffic_light` | 6 |
+| `traffic_sign` | 5 |
 | `ignore_region` | 20 |
-| **Tổng** | **191** |
-
-
+| **Tổng** | **202** |
 
 ## 4. Kết quả đối chiếu và calibration
 
@@ -43,4 +41,4 @@ Tôi sử dụng ChatGPT/Codex để hỗ trợ diễn đạt và chỉnh sửa 
 
 ## 6. Bài học cá nhân
 
-Điểm tôi cần chú ý hơn khi viết guideline lần sau là chốt rõ phạm vi lớp ngay từ đầu và gắn mỗi quy tắc với một ảnh cụ thể. Trường hợp bổ sung `bicycle` cho thấy khi danh mục lớp thay đổi, guideline và cách rà lại ảnh cũng cần được cập nhật cùng nhau. Với các mức che khuất, nhóm nên cùng thử trên một vài đối tượng trước khi gán độc lập để giảm khác biệt trong cách ước lượng.
+Điểm tôi cần chú ý hơn khi viết guideline lần sau là chốt rõ phạm vi lớp ngay từ đầu và gắn mỗi quy tắc với một ảnh cụ thể. Việc bổ sung xe đạp, đèn tín hiệu và biển báo cho thấy mỗi lớp mới đều cần có định nghĩa, ví dụ và hướng dẫn xử lý ca dễ nhầm. Khi danh mục lớp thay đổi, nhóm cũng cần thống nhất cách rà lại các ảnh đã gán. Với mức che khuất, nên cùng thử trên một vài đối tượng trước khi gán độc lập để giảm khác biệt trong cách ước lượng.
