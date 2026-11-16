@@ -1,8 +1,9 @@
 # Thông tin nhóm
 
-- Tên nhóm:
-- Mã thành viên (ba chữ số):
-- Người điều phối:
+- Tên nhóm: Nhóm Lab 402 
+- Mã thành viên (năm chữ số cuối mssv): 03238, 03224, 03228, 03223, 03039
+- Tên thành viên (ứng với mã thành viên): Nguyễn Quốc Khánh, Nguyễn Quốc Việt, Đoàn Quang Minh, Nguyễn Chí Tài, Đặng Anh Tuyền
+- Người điều phối: 328
 - Người review bản cuối:
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
