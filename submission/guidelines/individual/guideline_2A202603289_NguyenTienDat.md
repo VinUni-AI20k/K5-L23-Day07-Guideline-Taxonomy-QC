@@ -15,9 +15,7 @@ Mục đích chính:
 
 Chỉ gán những đối tượng thuộc các lớp được định nghĩa ở mục 2. Các đối tượng khác bỏ qua hoặc đưa vào `ignore_region` nếu cần.
 
----
-
-## 2. Lớp (mỗi vật thuộc đúng một lớp)
+## 2. Lớp
 
 | Lớp | Định nghĩa ngắn gọn |
 |-----|---------------------|
@@ -37,8 +35,7 @@ Chỉ gán những đối tượng thuộc các lớp được định nghĩa �
 
 ---
 
-## 3. Thuộc tính (bắt buộc)
-
+## 3. Thuộc tính
 | Thuộc tính | Giá trị | Ý nghĩa |
 |------------|---------|---------|
 | `occluded_level` | `0` / `1` / `2` / `3` | 0 = rõ ràng<br>1 = che ≤ 30%<br>2 = che 30–70%<br>3 = che > 70% hoặc rất khó nhận |
@@ -47,7 +44,7 @@ Chỉ gán những đối tượng thuộc các lớp được định nghĩa �
 
 ---
 
-## 4. Quy tắc vẽ box (chi tiết)
+## 4. Quy tắc vẽ box
 
 ### 4.1. Nguyên tắc chung
 1. Gán **tất cả** người và phương tiện thuộc các lớp đã định nghĩa, kể cả khi đối tượng nhỏ hoặc ở xa, miễn là còn nhận diện được rõ ràng.
