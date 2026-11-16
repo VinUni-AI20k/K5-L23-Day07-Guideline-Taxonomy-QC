@@ -37,33 +37,31 @@ Bộ nhãn dùng để huấn luyện mô hình phát hiện **người và phư
 | `can_review` | `false` / `true` | Tick `true` khi ca mơ hồ chưa có quy tắc, để đưa ra họp calibration. |
 
 ## 3. Quy tắc vẽ box
-1. **Ôm sát phần nhìn thấy:** Box khít rìa ngoài cùng phần nhìn thấy của vật; không đoán vẽ ra ngoài vùng bị che khuất hoặc ngoài mép ảnh.
-2. **Người đi xe máy:**
-   - **Lớp & Số box:** Tách riêng **1 box `motorcycle`** + **1 box `person`** cho **mỗi người** ngồi trên xe (1 người lái = 2 box; chở thêm 1 người sau = 3 box).
-   - **Phần được bao:** Box `motorcycle` chỉ ôm khít **phần xe** (bánh, khung, tay lái, gương, yếm), không kéo lên bao đầu người lái. Box `person` ôm khít phần nhìn thấy của **người** (từ đỉnh đầu/mũ bảo hiểm tới hết chân/bàn chân); nếu chân bị yếm xe che thì gắn `occluded_level = 1`.
-   - **Kiểm thử chéo trên 2 ảnh:** Áp dụng quy tắc trên vào `img_005` (cận cảnh, thấy rõ chân/đầu → tách 2 box rõ ràng) và thử lại trên `img_006` (góc xa, nhiều xe nối đuôi → vẫn tách được `motorcycle` + `person` cho các xe cao ≥ 20 px; xe bị che phần dưới đánh `occluded_level = 1`).
-3. **Vật quá nhỏ (`< 20 px`):** Vật đơn lẻ cao `< 20 px` → **loại theo quy tắc** (không gán). Cụm nhiều vật `< 20 px` tụ lại → khoanh 1 `ignore_region`.
-4. **Phân biệt "Ca loại theo quy tắc" vs "Ca cần hỏi reviewer":**
-   - **Ca LOẠI / XỬ LÝ NGAY theo quy tắc:**
-     1. Vật đơn lẻ có chiều cao **< 20 px** → bỏ qua không gán.
-     2. Vật không phải thực thể giao thông thật (**tượng, ma-nơ-canh, đồ chơi/mô hình, hình in, ảnh phản chiếu qua gương**) → loại, không gán.
-     3. Vật bị che khuất một phần nhưng nhận diện chắc chắn lớp và cao ≥ 20 px → gán phần nhìn thấy với `occluded_level = 1`.
-   - **Ca CẦN HỎI REVIEWER (tick `can_review` nếu gặp biên mờ/khó tách):**
-     1. Vật chuyển động bị mờ nặng (`img_014`) không xác định chắc ranh giới box.
-     2. Cụm đám đông chồng lấn ở ranh giới giữa tách box từng vật với khoanh `ignore_region` (`img_021`, `img_030`).
+| Rule ID | Tên quy tắc | Nội dung quy tắc |
+|---|---|---|
+| `R-01` | **Ôm sát phần nhìn thấy** | Box khít rìa ngoài cùng phần nhìn thấy của vật; không đoán vẽ ra ngoài vùng bị che khuất hoặc ngoài mép ảnh. Bị che > 0% gắn `occluded_level = 1`; chạm/cắt mép ảnh gắn `truncated = yes`. |
+| `R-02` | **Tách người đi xe máy** | Tách riêng **1 box `motorcycle`** (chỉ ôm bánh, khung, tay lái, gương, yếm) + **1 box `person`** cho mỗi người ngồi trên xe (từ đỉnh đầu/mũ tới hết chân). *(Kiểm thử chéo: đạt trên `img_005` cận cảnh và `img_006` góc xa).* |
+| `R-03` | **Ngưỡng tối thiểu `< 20 px`** | Vật đơn lẻ cao `< 20 px` → **loại theo quy tắc** (không gán). Cụm nhiều vật `< 20 px` tụ lại → khoanh 1 box `ignore_region`. |
+| `R-04` | **Loại vật không thật** | Tượng, ma-nơ-canh, đồ chơi/xe mô hình giả tưởng, hình in trên biển/thân xe, ảnh phản chiếu qua gương → **loại theo quy tắc** (không gán). |
+| `R-05` | **Xe chở xe** | Chỉ gán box cho xe chở (`truck`); không gán các xe đang nằm trên thùng chở. |
+| `R-06` | **Lớp mở rộng & giáp ranh** | Tuk-tuk / xe 3 bánh có mái che → `tuktuk`; xe khách lớn > 24 chỗ → `bus`; xe bán tải nắp thùng cao → `truck`. |
+| `R-07` | **Đám đông chồng lấn** | Tách box từng vật nhìn rõ ở tiền cảnh (`≥ 20 px`); cụm chồng lấn dày đặc phía sau không tách được ranh giới → khoanh 1 `ignore_region`. |
+| `R-08` | **Cần hỏi reviewer (`can_review`)** | Tick `can_review = true` đối với vật chuyển động bị mờ nặng không rõ biên (`img_014`) hoặc cụm đám đông lưỡng lự giữa tách box với `ignore_region`. |
+
+- **Tóm tắt phân biệt:** **Loại / Xử lý ngay theo quy tắc** (`R-01` → `R-07`) vs **Cần hỏi reviewer** (`R-08`).
 
 ## 4. Ca khó
-| Ảnh | Tình huống | Phân loại | Quyết định | Lý do |
-|---|---|---|---|---|
-| `img_002` | Xe tải chở nhiều ô tô trên thùng | Theo quy tắc | Chỉ gán xe chở (`truck`), không gán xe trên thùng | Xe bị chở không tự lưu thông; gán dễ làm rối mô hình |
-| `img_004`, `img_035` | Tuk-tuk / xe 3 bánh | Theo quy tắc | Gán `tuktuk` | Tách lớp riêng cho phương tiện 3 bánh có cabin/mái che, tránh lẫn với `motorcycle` và `car` |
-| `img_009` | Xe buýt cỡ lớn | Theo quy tắc | Gán `bus` | Xe chở khách > 24 chỗ kích thước lớn, tách riêng khỏi `van` |
-| `img_037` | Xe bán tải có nắp thùng cao | Theo quy tắc | Gán `truck` | Bản chất là xe bán tải (pickup), chỉ gắn thêm nắp thùng |
-| `img_011`, `img_017`, `img_027`, `img_033`, `img_038` | Tượng, ma-nơ-canh, xe giả tưởng/mô hình | Loại theo quy tắc | Không gán | Không phải người/phương tiện thật tham gia giao thông |
-| `img_020` | Hình phản chiếu qua gương chiếu hậu | Loại theo quy tắc | Không gán vật trong gương | Là ảnh ảo phản chiếu, gán sẽ dạy sai ngữ cảnh không gian |
-| `img_006`, `img_008` | Nhiều vật thể, bị che khuất, ánh sáng tối | Theo quy tắc | Gán phần nhìn thấy ≥ 20 px, gắn `occluded_level = 1` | Che khuất nhau nhiều nhưng vẫn nhận diện được lớp |
-| `img_014` | Người đi bộ bị mờ (motion blur) | Hỏi reviewer | Gán `person` phần nhìn thấy, tick `can_review` | Biên vật mờ dễ gây lệch IoU < 0.85 |
-| `img_021`, `img_030` | Đám đông xe máy dày đặc, vật `< 20 px` | Quy tắc + Hỏi | Tách xe/người rõ ở tiền cảnh (`occluded_level = 1`); cụm chồng lấn/`< 20 px` phía sau → `ignore_region` | Mật độ quá dày, gán hết dễ bỏ sót và IoU thấp |
+| Ảnh | Tình huống | Rule ID | Phân loại | Quyết định | Lý do |
+|---|---|---|---|---|---|
+| `img_002` | Xe tải chở nhiều ô tô trên thùng | `R-05` | Theo quy tắc | Chỉ gán xe chở (`truck`), bỏ xe trên thùng | Xe bị chở không tự lưu thông; gán dễ làm rối mô hình |
+| `img_004`, `img_035` | Tuk-tuk / xe 3 bánh | `R-06` | Theo quy tắc | Gán `tuktuk` | Tách lớp riêng cho phương tiện 3 bánh có cabin/mái che, tránh lẫn với `motorcycle` và `car` |
+| `img_009` | Xe buýt cỡ lớn | `R-06` | Theo quy tắc | Gán `bus` | Xe chở khách > 24 chỗ kích thước lớn, tách riêng khỏi `van` |
+| `img_037` | Xe bán tải có nắp thùng cao | `R-06` | Theo quy tắc | Gán `truck` | Bản chất là xe bán tải (pickup), chỉ gắn thêm nắp thùng |
+| `img_011`, `img_017`, `img_027`, `img_033`, `img_038` | Tượng, ma-nơ-canh, xe giả tưởng/mô hình | `R-04` | Loại theo quy tắc | Không gán | Không phải người/phương tiện thật tham gia giao thông |
+| `img_020` | Hình phản chiếu qua gương chiếu hậu | `R-04` | Loại theo quy tắc | Không gán vật trong gương | Là ảnh ảo phản chiếu, gán sẽ dạy sai ngữ cảnh không gian |
+| `img_006`, `img_008` | Nhiều vật thể, bị che khuất, ánh sáng tối | `R-01`, `R-02`, `R-03` | Theo quy tắc | Gán phần nhìn thấy ≥ 20 px, gắn `occluded_level = 1` | Che khuất nhau nhiều nhưng vẫn nhận diện được lớp |
+| `img_014` | Người đi bộ bị mờ (motion blur) | `R-01`, `R-08` | Hỏi reviewer | Gán `person` phần nhìn thấy, tick `can_review` | Biên vật mờ dễ gây lệch IoU < 0.85 |
+| `img_021`, `img_030` | Đám đông xe máy dày đặc, vật `< 20 px` | `R-03`, `R-07`, `R-08` | Quy tắc + Hỏi | Tách xe/người rõ ở tiền cảnh (`occluded_level = 1`); cụm chồng lấn/`< 20 px` phía sau → `ignore_region` | Mật độ quá dày, gán hết dễ bỏ sót và IoU thấp |
 
 ## 5. QC và phiên bản
 - Ngưỡng QC (`taxonomy.json`): IoU TB ≥ 0.85, đồng thuận lớp ≥ 95%, tỉ lệ ảnh lỗi ≤ 2%.
