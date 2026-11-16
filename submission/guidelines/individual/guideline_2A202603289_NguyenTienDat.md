@@ -1,9 +1,5 @@
 # Guideline gán nhãn — v0 (bản khởi đầu)
 
-> **Đây là bản do giảng viên viết nhanh. Nó CHƯA đủ dùng.**
-> Đừng sửa file này. Hãy copy sang `submission/guidelines/individual/` rồi sửa bản của bạn
-> (xem `GUIDE.md`, Pha 1).
-
 - Phiên bản: v0
 - Loại nhãn: bounding box (hộp chữ nhật) trên ảnh đường phố
 - Công cụ: CVAT, xuất COCO 1.0
