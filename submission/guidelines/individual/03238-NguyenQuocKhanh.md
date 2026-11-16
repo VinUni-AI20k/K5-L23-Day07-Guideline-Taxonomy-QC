@@ -50,10 +50,20 @@
 | `tuk_tuk` | Là phương tiện di chuyển ba bánh dùng động cơ đốt trong hoặc động cơ điện, dùng để chở người và hành lý | Xe tuk tuk | Xe ô tô |
 | `other_model` | Là các mô hình khác không phải mô hình người hoặc mô hình xe | Mô hình con ngựa | Mô hình người |
 
-Vật **không thuộc lớp nào** thì làm gì (không gán? vùng ignore? lớp mới?).
+### Xử lý vật không thuộc lớp nào
+- **Đối tượng bối cảnh / hạ tầng thông thường** (mặt đường nhựa, vỉa hè phẳng, bầu trời, dải phân cách bê tông, hàng rào thông thường): **Không gán box** (coi là background).
+- **Vật thể thuộc các lớp quan tâm nhưng ở quá xa / quá nhỏ (< 20px) hoặc cụm đám đông chồng lấn dày đặc**: Gom vào vùng **`ignore_region`** theo quy tắc `R-06` và `R-07`. Vùng này bỏ qua không tính lỗi bỏ sót (False Negative) cho mô hình.
+- **Vật thể lạ, hiếm gặp hoặc nằm ngoài danh mục taxonomy** (như xe cứu thương, xe chuyên dụng sân bay, xe công trình, động vật di chuyển trên đường): Không tự ý tạo lớp mới một mình trong Pha 1; vẽ box theo lớp gần nhất hoặc không gán, đồng thời tick **`can_review = true`** và ghi lại mã ảnh để đề xuất nhóm bổ sung lớp mới trong buổi họp Pha 2.
 
-### Thuộc tính
-Mỗi thuộc tính: tên, **các mức cố định**, nghĩa từng mức, **ngưỡng cụ thể** (ví dụ che bao nhiêu % thì mức nào).
+### Thuộc tính (Attributes)
+
+Tất cả các bounding box (trừ `ignore_region`) đều phải được gán đầy đủ 3 thuộc tính chuẩn hóa dưới đây. Các thuộc tính này được liên kết chặt chẽ với quy tắc vẽ box ở Phần 3 (`R-02`, `R-03`, `R-12`) để đảm bảo tính định lượng đo lường được:
+
+| Tên thuộc tính | Kiểu / Giá trị | Mặc định | Định nghĩa & Ý nghĩa | Ngưỡng đo lường định lượng cụ thể | Quy tắc liên kết |
+|---|---|---|---|---|---|
+| `occluded_level` | `select`<br>(`0`, `1`, `2`, `3`) | `0` | Đánh giá mức độ vật thể bị che khuất bởi các vật cản khác (cột, cây cối, xe cộ, người khác). | • `0` (Không che): Nhìn thấy trọn vẹn hoặc bị che $< 5\%$ diện tích bề mặt.<br>• `1` (Che nhẹ): Bị che khuất từ $5\%$ đến $30\%$ diện tích.<br>• `2` (Che vừa): Bị che khuất từ $31\%$ đến $70\%$ diện tích.<br>• `3` (Che nặng): Bị che khuất $> 70\%$ diện tích (nhưng phần còn lại $\ge 10-15\%$ vẫn đủ nhận diện rõ ràng lớp).<br>*(Lưu ý: Nếu bị che $> 90\%$ không còn nhận dạng chắc chắn thì bỏ qua không gán).* | `R-02` |
+| `truncated` | `select`<br>(`no`, `yes`) | `no` | Đánh giá vật thể có bị cắt cụt do nằm ở rìa/mép khung ảnh hay không. | • `no`: Vật thể nằm trọn vẹn trong khung ảnh hoặc mép ngoài chỉ chạm sát biên làm mất $< 10\%$ diện tích.<br>• `yes`: Vật thể nằm ở mép bức ảnh và bị khung hình cắt mất từ $10\%$ diện tích trở lên.<br>*(Lưu ý: Nếu phần lọt vào ảnh quá nhỏ $< 20\text{ px}$ chiều cao/rộng thì bỏ qua không gán).* | `R-03` |
+| `can_review` | `checkbox`<br>(`true`, `false`) | `false` | Đánh dấu các ca khó, ca biên mơ hồ cần cả nhóm họp xem xét lại ở Pha 2. | • `false`: Người gán tự tin xác định lớp và bounding box theo guideline.<br>• `true`: Bật khi phân vân giữa 2 lớp (vd: xe bán tải độ thùng giữa `car`/`truck`), vật thể bị biến dạng/che khuất nghiêm trọng, hoặc chưa có quy định rõ ràng trong guideline. | `R-12` |
 
 ## 3. Quy tắc vẽ box
 
