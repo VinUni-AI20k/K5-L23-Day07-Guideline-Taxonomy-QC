@@ -1,44 +1,50 @@
-# Guideline gán nhãn — v1.0 — Nhóm Thống nhất
+# Guideline gán nhãn đối tượng 2D — Phiên bản v1.0 (Thống nhất nhóm)
 
-- Phiên bản: v1.0 (Quy chuẩn chính thức sau buổi họp Pha 2)
-- Ngày: 2026-11-16
-- Người duyệt: Cả nhóm thống nhất
+> **Tài liệu đặc tả kỹ thuật chính thức** được cả nhóm thống nhất tại Pha 2 sau khi đối chiếu, tranh luận và giải quyết các bất đồng từ các bản cá nhân, áp dụng cho toàn bộ 40 ảnh của bộ dữ liệu `data/images/`.
 
----
-
-## 1. Mục tiêu
-
-- **Mục đích mô hình:** Dữ liệu phục vụ huấn luyện mô hình 2D Object Detection đa lớp (bounding box) cho các hệ thống camera giám sát giao thông thông minh (ITS) và hệ thống hỗ trợ lái xe nâng cao (ADAS / Xe tự hành) trong đô thị.
-- **Rủi ro an toàn & Vùng nguy hiểm:**
-  - *Bỏ sót (False Negative - Bỏ sót người đi bộ, người đi xe máy/xe đạp):* Nguy cơ va chạm trực tiếp gây tai nạn nghiêm trọng trong thực tế.
-  - *Nhận diện nhầm (False Positive - Gán nhầm tượng đài, tranh ảnh quảng cáo, ma-nơ-canh):* Dẫn đến hiện tượng phanh gấp ngoài ý muốn (phantom braking), nguy cơ xe phía sau đâm dồn toa.
-  - *Sai lệch kích thước bounding box:* Làm ước tính sai khoảng cách vật thể và thời gian tới va chạm (Time-to-Collision - TTC).
+- **Phiên bản:** v1.0 (Agreed Baseline)
+- **Ngày ban hành:** 2026-11-16
+- **Nhóm thực hiện:** Group-01 (Thành viên: 111, 222, 333, 444)
+- **Trạng thái:** Bản khóa (Locked) cho lượt gán độc lập Pha 3
 
 ---
 
-## 2. Lớp và thuộc tính
+## 1. Mục tiêu và Phạm vi ứng dụng
 
-### 2.1. Danh mục lớp đối tượng (Classes)
+- **Hệ thống đích:** Huấn luyện và kiểm thử mô hình thị giác máy tính phát hiện đối tượng 2D (2D Object Detection) phục vụ:
+  - Hệ thống hỗ trợ lái xe nâng cao và tự hành (ADAS/Autonomous Driving).
+  - Hệ thống điều hành và giám sát giao thông thông minh đô thị (ITS).
+- **Mục tiêu nhận diện:** Xác định vị trí (bounding box) và phân loại chính xác các **thực thể tham gia giao thông thực tế (dynamic traffic participants)** có khả năng tự chuyển động hoặc trực tiếp chiếm dụng không gian lòng đường.
+- **Mức độ rủi ro khi gán sai:**
+  - *Bỏ sót (False Negative - `bo_sot`):* Bỏ sót người đi bộ hoặc người đi xe máy/xe đạp là lỗi nguy hiểm nhất, dẫn tới nguy cơ va chạm gây tử vong trong điều khiển tự hành.
+  - *Gán thừa trên vật thể phi thực (False Positive - `thua`):* Gán box lên tượng đài, tranh ảnh quảng cáo billboard, ma-nơ-canh, bóng phản chiếu sẽ gây ra hiện tượng phanh ảo (phantom braking) cực kỳ nguy hiểm trên xa lộ.
+  - *Sai lệch kích thước / lỏng box (`sai_vi_tri_kich_thuoc`):* Gây ước lượng sai khoảng cách tiếp xúc (Time-to-Collision) và cự ly an toàn.
 
-Mỗi đối tượng hợp lệ trong ảnh được phân loại vào đúng một lớp duy nhất:
+---
 
-| Lớp | Định nghĩa thống nhất (một câu) | Ví dụ cụ thể trong tập 40 ảnh | Phản ví dụ / Lưu ý tránh nhầm |
+## 2. Danh mục Lớp và Thuộc tính (Taxonomy)
+
+### 2.1. Danh mục 9 Lớp chuẩn
+
+Mỗi đối tượng hợp lệ phải thuộc đúng **một lớp duy nhất**:
+
+| Lớp | Định nghĩa chuẩn (1 câu) | Ví dụ thực tế trong 40 ảnh | Phản ví dụ / Tuyệt đối không gán |
 |---|---|---|---|
-| `car` | Phương tiện cơ giới 4 bánh chuyên chở người cỡ nhỏ (sedan, hatchback, SUV, crossover). | Xe sedan màu trắng trong `img_001.jpg`, các xe con trên sàn chở hàng `img_002.jpg`. | Không gán xe mô hình đồ chơi (`img_038.jpg`); không gán xe bán tải thùng hàng (`truck`). |
-| `truck` | Xe cơ giới chở hàng (xe tải lớn, xe đầu kéo chuyên dụng, xe bán tải/pickup) **và toàn bộ các loại xe tải nhỏ/xe tải nhẹ**. | Xe chở ô tô `img_002.jpg`, xe tải trong kho `img_007.jpg`, xe bán tải `img_012.jpg`, **xe tải nhỏ CMC Veryca `img_036.jpg`**, **xe bán tải nắp thùng cao màu trắng `img_037.jpg`**. | Không gán tượng đài/bia mộ xe bán tải bằng đá trong `img_027.jpg`. |
-| `van` | Xe thùng kín cỡ nhỏ chở người hoặc hàng hóa, thân liền khối hình hộp (minivan, xe chở khách cỡ vừa). | Xe thùng kín thân liền khối. | **Không bao gồm xe tải nhỏ** (toàn bộ xe tải nhỏ đã được chuyển sang lớp `truck`). |
-| `motorcycle` | Phương tiện cơ giới hai (2) hoặc ba (3) bánh có gắn động cơ (xe máy, mô tô, scooter, xe mô tô gắn thùng bên sidecar). | Dòng xe máy trong `img_005.jpg`, `img_008.jpg`, `img_026.jpg`, **xe mô tô có thùng bên sidecar `img_022.jpg`**. | Không gán xe đạp thô sơ hoặc xích lô (`bicycle`). |
-| `bus` | Xe buýt hoặc xe khách chuyên dụng cỡ lớn chuyên chở nhiều người. | Xe buýt lớn chở khách phía sau xích lô trong `img_009.jpg`, `img_032.jpg`, `img_040.jpg`. | Không gán nhầm vào `van` hay `truck` để tránh sai lệch hình thái. |
-| `bicycle` | Phương tiện thô sơ hai (2) hoặc ba (3) bánh chạy bằng sức người đạp, bao gồm cả **xe đạp và xe xích lô**. | Xe đạp, **xe xích lô chở khách/hàng trong `img_006.jpg`, `img_009.jpg`, `img_023.jpg`, `img_034.jpg`, `img_039.jpg`**. | Không gán nhầm sang `motorcycle` (xích lô không có động cơ). Người đạp xích lô/khách ngồi gán thêm box `person`. |
-| `tuk_tuk` | Xe cơ giới ba (3) bánh chở khách đặc thù có cabin mở (tuk-tuk, auto-rickshaw). | Hai chiếc tuk-tuk xanh trong `img_004.jpg`, xe tuk-tuk phố Bangkok `img_016.jpg`, xe auto-rickshaw chở hàng `img_035.jpg`. | Không gán ép vào `car` (khác tỷ lệ) hay `motorcycle`. |
-| `person` | Con người thật còn sống (người đi bộ, người điều khiển phương tiện hoặc hành khách ngồi trên xe). | Người phụ nữ đứng cạnh xe `img_001.jpg`, người đi xe máy `img_005.jpg`, người đạp xích lô và khách `img_006.jpg`. | Tuyệt đối không gán tượng đồng (`img_017.jpg`), ảnh in quảng cáo (`img_018.jpg`), ma-nơ-canh (`img_033.jpg`). |
-| `ignore_region` | Vùng hình chữ nhật đánh dấu khu vực bỏ qua (không phải vật): vùng đám đông dày đặc, vật thể quá xa mờ nhòe. | Cụm người/xe quá nhỏ mờ ở hậu cảnh xa trong `img_008.jpg`, `img_025.jpg`. | Không dùng để che lấp tùy tiện các đối tượng tiền cảnh rõ nét (> 20 px). |
+| `car` | Xe ô tô con từ 4 đến 9 chỗ ngồi dùng chở người (sedan, SUV, hatchback, crossover, wagon, coupe). | Xe sedan trắng (`img_001`), xe sedan trong mưa (`img_015`), xe wagon (`img_024`), từng ô tô con trên sàn xe tải chở xe (`img_002`), xe diễu hành chế chạy trên phố (`img_019`). | Xe bán tải (`truck`), xe van chở hàng (`van`), tượng xe bia mộ (`img_027`), ô tô đồ chơi (`img_038`). |
+| `truck` | Xe cơ giới chuyên dụng chở hàng có thùng hàng riêng biệt, xe đầu kéo, xe chuyên chở, xe bán tải (pickup) **và toàn bộ xe tải nhỏ / xe tải nhẹ**. | Xe chở xe Renault 380 (`img_002`), xe bán tải pickup (`img_001`, `img_012`), **bán tải màu trắng có nắp thùng cao composite (`img_037`)**, **xe tải nhẹ giao hàng (`img_007`, `img_036`)**. | Xe thùng kín thân liền một khối chở khách (`van`), ô tô con chở người (`car`), tượng xe đá (`img_027`). |
+| `van` | Xe ô tô thân kín một khối cỡ nhỏ hoặc vừa chở khách hoặc bưu kiện nhẹ (minivan, blind van). | Xe chuyển phát nhanh bưu chính thân liền, minivan chở khách gia đình. | **Không gồm xe tải nhỏ** (toàn bộ xe tải nhỏ thuộc về `truck`), xe bán tải (`truck`), xe buýt cỡ lớn (`bus`). |
+| `motorcycle` | Phương tiện cơ giới hai (2) hoặc ba (3) bánh có gắn động cơ (xe máy, mô tô phân khối lớn, xe ga, scooter, xe ba bánh có thùng bên sidecar). | Xe máy đường phố TP.HCM (`img_005`), xe máy chợ đêm (`img_008`), mô tô độ (`img_011`), xe trong hầm (`img_026`), **xe mô tô cổ có thùng bên sidecar (`img_022`)**. | Xe đạp thô sơ, xe xích lô (`bicycle`), xe tuk-tuk chở khách (`tuk_tuk`). |
+| `bus` | Xe buýt hoặc xe khách chuyên dụng cỡ lớn chuyên chở nhiều hành khách. | Xe buýt lớn chở khách phía sau xích lô trong `img_009`, trạm dừng xe buýt `img_032`, giao thông Bangkok `img_040`. | Không gán nhầm vào `van` hay `truck` để tránh sai lệch hình thái và kích thước. |
+| `bicycle` | Phương tiện thô sơ hai (2) hoặc ba (3) bánh chạy bằng sức người đạp, bao gồm cả **xe đạp và xe xích lô**. | Xe đạp thô sơ, **xe xích lô chở du khách tại Huế (`img_006`, `img_009`, `img_023`, `img_034`, `img_039`)**. | Xe máy có động cơ (`motorcycle`). Người đạp và hành khách ngồi trên xe xích lô/xe đạp gán thêm box `person`. |
+| `tuk_tuk` | Xe cơ giới ba (3) bánh chở khách đặc thù có cabin mở (tuk-tuk, auto-rickshaw). | Hai chiếc tuk-tuk xanh (`img_004`), xe tuk-tuk phố Bangkok (`img_016`), xe auto-rickshaw (`img_035`). | Không gán ép vào `car` hay `motorcycle`. |
+| `person` | Con người còn sống ở mọi tư thế: đi bộ, đứng, ngồi, lái xe hoặc ngồi sau phương tiện hở. | Người phụ nữ đứng cạnh xe (`img_001`), người đi xe máy (`img_005`, `img_026`), người qua đường (`img_014`), người cosplay Predator (`img_011`), người đạp xích lô và khách (`img_006`). | Tượng điêu khắc đá/đồng (`img_017`), hình ảnh người in trên pano quảng cáo (`img_018`), ma-nơ-canh (`img_033`), búp bê đồ chơi (`img_038`). |
+| `ignore_region` | Vùng bỏ qua: cụm đám đông hoặc phương tiện ở rất xa ($<20\text{px}$) hoặc vùng hỗn loạn không gán từng vật. | Cụm người ở hậu cảnh bờ biển (`img_025`), cụm xe dồn toa mờ nhạt ở cuối đường chân trời (`img_008`). | Bất kỳ vật thể đơn lẻ nào nhìn rõ có chiều cao $\ge 20\text{px}$. |
 
 ---
 
 ### 2.2. Thuộc tính đối tượng (Attributes)
 
-Nhóm đã thống nhất tối giản hóa thuộc tính: **Chuyển `occluded` và `truncated` về dạng giá trị Boolean nhị phân (`true` / `false`)**, không phân cấp theo level phần trăm (%) phức tạp.
+Nhóm thống nhất tối giản hóa thuộc tính: **Chuyển `occluded` và `truncated` về dạng giá trị Boolean nhị phân (`true` / `false`)**, không phân cấp theo level phần trăm (%) phức tạp:
 
 | Thuộc tính | Kiểu / Giá trị | Mặc định | Định nghĩa & Ý nghĩa quy ước |
 |---|---|---|---|
@@ -48,9 +54,7 @@ Nhóm đã thống nhất tối giản hóa thuộc tính: **Chuyển `occluded`
 
 ---
 
-## 3. Quy tắc vẽ Bounding Box (Gắn mã `R-01`, `R-02`…)
-
-Các quy tắc trọng tâm được mã hóa chuẩn để truy vết trong nhật ký QC và phiên Calibration:
+## 3. Quy tắc vẽ Bounding Box (Gắn mã `R-01` đến `R-09`)
 
 - **`R-01` (Ôm sát phần nhìn thấy - Tight Visual Boundary):**
   - Bounding box là hình chữ nhật nhỏ nhất bao trọn toàn bộ điểm ảnh nhìn thấy được (visible pixels) của vật.
@@ -95,8 +99,6 @@ Các quy tắc trọng tâm được mã hóa chuẩn để truy vết trong nh�
 ---
 
 ## 4. Bảng ca khó khảo sát trong 40 ảnh
-
-Bảng tổng hợp chi tiết các ca khó trọng tâm sau khi nhóm đã chốt quyết định ở Pha 2:
 
 | Ảnh | Tình huống thực tế trên ảnh | Mã quy tắc | Quyết định thống nhất của nhóm | Lý do chuyên môn |
 |---|---|---|---|---|
