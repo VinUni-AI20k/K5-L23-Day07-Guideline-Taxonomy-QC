@@ -15,37 +15,35 @@
 
 ---
 
-## 2. Pha 2: Chỗ tôi bất đồng với nhóm
-- **Vấn đề phân loại xe Tuk-tuk / Auto Rickshaw (`img_004`, `img_035`, `img_040`):**
-  - Thành viên khác ban đầu đề xuất xếp vào `motorcycle` vì xe có 3 bánh và tay lái ghi-đông.
-  - Quan điểm của tôi: Tuk-tuk là phương tiện cơ giới chở khách nhiều chỗ, có mui che kín, cấu trúc khoang hành khách dạng ca-bin, vận hành tương đương taxi cỡ nhỏ trong đô thị châu Á. Do đó, xếp vào `car` là an toàn và hợp lý nhất theo chuẩn phân loại ADAS.
-  - Kết quả thống nhất: Cả nhóm đồng thuận phân loại Tuk-tuk thành `car`, đồng thời ghi chú rõ ràng vào `guideline_v1.0_agreed.md`.
-- **Vấn đề xe Xích lô (`img_006`, `img_009`, `img_023`):**
-  - Một số bạn đề xuất gán `motorcycle`.
-  - Quan điểm của tôi: Xích lô là xe thô sơ 3 bánh dùng sức người đạp chân, hoàn toàn không có động cơ đốt trong hoặc động cơ điện. Vì vậy, không gán nhãn phương tiện, chỉ gán nhãn `person` cho người đạp và hành khách ngồi trên xe. Nhóm đã biểu quyết thông qua quan điểm này 100%.
+## 2. Pha 2: Chỗ tôi bất đồng với nhóm và Quyết định bổ sung Taxonomy v1.0
+- **Bổ sung lớp `bus`, `tuk_tuk` và `bicycle` vào Taxonomy:**
+  - *Vấn đề xe buýt (`img_032`, `img_010`):* Xe buýt và xe khách là phương tiện giao thông công cộng cỡ lớn có tính chất đón trả khách liên tục và tạo ra các điểm mù khổng lồ. Nếu gán lẫn vào `car` hoặc `truck` sẽ làm sai lệch mô hình dự đoán hành vi. Cần thiết phải có lớp **`bus`** riêng biệt.
+  - *Vấn đề xe Tuk-tuk / Auto Rickshaw (`img_004`, `img_035`, `img_040`):* Xe 3 bánh cơ giới chở khách đặc thù châu Á được chuẩn hóa thành lớp riêng **`tuk_tuk`**.
+  - *Vấn đề xe Xích lô và xe đạp (`img_006`, `img_009`, `img_023`):* Bổ sung lớp **`bicycle`** cho phép hệ thống tự lái nhận diện phương tiện thô sơ đạp chân độc lập với người điều khiển.
+  - *Kết quả thống nhất:* Cả nhóm thông qua bổ sung 3 lớp `bus`, `tuk_tuk` và `bicycle` vào `taxonomy.json` phiên bản `v1.0` và cập nhật guideline v0.3.
 
 ---
 
 ## 3. Pha 3: Ảnh tôi đã gán
 - Số ảnh được giao: 24 ảnh (thuộc tập 40 ảnh của nhóm T005, theo phân bổ `assignment.csv`).
-- Số box dự kiến đã vẽ: ~180 box trên 24 ảnh.
+- Số box dự kiến đã vẽ: ~195 box trên 24 ảnh.
 - Số lần bật cờ `can_review`: 3 lần (tại các ảnh có xe độ diễu hành `img_019`, xe chở rau củ `img_012`, và xe máy chở hàng quá tải `img_029`).
-- Ca lưỡng lự nhất: `img_019.jpg` (xe ô tô diễu hành hình Danger Mouse). Ban đầu phân vân liệu có nên coi là `car` hay xếp vào mô hình/vật trang trí. Tuy nhiên, sau khi quan sát thấy người lái ngồi trong điều khiển xe di chuyển trên lòng đường công cộng, tôi quyết định gán `car` để bảo đảm an toàn va chạm.
+- Ca lưỡng lự nhất: `img_019.jpg` (xe ô tô diễu hành hình Danger Mouse). Quyết định gán `car` vì là phương tiện cơ giới 4 bánh có người lái lưu thông công cộng.
 
 ---
 
 ## 4. Pha 4–5: Tôi lệch ở đâu
-- Trong quá trình đối chiếu IAA: Một số lệch phổ biến xảy ra ở ranh giới vẽ box người ngồi trên xe máy (phần gót chân có bao gồm bàn đạp xe hay không).
-- Quyết định calibration quan trọng nhất: Thống nhất quy tắc vẽ box tách biệt giữa người lái và xe máy (2 box chồng lấn: box người lấy từ đỉnh nón bảo hiểm đến bàn chân, box xe máy lấy từ đỉnh ghi-đông đến mặt tiếp đất của bánh xe).
+- Trong quá trình đối chiếu IAA: Một số lệch phổ biến xảy ra ở ranh giới vẽ box người ngồi trên xe máy/xe đạp (phần gót chân có bao gồm bàn đạp xe hay không).
+- Quyết định calibration quan trọng nhất: Thống nhất quy tắc vẽ box tách biệt giữa người lái và phương tiện 2-3 bánh (2 box chồng lấn: box người lấy từ đỉnh đầu/nón đến bàn chân, box xe lấy từ ghi-đông đến mặt tiếp đất của bánh xe). Đối với xe buýt `bus`, không vẽ box cho hành khách nhìn qua cửa sổ kính.
 
 ---
 
 ## 5. Dùng AI
 - Công cụ sử dụng: Antigravity Assistant (Gemini/Claude).
 - Mục đích sử dụng: Hỗ trợ viết script tự động hóa chia task CVAT, kiểm tra tính toàn vẹn của dữ liệu và rà soát các trường hợp biên an toàn (Edge Cases) trong 40 ảnh giao thông.
-- Cách kiểm tra kết quả: Kiểm chứng thủ công từng ảnh thực tế trong `data/images/`, chạy `python scripts/check_submission.py` và chạy bộ kiểm thử `python -m unittest discover -s tests -v` để đảm bảo không có bất kỳ lỗi logic nào.
+- Cách kiểm tra kết quả: Kiểm chứng thủ công từng ảnh thực tế trong `data/images/`, chạy `python scripts/check_submission.py` và chạy bộ kiểm thử `python -m unittest discover -s tests -v` để đảm bảo 20/20 test đạt OK.
 
 ---
 
 ## 6. Bài học
-- Một điều tôi sẽ làm khác khi viết guideline lần sau: Luôn định nghĩa tiêu chí định lượng (ngưỡng pixel, tỷ lệ diện tích %) và bảng phân loại rõ ràng các trường hợp ngoại lệ ngay từ bản v0 để giảm thiểu tối đa các tranh chấp và chi phí hiệu chuẩn (calibration) về sau.
+- Một điều tôi sẽ làm khác khi viết guideline lần sau: Luôn định nghĩa bảng phân loại lớp phương tiện đặc thù địa phương (như bus, tuk-tuk, xích lô) ngay từ đầu để tránh phải điều chỉnh lại taxonomy giữa chừng.
