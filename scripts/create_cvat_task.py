@@ -1,28 +1,32 @@
-"""Tự động tạo Task trên CVAT và upload ảnh được phân công qua Terminal / CLI.
+"""Tự động tạo Task trên CVAT Local và upload ảnh được phân công qua Terminal / CLI.
 
-Sử dụng thư viện cvat-sdk (đã được cài đặt sẵn).
+Mặc định kết nối tới CVAT Local: http://localhost:8080
 
 Ví dụ sử dụng:
-    # 1. Sinh nhãn CVAT từ taxonomy (nếu chưa chạy)
+    # 1. Sinh nhãn CVAT từ taxonomy (nếu chưa chạy):
     python scripts/make_cvat_labels.py
 
-    # 2. Tạo task cho 1 cá nhân (CVAT Cloud):
-    python scripts/create_cvat_task.py --mshv 2A202603192 --auth "my_username:my_password"
+    # 2. Tạo task cho 1 thành viên trên CVAT Local:
+    python scripts/create_cvat_task.py --mshv 2A202603192 --auth "admin:admin"
 
-    # 3. Tạo task dưới một Project đã có sẵn (khuyến nghị cho nhóm):
-    python scripts/create_cvat_task.py --mshv 2A202603192 --project-id 12345 --auth "user:pass"
+    # 3. Tạo cả 5 Task cho 5 thành viên trong 1 lệnh duy nhất (kèm Project):
+    python scripts/create_cvat_task.py --all --project-name "Day07_T005" --auth "admin:admin"
 
-    # 4. Tự động tạo Project nhóm và tạo luôn 5 Task cho cả 5 thành viên:
-    python scripts/create_cvat_task.py --all --project-name "Day07_T005" --auth "user:pass"
+    # 4. Nếu thành viên chạy từ máy khác trong cùng mạng LAN:
+    python scripts/create_cvat_task.py --server http://192.168.1.10:8080 --mshv 2A202603192 --auth "user:pass"
 """
 from __future__ import annotations
 
 import argparse
 import getpass
 import json
+import logging
 import os
 import sys
 from pathlib import Path
+
+# Tắt cảnh báo lệch phiên bản giữa cvat-sdk và local cvat server
+logging.getLogger("cvat_sdk").setLevel(logging.ERROR)
 
 try:
     from cvat_sdk import make_client, models
@@ -39,7 +43,7 @@ QC_ASSIGNMENTS_DIR = ROOT / "submission" / "qc" / "assignments"
 
 def load_labels() -> list:
     if not CVAT_LABELS_PATH.exists():
-        print(f"CẢNH BÁO: Không tìm thấy {CVAT_LABELS_PATH}. Đang chạy scripts/make_cvat_labels.py...")
+        print(f"[*] Đang sinh file nhãn {CVAT_LABELS_PATH}...")
         import subprocess
         subprocess.run([sys.executable, str(ROOT / "scripts" / "make_cvat_labels.py")], check=True)
     with CVAT_LABELS_PATH.open(encoding="utf-8") as f:
@@ -74,14 +78,13 @@ def create_task_for_member(client, server_url: str, mshv: str, project_id: int |
             project_id=project_id,
         )
     else:
-        # Standalone task with raw labels
         label_requests = [models.PatchedLabelRequest(**lbl) for lbl in labels_spec]
         spec = models.TaskWriteRequest(
             name=task_name,
             labels=label_requests,
         )
 
-    print(f"[*] Đang tạo task và upload {len(images)} ảnh lên {server_url} (vui lòng chờ)...")
+    print(f"[*] Đang upload {len(images)} ảnh lên CVAT Local ({server_url})...")
     try:
         task = client.tasks.create_from_data(
             spec=spec,
@@ -91,12 +94,10 @@ def create_task_for_member(client, server_url: str, mshv: str, project_id: int |
         task_id = task.id
         base_url = server_url.rstrip("/")
         task_url = f"{base_url}/tasks/{task_id}"
-        print(f"\n[THÀNH CÔNG] Task đã được tạo thành công!")
-        print(f"  - Task ID : {task_id}")
-        print(f"  - Tên task: {task_name}")
-        print(f"  - Số ảnh  : {len(images)}")
-        print(f"  - Link CVAT để bắt đầu gán nhãn:")
-        print(f"    >>> {task_url} <<<\n")
+        print(f"[THÀNH CÔNG] Đã tạo Task {task_id} cho {mshv}!")
+        print(f"  - Tên task : {task_name}")
+        print(f"  - Số ảnh   : {len(images)}")
+        print(f"  - Link CVAT: {task_url}\n")
         return task
     except Exception as e:
         print(f"[THẤT BẠI] Lỗi khi tạo task cho {mshv}: {e}", file=sys.stderr)
@@ -105,21 +106,20 @@ def create_task_for_member(client, server_url: str, mshv: str, project_id: int |
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Tự động tạo task và upload ảnh lên CVAT cho từng thành viên nhóm.",
+        description="Tự động tạo task và upload ảnh lên CVAT Local (http://localhost:8080).",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("--mshv", help="Mã sinh viên cần tạo task (VD: 2A202603192).")
     parser.add_argument("--all", action="store_true", help="Tạo task cho TẤT CẢ thành viên có trong submission/qc/assignments/")
-    parser.add_argument("--server", default=os.getenv("CVAT_HOST", "https://app.cvat.ai"),
-                        help="Địa chỉ máy chủ CVAT (mặc định: https://app.cvat.ai hoặc http://localhost:8080).")
-    parser.add_argument("--auth", help="Thông tin đăng nhập dạng 'username:password'.")
-    parser.add_argument("--token", default=os.getenv("CVAT_TOKEN"), help="API Access Token (nếu dùng token thay vì password).")
+    parser.add_argument("--server", default=os.getenv("CVAT_HOST", "http://localhost:8080"),
+                        help="Địa chỉ máy chủ CVAT Local (mặc định: http://localhost:8080).")
+    parser.add_argument("--auth", help="Thông tin đăng nhập dạng 'username:password' (VD: admin:admin).")
+    parser.add_argument("--token", default=os.getenv("CVAT_TOKEN"), help="API Access Token nếu dùng.")
     parser.add_argument("--project-id", type=int, help="ID của Project đã có sẵn trên CVAT (nếu muốn gán task vào project).")
-    parser.add_argument("--project-name", help="Tên Project muốn tự động tạo mới trên CVAT trước khi thêm task (VD: Day07_T005).")
+    parser.add_argument("--project-name", help="Tên Project muốn tự động tạo mới trên CVAT (VD: Day07_T005).")
 
     args = parser.parse_args()
 
-    # Determine credentials
     username, password = None, None
     token = args.token
 
@@ -129,18 +129,17 @@ def main():
                 username, password = args.auth.split(":", 1)
             else:
                 username = args.auth
-                password = getpass.getpass(f"Nhập mật khẩu CVAT cho tài khoản '{username}': ")
+                password = getpass.getpass(f"Nhập mật khẩu CVAT Local cho tài khoản '{username}': ")
         else:
             env_user = os.getenv("CVAT_USERNAME")
             env_pass = os.getenv("CVAT_PASSWORD")
             if env_user and env_pass:
                 username, password = env_user, env_pass
             else:
-                print(f"Kết nối tới CVAT Server: {args.server}")
+                print(f"Kết nối tới CVAT Local ({args.server})")
                 username = input("Nhập CVAT Username: ").strip()
                 password = getpass.getpass("Nhập CVAT Password: ")
 
-    # Members list
     members = []
     if args.all:
         if not QC_ASSIGNMENTS_DIR.exists():
@@ -159,46 +158,50 @@ def main():
 
     labels_data = load_labels()
 
-    # Connect client
-    print(f"Đang kết nối tới CVAT ({args.server})...")
+    print(f"[*] Đang kết nối tới CVAT Local: {args.server} ...")
     client_kwargs = {"host": args.server}
     if token:
         client_kwargs["access_token"] = token
     else:
         client_kwargs["credentials"] = (username, password)
 
-    with make_client(**client_kwargs) as client:
-        # Check login
-        user = client.users.retrieve(client.users.get_self().id)
-        print(f"Đăng nhập thành công với tài khoản: {user.username} ({user.email or 'no email'})")
+    try:
+        with make_client(**client_kwargs) as client:
+            user = client.users.retrieve(client.users.get_self().id)
+            print(f"[*] Đăng nhập CVAT Local thành công! Xin chào: {user.username}")
 
-        project_id = args.project_id
-        # Create project if requested
-        if args.project_name and project_id is None:
-            print(f"Đang tạo Project mới '{args.project_name}' trên CVAT...")
-            label_requests = [models.PatchedLabelRequest(**lbl) for lbl in labels_data]
-            proj_spec = models.ProjectWriteRequest(
-                name=args.project_name,
-                labels=label_requests,
-            )
-            proj = client.projects.create(spec=proj_spec)
-            project_id = proj.id
-            print(f"[THÀNH CÔNG] Đã tạo Project '{args.project_name}' (ID: {project_id})")
+            project_id = args.project_id
+            if args.project_name and project_id is None:
+                print(f"[*] Đang tạo Project mới '{args.project_name}' trên CVAT Local...")
+                label_requests = [models.PatchedLabelRequest(**lbl) for lbl in labels_data]
+                proj_spec = models.ProjectWriteRequest(
+                    name=args.project_name,
+                    labels=label_requests,
+                )
+                proj = client.projects.create(spec=proj_spec)
+                project_id = proj.id
+                print(f"[THÀNH CÔNG] Đã tạo Project '{args.project_name}' (ID: {project_id})")
 
-        # Create tasks
-        success_count = 0
-        for mshv in members:
-            task = create_task_for_member(
-                client=client,
-                server_url=args.server,
-                mshv=mshv,
-                project_id=project_id,
-                labels_spec=labels_data if project_id is None else None,
-            )
-            if task:
-                success_count += 1
+            success_count = 0
+            for mshv in members:
+                task = create_task_for_member(
+                    client=client,
+                    server_url=args.server,
+                    mshv=mshv,
+                    project_id=project_id,
+                    labels_spec=labels_data if project_id is None else None,
+                )
+                if task:
+                    success_count += 1
 
-        print(f"\nHoàn tất: Đã tạo thành công {success_count}/{len(members)} Task.")
+            print(f"\n========================================================")
+            print(f"[HOÀN TẤT] Đã tạo thành công {success_count}/{len(members)} Task trên CVAT Local!")
+            print(f"Mở trình duyệt truy cập: {args.server} để kiểm tra và gán nhãn.")
+            print(f"========================================================")
+    except Exception as e:
+        print(f"\nLỖI KẾT NỐI CVAT LOCAL: {e}", file=sys.stderr)
+        print("Gợi ý: Kiểm tra xem CVAT Local đã bật chưa (mặc định tại http://localhost:8080) và đúng tài khoản/mật khẩu.", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
