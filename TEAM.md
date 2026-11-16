@@ -2,8 +2,8 @@
 
 - Tên nhóm: G04-T034
 - Mã thành viên (ba chữ số): 229 - Phan Hải Đăng, 077 - Lương Hoàng Bảo Trân, 120 - Nguyễn Anh Tiến, 125 - Lê Trung Sang, 164 - Vũ Tuyết Trinh
-- Người điều phối:
-- Người review bản cuối:
+- Người điều phối: Phan Hải Đăng
+- Người review bản cuối: Lương Hoàng Bảo Trân
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
 ## Kết quả tóm tắt (điền cuối bài)
