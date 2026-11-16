@@ -58,15 +58,23 @@ class WorkflowTest(unittest.TestCase):
             writer.writerow(header)
             writer.writerows(rows)
 
+    def default_attrs(self):
+        tax_data = json.loads(self.tax.read_text(encoding="utf-8"))
+        return {
+            a["name"]: (False if a["type"] == "checkbox" else (a.get("default") or (a["values"][0] if a.get("values") else "")))
+            for a in tax_data.get("attributes", [])
+        }
+
     def coco(self, path, names=None, label="car", additional=None, bbox=None):
         names = self.names if names is None else names
+        default_attrs = self.default_attrs()
         data = {
             "images": [{"id": i, "file_name": name, "height": 100, "width": 100}
                        for i, name in enumerate(names, 1)],
             "categories": [{"id": 1, "name": label}, {"id": 2, "name": "ignore_region"}],
             "annotations": [
                 {"id": i, "image_id": i, "category_id": 1, "bbox": bbox or [1, 1, 20, 60],
-                 "attributes": {"occluded_level": "0", "truncated": "no", "can_review": False}}
+                 "attributes": dict(default_attrs)}
                 for i in range(1, len(names) + 1)
             ],
         }
@@ -107,7 +115,7 @@ class WorkflowTest(unittest.TestCase):
         self.assignments()
         self.coco(self.sub / "labels" / "101.json", additional=[
             {"id": 3, "image_id": 1, "category_id": 1, "bbox": [50, 0, 20, 60],
-             "attributes": {"occluded_level": "0", "truncated": "no", "can_review": False}},
+             "attributes": self.default_attrs()},
         ])
         self.coco(self.sub / "labels" / "102.json", additional=[
             {"id": 3, "image_id": 1, "category_id": 2, "bbox": [45, 0, 45, 80]},
@@ -121,7 +129,7 @@ class WorkflowTest(unittest.TestCase):
     def test_matched_ignore_regions_do_not_hide_asymmetric_coverage(self):
         self.assignments()
         obj = {"id": 3, "image_id": 1, "category_id": 1, "bbox": [25, 35, 10, 20],
-               "attributes": {"occluded_level": "0", "truncated": "no", "can_review": False}}
+               "attributes": self.default_attrs()}
         region = {"id": 4, "image_id": 1, "category_id": 2, "bbox": [28, 15, 65, 75]}
         self.coco(self.sub / "labels" / "101.json", additional=[
             obj, {**region, "bbox": [38, 15, 60, 75]},
