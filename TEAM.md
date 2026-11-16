@@ -4,7 +4,7 @@
 - Mã thành viên (ba chữ số): 193-Cao Thị Thúy Hiền, 188- Nguyễn Thị Ngọc Mai, 241- Nguyễn Mạnh Quang
 - Người điều phối: Nguyễn Thị Ngọc Mai
 - Người review bản cuối: Cao Thị Thúy Hiền 
-- Commit chốt bài (điền ở kênh nộp sau khi commit): https://github.com/maimmmrrr77/K5-L23-Day07-NguyenThiNgocMai-2A202603188-Guideline-Taxonomy-QC.git
+- Commit chốt bài (điền ở kênh nộp sau khi commit): https://github.com/maimmmrrr77/K5-L23-Day07-Nhom01-Guideline-Taxonomy-QC
 
 ## Kết quả tóm tắt (điền cuối bài)
 
