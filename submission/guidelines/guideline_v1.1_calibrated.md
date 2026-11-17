@@ -1,12 +1,10 @@
 # Guideline gán nhãn v1.1 — Day 07
 
-> **Bản làm việc cho calibration; chưa xác nhận hoàn tất.** Nội dung quy tắc giữ như v1.0.
+> Bản calibration do reviewer 102 chốt ngày 17/11/2026 sau khi rà ảnh và đối chiếu các ca bất đồng. Bản này giữ taxonomy v1.0 và làm rõ quy tắc xử lý nhận diện xe, nhòe chuyển động.
 
-> **Bản tổng hợp CP2 để nhóm rà soát.** Nội dung được đối chiếu từ 5 guideline cá nhân và hướng dẫn lab. Các ví dụ theo ảnh cần thành viên kiểm tra trực tiếp; chỉ xem bản này là đã được nhóm chốt sau khi mọi người xác nhận bảng `submission/guidelines/CP2_DECISION_MATRIX.md`.
-
-- Phiên bản: `v1.1` (bản làm việc; nội dung quy tắc giữ như v1.0)
+- Phiên bản: `v1.1` (đã calibration; taxonomy giữ `v1.0`)
 - Phạm vi: 40 ảnh đường phố, bounding box 2D, CVAT, xuất COCO 1.0
-- Mã quy tắc: `R-01`–`R-08`; dùng các mã này thống nhất trong nhật ký, calibration và QC.
+- Mã quy tắc: `R-01`–`R-09`; dùng các mã này thống nhất trong nhật ký, calibration và QC.
 
 ## 1. Mục tiêu
 
@@ -52,22 +50,35 @@ Các thuộc tính sau được áp dụng cho 8 lớp đối tượng; `ignore_
 - **R-06 — Vật nhỏ và cụm dày:** Đo chiều cao phần nhìn thấy trên ảnh gốc. Từ 20 px trở lên, gán riêng nếu nhận diện và tách được. Dưới 20 px hoặc trong cụm không thể tách đáng tin cậy, khoanh `ignore_region` sát phần đó. Gán riêng các đối tượng rõ trước; không dùng vùng ignore rộng để bỏ qua chúng.
 - **R-07 — Che khuất và cắt mép:** Chọn `occluded_level` cho phần bị vật khác che, `truncated` cho phần bị biên ảnh cắt. Không dùng độ mờ làm mức che khuất và không coi vật chỉ chạm mép là bị cắt.
 - **R-08 — Ca cần xem lại:** Nếu có thể vẽ box nhưng chưa chắc, chọn phương án có căn cứ nhất và bật `can_review=true`. Nếu chưa thể quyết định có gán hay chưa xác định được vị trí, ghi `image`, `annotator`, `region`, `note` vào `submission/qc/image_issues.csv`. Không tự tạo box/lớp để lấp chỗ thiếu.
+- **R-09 — Nhận diện xe và nhòe chuyển động:** Phân lớp theo cấu tạo nhìn thấy: bán tải có nắp/chụp thùng gắn cố định vẫn là `truck`; khoang kín liền cabin là `van`; xe buýt thân lớn là `bus`. Với ảnh tối hoặc vật đang chuyển động, chỉ gán khi vẫn nhận diện chắc chắn lớp và vị trí của người/xe. Box ôm phần thân chính nhận diện được, không kéo theo vệt nhòe hay bóng phản chiếu. Nếu biết có đối tượng nhưng chưa chắc lớp/biên box thì bật `can_review`; nếu chưa xác định được vùng thì ghi `image_issues.csv` theo R-08. Áp dụng các ca `img_014`, `img_015`, `img_016`, `img_037` và kiểm tra nhất quán trên cả lô.
 
 ## 4. Ca khó tham chiếu
 
-Các ID dưới đây được dẫn từ tài liệu lab và guideline cá nhân. Thành viên cần tự đối chiếu ảnh gốc để xác nhận chi tiết trước khi áp dụng; không suy ra số lượng box cụ thể nếu chưa xem rõ từng cá thể.
+Các ID dưới đây được dẫn từ tài liệu lab và guideline cá nhân. Quyết định calibration đã đối chiếu ảnh gốc; không suy ra số lượng box cho vật không nhận diện rõ.
 
 | Ảnh | Tình huống | Rule | Cách xử lý v1.0 |
 |---|---|---|---|
 | `img_002` | Xe chuyên chở nhiều ô tô | R-02, R-04 | Một `truck`; mỗi `car` nhìn đủ rõ và đạt 20 px có box riêng. |
 | `img_004`, `img_016`, `img_035`, `img_040` | Tuk-tuk/auto-rickshaw | R-01, R-05 | Gán `three_wheeler`; box theo cấu tạo xe, không kéo theo hàng hóa rời. |
 | `img_009`, `img_031`, `img_037`, `img_040` | Bus/xe khách cỡ lớn | R-05 | Gán `bus` khi cấu trúc xe buýt/khoang khách lớn nhận diện được; van thân liền nhỏ là `van`. |
-| `img_037` | Bán tải gắn nắp thùng cao | R-05 | Gán `truck`; nắp gắn cố định thuộc cấu tạo xe. |
+| `img_037` | Bán tải gắn nắp thùng cao | R-05, R-09 | Gán `truck`; nắp gắn cố định thuộc cấu tạo xe. |
 | `img_005`, `img_026` | Người lái/ngồi trên xe máy | R-02, R-03 | Box riêng cho từng người đủ điều kiện và một box xe; tự kiểm từng người nhìn thấy. |
 | `img_011`, `img_017`, `img_027`, `img_033`, `img_038` | Tượng, ma-nơ-canh, đồ chơi/mô hình | R-01 | Không gán các vật giả như người/xe; vẫn gán đối tượng thật khác trong cùng ảnh. |
 | `img_018`, `img_020` | Hình in hoặc phản chiếu | R-01 | Không gán hình in/phản chiếu thành người/xe thật. |
 | `img_021`, `img_032` | Cá thể nhỏ hoặc cụm chồng lấp | R-06 | Gán cá thể tách được; dùng `ignore_region` cục bộ cho phần dưới ngưỡng/không tách được. |
 | `img_003`, `img_006`, `img_023`, `img_029` | Xe đạp không động cơ | R-01, R-03 | Gán từng xe đủ điều kiện là `bicycle`; gán riêng người thật nhìn thấy nếu đủ điều kiện. Xích lô đạp không có lớp phương tiện. |
+
+### Quyết định calibration đã chốt
+
+- `img_002`: xe nhỏ sát mép phải là một `van`; giữ một box, bỏ truck trùng. Các ô tô trên xe chuyên chở vẫn là `car` riêng theo R-04.
+- `img_008`: giữ box xe nền nhận diện được; loại box trùng/không đủ dấu hiệu trong vùng tối theo R-09.
+- `img_014`: giữ hai người đi bộ rõ; bỏ box người/xe tạo theo vệt nhòe không nhận diện chắc lớp và thân xe theo R-09.
+- `img_015`: giữ riêng các ô tô nhìn thấy; box xe không kéo theo phản chiếu mặt đường theo R-02/R-09.
+- `img_016`: gán xe tuk-tuk bên trái là một `three_wheeler`; không giữ box `truck` trùng. Giữ riêng xe van và tuk-tuk bên phải.
+- `img_037`: xe bán tải nắp cao là `truck`; box theo thân xe và nắp gắn cố định.
+- `img_040`: xe màu vàng/xanh ở giữa là `three_wheeler`; taxi tiền cảnh có `occluded_level=1`, `truncated=yes` theo quyết định của 101, đã được 102 kiểm lại.
+
+Chi tiết từng case, phương án box, sửa và kiểm lại nằm trong `submission/qc/calibration_decisions.csv`; phạm vi thay đổi ngữ nghĩa là toàn bộ 40 ảnh.
 
 ## 5. QC và lịch sử phiên bản
 
@@ -87,5 +98,6 @@ Giữ nguyên toàn bộ ngưỡng trong `submission/taxonomy.json → rules`. B
 |---|---|---|
 | `v0` | Sáu lớp ban đầu; thuộc tính và quy tắc ca khó còn khái quát. | V0 chưa làm rõ bus/tuk-tuk, xe chở xe, ngưỡng che khuất, vật giả và vật dưới 20 px. |
 | `v1.0` | Chuẩn hóa bộ 9 lớp theo CVAT Raw; thêm định nghĩa thao tác cho `three_wheeler`, `bus`, `bicycle`; định lượng `occluded_level`; tách `truncated`; ban hành `R-01`–`R-08` cho phạm vi, box, xe/người, xe chở xe, kích thước và xử lý ca chưa chắc. | Tổng hợp các ca `img_002`, `img_003`, `img_004`, `img_006`, `img_009`, `img_018`, `img_020`, `img_021`, `img_035`, `img_037` và các bất đồng giữa guideline cá nhân. |
+| `v1.1` | Bổ sung `R-09` cho nhận diện loại xe khi có nắp/chụp thùng và xử lý vật nhòe chuyển động/ảnh tối; hiệu chỉnh nhãn và thuộc tính theo quyết định 102. | `img_002`, `img_008`, `img_014`, `img_015`, `img_016`, `img_037`, `img_040`; kiểm lại toàn bộ 40 ảnh vì thay đổi ngữ nghĩa. |
 
-Sau khi nhóm xác nhận và khóa bản này, mọi người dùng cùng `guideline_v1.0_agreed.md` và `taxonomy.json` trong CP3; thay đổi ngữ nghĩa sau đó phải được ghi nhận theo quy trình calibration, không sửa lặng lẽ giữa lượt gán.
+Reviewer 102 chốt bản v1.1 ngày 17/11/2026. Taxonomy giữ nguyên v1.0; các nhãn cuối dùng guideline này. Mọi thay đổi ngữ nghĩa tiếp theo phải mở calibration mới, có quyết định, phạm vi và kiểm lại được ghi nhận.
