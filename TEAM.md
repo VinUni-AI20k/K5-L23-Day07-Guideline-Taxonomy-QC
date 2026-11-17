@@ -1,8 +1,8 @@
 # Thông tin nhóm
 
-- Tên nhóm:
-- Mã thành viên (ba chữ số):
-- Người điều phối:
+- Tên nhóm: LAB7BROS
+- Mã thành viên (ba chữ số): 151, 137, 170
+- Người điều phối: 151
 - Người review bản cuối:
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
