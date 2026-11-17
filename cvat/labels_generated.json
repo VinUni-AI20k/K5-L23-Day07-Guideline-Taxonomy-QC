@@ -30,9 +30,12 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": [
+          "false"
+        ]
       }
-    ]
+    ],
+    "type": "any"
   },
   {
     "name": "truck",
@@ -65,9 +68,12 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": [
+          "false"
+        ]
       }
-    ]
+    ],
+    "type": "any"
   },
   {
     "name": "van",
@@ -100,12 +106,15 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": [
+          "false"
+        ]
       }
-    ]
+    ],
+    "type": "any"
   },
   {
-    "name": "motorcycle",
+    "name": "bus",
     "color": "#f58231",
     "attributes": [
       {
@@ -135,12 +144,15 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": [
+          "false"
+        ]
       }
-    ]
+    ],
+    "type": "any"
   },
   {
-    "name": "person",
+    "name": "tuk_tuk",
     "color": "#911eb4",
     "attributes": [
       {
@@ -170,13 +182,207 @@
         "mutable": false,
         "input_type": "checkbox",
         "default_value": "false",
-        "values": []
+        "values": [
+          "false"
+        ]
       }
-    ]
+    ],
+    "type": "any"
+  },
+  {
+    "name": "motorcycle",
+    "color": "#46c8c8",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ],
+    "type": "any"
+  },
+  {
+    "name": "person",
+    "color": "#f032e6",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ],
+    "type": "any"
   },
   {
     "name": "ignore_region",
     "color": "#808080",
-    "attributes": []
+    "attributes": [],
+    "type": "any"
+  },
+  {
+    "name": "bicycle",
+    "color": "#bcf60c",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ],
+    "type": "any"
+  },
+  {
+    "name": "traffic_light",
+    "color": "#808000",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ],
+    "type": "any"
+  },
+  {
+    "name": "traffic_sign",
+    "color": "#008080",
+    "attributes": [
+      {
+        "name": "occluded_level",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "0",
+        "values": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "name": "truncated",
+        "mutable": false,
+        "input_type": "select",
+        "default_value": "no",
+        "values": [
+          "no",
+          "yes"
+        ]
+      },
+      {
+        "name": "can_review",
+        "mutable": false,
+        "input_type": "checkbox",
+        "default_value": "false",
+        "values": [
+          "false"
+        ]
+      }
+    ],
+    "type": "any"
   }
 ]
