@@ -98,6 +98,7 @@ Sau khi khóa bản độc lập, đối chiếu ca tham chiếu coach cung cấ
    | `kiem_lai` | ai kiểm lại và kết quả |
    | `pham_vi` | `anh` (chỉ ảnh đó) hoặc `lo` (quy tắc đổi nghĩa, phải kiểm cả lô) |
 
+   Nếu chưa đủ bằng chứng, ghi `CHỜ REVIEW THỦ CÔNG:` trong `quyet_dinh` và nêu rõ lý do. Script sẽ chặn calibration khi còn ca chờ; không ghi như đã chốt hoặc đã sửa.
    Không có ca nào thì giữ bảng chỉ có header. Nếu phải chạy lại IAA với đầu vào khác, lưu bảng cũ riêng rồi để script tạo lại.
 2. **Guideline v1.1.** Lưu `guideline_v1.1_calibrated.md` và `submission/guideline_change.json`:
    ```json

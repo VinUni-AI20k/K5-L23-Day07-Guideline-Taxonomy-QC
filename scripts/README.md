@@ -23,6 +23,12 @@ Ghi chú:
 - `qc_sample.py` mặc định duyệt **toàn lô**. `--n` chỉ để demo (kết quả là Hold). Vòng đã có thì dùng số vòng mới.
 - `qc_report.py` nhận thêm `--guideline-gap N`, `--data-problem N` (dẫn tới Hold). Quyết định chỉ là **gợi ý**.
 
+Trong `calibration_decisions.csv`, tiền tố `CHỜ REVIEW THỦ CÔNG:` biểu thị ca chưa được chốt. `prepare_calibration.py` sẽ từ chối tiếp tục nếu còn ca như vậy; chỉ thay bằng quyết định đã được nhóm chốt sau khi đối chiếu ảnh và guideline. Không điền người chốt, phiếu sửa hoặc kiểm lại trước khi các việc đó thực sự xảy ra.
+
+`python scripts/calibration_assist.py` tạo `submission/qc/calibration_proposals.csv` và crop theo mã ca trong `work/calibration_review/cases/`. Bảng nối candidate với annotation ID/attributes nguồn, đối chiếu IoU và gợi ý quy tắc cần xem. Đây chỉ là bằng chứng hỗ trợ triage; không phải quyết định nhóm, không sửa nhãn gốc, và không thay thế việc xem ảnh rồi chốt trong `calibration_decisions.csv`.
+
+`python scripts/create_calibration_proposal.py` tạo COCO xem xét riêng tại `work/calibration_review/proposed_calibrated.json`, bảng quyết định ưu tiên tại `work/calibration_review/case_decisions.csv` và nhật ký tại `work/calibration_review/annotation_change_log.json`. Đầu ra COCO được sao từ `consensus_draft.json`; khi còn ca chưa chốt, script cố ý giữ nguyên mọi annotation (0 sửa đã áp dụng) và ghi 230 ca chờ nhóm xác nhận. Đây không phải export CVAT hay nhãn cuối.
+
 ## Phiếu QC
 
 File `submission/qc/reviews/round-NN/qc_review.csv`, cột: `image, object_id, error_type, reviewer, rule_id, region, note`.

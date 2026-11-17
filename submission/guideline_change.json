@@ -1,0 +1,4 @@
+{
+  "kind": "editorial",
+  "summary": "Dự thảo v1.1 làm rõ quy trình đối chiếu 230 ca IAA và cách áp dụng taxonomy, box, thuộc tính, ignore_region và ngưỡng đã có trong guideline v1.0; không thay đổi định nghĩa lớp, quy tắc gán nhãn, taxonomy hoặc ngưỡng. Đây chưa phải nội dung được nhóm phê duyệt; các ca chưa được chốt và chưa có sửa CVAT hay kiểm lại được xác nhận."
+}

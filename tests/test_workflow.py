@@ -202,6 +202,31 @@ class WorkflowTest(unittest.TestCase):
         self.coco(target)
         self.run_script("build_final")
 
+    def test_prepare_calibration_rejects_pending_manual_decisions(self):
+        self.assignments()
+        self.coco(self.sub / "labels" / "101.json")
+        self.coco(self.sub / "labels" / "102.json", bbox=[3, 1, 20, 60])
+        self.run_script("qc_compare")
+        self.run_script("build_final", success=False)
+
+        table = self.qc / "calibration_decisions.csv"
+        with table.open(encoding="utf-8", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        for row in rows:
+            row.update({
+                "quyet_dinh": "CHỜ REVIEW THỦ CÔNG: cần người đối chiếu ảnh",
+                "quy_tac_ghi_vao_guideline": "R-01",
+                "phien_ban_guideline": "v1.0",
+                "nguoi_chot": "chờ nhóm",
+                "phieu_sua": "chưa sửa",
+                "kiem_lai": "chưa kiểm lại",
+            })
+        self.write_csv(self.qc / "calibration_decisions.csv", self.decision_fields(),
+                       [[row[name] for name in self.decision_fields()] for row in rows])
+        output = self.run_script("prepare_calibration", success=False)
+        self.assertIn("chờ review thủ công", output.lower())
+        self.assertFalse((self.root / "work" / "calib").exists())
+
     def prepare_export(self):
         output = self.run_script("prepare_calibration")
         prefix = "COCO sau sửa: "

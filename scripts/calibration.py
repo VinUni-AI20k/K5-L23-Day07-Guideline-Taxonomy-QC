@@ -15,6 +15,7 @@ DECISION_COLUMNS = [
     "case_id", "image", "quyet_dinh", "quy_tac_ghi_vao_guideline",
     "phien_ban_guideline", "nguoi_chot", "phieu_sua", "kiem_lai", "pham_vi",
 ]
+PENDING_DECISION_PREFIX = "CHỜ REVIEW THỦ CÔNG:"
 
 
 def calibration_export_path(scope) -> Path:
@@ -81,10 +82,12 @@ def calibration_scope():
     candidate_ids = {row["case_id"]: row["image"] for row in candidates}
     closed = set()
     seen = set()
+    pending = []
     scope = set(flagged)
     for row in decisions:
         case = (row.get("case_id") or "").strip()
         image = (row.get("image") or "").strip()
+        decision = (row.get("quyet_dinh") or "").strip()
         impact = (row.get("pham_vi") or "").strip()
         required = DECISION_COLUMNS[:-1]
         if (
@@ -103,10 +106,18 @@ def calibration_scope():
         else:
             scope.add(image)
         if case in candidate_ids:
-            closed.add(case)
-    missing_cases = sorted(set(candidate_ids) - closed)
+            if decision.startswith(PENDING_DECISION_PREFIX):
+                pending.append(case)
+            else:
+                closed.add(case)
+    missing_cases = sorted(set(candidate_ids) - closed - set(pending))
     if missing_cases:
         errors.append("Ca IAA chưa xác nhận: " + ", ".join(missing_cases))
+    if pending:
+        errors.append(
+            f"{len(pending)} ca còn chờ review thủ công: " + ", ".join(sorted(pending)[:10])
+            + (" ..." if len(pending) > 10 else "")
+        )
     if semantic_change or change["kind"] == "semantic":
         scope.update(batch)
         if not any(row.get("pham_vi") == "lo" for row in decisions):
