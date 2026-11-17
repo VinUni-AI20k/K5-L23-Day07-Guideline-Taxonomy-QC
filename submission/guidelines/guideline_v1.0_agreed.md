@@ -193,25 +193,6 @@ Dưới đây là bảng tổng hợp các tình huống biên điển hình đ�
 
 | Ảnh | Tình huống / Đối tượng thực tế | Rule ID | Quyết định thống nhất của nhóm | Lý do & Thảo luận |
 |---|---|---|---|---|
-| `img_002` | Xe tải chuyên chở 6–7 ô tô con trên hai tầng giá | R-01, R-09 | 01 box `truck` cho xe chở xe; vẽ từng box `car` riêng cho mỗi ô tô con trên sàn (đạt $\ge 20\text{ px}$). | Đã giải quyết bất đồng giữa bản 03228 và các bản khác; ô tô trên sàn vẫn mang đặc trưng thị giác của `car`. |
-| `img_004` | Hai xe tuk-tuk chở khách, tài xế ngồi bên trong | R-01, R-08 | Gán mỗi xe là `tuk_tuk`; tài xế nhìn thấy rõ trong buồng lái gán thêm 01 box `person`. | Đã bổ sung lớp `tuk_tuk` trong v1.0 để định danh chính xác xe 3 bánh. |
-| `img_005` | Nhóm 4–5 người đi xe máy chen chúc, xe van xám bị che phía sau | R-02, R-08 | Tách từng box `person` cho mỗi người; vẽ phần nhìn thấy của xe máy `motorcycle`; xe van phía sau gán `van` với `occluded_level=true` (bị che khuất). | Che khuất dày đặc; đánh dấu tick chọn `occluded_level=true` vì xe van bị che thân trước. |
-| `img_008` | Cụm nhiều xe máy đỗ cạnh nhau | R-01, R-07 | Các xe máy phân biệt được ranh giới rõ ràng thì gán từng box `motorcycle`; nếu có cụm quá xa/chồng lấn thì dùng `ignore_region`. | Ưu tiên gán cá thể nếu tách được ranh giới. |
-| `img_012` | Xe bán tải bốc dỡ hàng, xe SUV xám phía trước | R-01, R-10 | Xe bán tải gán `truck` (`truncated=yes` nếu chạm biên); SUV gán `car`; người bốc hàng gán `person`. | Bán tải là `truck`; hàng trong thùng gắn liền với xe. |
-| `img_014` | Người đi xe máy ban đêm bị mờ chuyển động (motion blur) | R-06, R-08 | Vẫn gán `motorcycle` và `person` nếu nhận diện được cấu trúc; tick `can_review = true`. | Mờ chuyển động không tự động loại bỏ nếu mắt người vẫn nhận biết được đối tượng. | 
-| `img_016` | Xe bên trái bị khuất không rõ là xe `tuk_tuk` hay `car` | R-01, R-08 | Gán xe bên trái là `tuk_tuk`. | Nhìn khung xe và phía trên che nắng giống xe `tuk_tuk` |
-| `img_017` | Tượng đá danh nhân cưỡi ngựa, đầu có đội nón giao thông | R-04 | **Tuyệt đối không gán box** (cả người cưỡi lẫn con ngựa). | Tượng điêu khắc nghệ thuật, không phải người thật tham gia giao thông. |
-| `img_019` | Đám đông cổ vũ có nhiều người, không xác định được từng object | R-01| Đánh nhãn là `ignore_region` | Đám đông cổ vũ có nhiều người, không xác định được từng object |
-| `img_023` | Ô tô sedan Honda đen, người đạp xích lô chở khách | R-01, R-08 | Ô tô gán `car`; người đạp xích lô và khách gán từng box `person`; không vẽ box cho xe xích lô. | Xích lô không động cơ nằm ngoài taxonomy. |
-| `img_023` | Nhiều xe máy góc bên trái bị che đậu cạnh nhau gây khó nhận diện | R-01 | Đánh nhãn `motorcycle` và đánh `occluded` kèm `can_review`   | Các xe có thể nội suy ra hình dáng |
-| `img_027` | Bia mộ/khối đá tạc hình xe bán tải | R-04 | **Không gán box** cho khối đá tạc hình xe. | Tượng đá điêu khắc tĩnh, đóng vai trò mẫu âm nền. |
-| `img_028` | Xe bán tải cổ chở tượng ngựa trắng trên thùng xe | R-04, R-10 | Xe bán tải gán `truck`; **không gán box** cho tượng con ngựa trên thùng xe. | Tượng ngựa là hàng trang trí, không phải sinh vật sống hay phương tiện. |
-| `img_030` | Bãi đỗ xe máy dày đặc nhiều dãy chồng chéo | R-07 | Khoanh 01 hoặc vài box `ignore_region` bao trùm cụm xe máy chen chúc không thể tách rời; xe nào ở rìa ngoài đứng đơn lẻ rõ ràng vẫn gán `motorcycle`. Vùng góc trên không xác định rõ thì đánh `ignore_region` | Áp dụng đúng quy tắc xử lý cụm đám đông ken đặc. |
-| `img_032` | Nhiều người đứng đợi xe buýt và đằng sau là bãi đỗ xe với nhiều xe bị che khuất | R-01 | Chỉ đánh nhãn `person` và 'car' cho những đối tượng nhìn rõ | Áp dụng đúng quy tắc xử lý cụm đám đông ken đặc. |
-| `img_033` | Tủ kính thời trang có ma-nơ-canh và hình ảnh người phản chiếu | R-04 | **Tuyệt đối không gán box** nào. | Ma-nơ-canh và bóng phản chiếu qua kính đều không phải người thật. |
-| `img_035` | Xe tuk-tuk chở các bao tải hàng chất cao trên nóc | R-01, R-11 | Gán `tuk_tuk` bao trọn cả thân xe và khối hàng buộc cố định trên nóc xe; tài xế gán `person`. | Hàng chằng buộc trên nóc gắn liền với khối thể tích di chuyển của xe. |
-| `img_037` | Xe bị xe bán tải trắng che, chỉ lộ mỗi đuôi xe | R-01 | Xe phía sau gán `bus`.| Do đuôi xe giống hệt xe `bus` đã gán trong hình |
-| `img_038` | Tủ kính trưng bày nhiều hàng xe mô hình đồ chơi | R-04 | **Tuyệt đối không gán box** cho các xe đồ chơi trong tủ. | Xe đồ chơi thu nhỏ, không phải phương tiện giao thông. |
 
 ---
 
