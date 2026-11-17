@@ -1,0 +1,10 @@
+{
+  "kind": "semantic",
+  "from_version": "v1.0",
+  "to_version": "v1.1",
+  "summary": "Đổi cách gán sau IAA chưa đạt (IoU TB 0.844, cùng lớp 89.3% trên 777 cặp box ghép): R-05 phép thử person/rider theo tư thế nhìn thấy, áp dụng cả xe đỗ; R-08 truncated=yes khi cạnh box cách mép ảnh <= 2 px; R-10 gán mọi vật nhận ra được trong đám đông/dãy xe đỗ kể cả bị che >= 70%; thêm R-12 ước lượng occluded_level trên toàn bộ vật, R-13/R-14 phép thử lớp xe (pickup có nắp thùng -> truck, xe buýt -> other_vehicle, xe 3 bánh = 1 box other_vehicle, có bàn đạp -> bicycle), R-15 chốt và tắt can_review. Làm rõ câu chữ R-04, R-06. Taxonomy giữ v1.0. Phạm vi: kiểm lại cả 40 ảnh (pham_vi=lo).",
+  "rules_changed": ["R-05", "R-08", "R-10"],
+  "rules_added": ["R-12", "R-13", "R-14", "R-15"],
+  "rules_clarified": ["R-04", "R-06"],
+  "taxonomy_changed": false
+}
