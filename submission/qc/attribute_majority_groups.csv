@@ -1,0 +1,16 @@
+﻿image,case_ids,thuoc_tinh,gia_tri_theo_nguoi,de_xuat,trang_thai
+img_002.jpg,C055 | C065,occluded_level,101=1 (IoU=0.999); 104=0 (IoU=0.978); 105=0 (IoU=0.706),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_006.jpg,C433 | C451,occluded_level,101=3 (IoU=0.975); 102=0 (IoU=0.797); 103=0 (IoU=0.596),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_006.jpg,C435,truncated,101=yes (IoU=0.993); 102=no (IoU=0.688); 103=no (IoU=0.668),no,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_008.jpg,C575,truncated,101=yes (IoU=0.996); 103=no (IoU=0.939); 105=no (IoU=0.929),no,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_008.jpg,C579 | C584,occluded_level,101=0 (IoU=0.982); 103=1 (IoU=0.659); 105=1 (IoU=0.632),1,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_011.jpg,C702 | C710,occluded_level,101=1 (IoU=0.952); 102=0 (IoU=0.859); 104=0 (IoU=0.842),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_011.jpg,C707 | C711,occluded_level,101=1 (IoU=0.954); 102=0 (IoU=0.702); 104=0 (IoU=0.793),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_014.jpg,C792 | C794,occluded_level,101=0 (IoU=0.993); 104=1 (IoU=0.768); 105=1 (IoU=0.625),1,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_018.jpg,C872 | C876,occluded_level,101=1 (IoU=0.994); 102=0 (IoU=0.939); 104=0 (IoU=0.876),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_018.jpg,C873 | C875,occluded_level,101=1 (IoU=0.986); 102=0 (IoU=0.914); 104=0 (IoU=0.876),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_021.jpg,C1041,truncated,101=no (IoU=0.997); 103=yes (IoU=0.892); 104=yes (IoU=0.94),yes,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_021.jpg,C1044 | C1047,occluded_level,101=2 (IoU=0.993); 103=3 (IoU=0.584); 104=3 (IoU=0.857),3,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_034.jpg,C1614 | C1622,occluded_level,101=0 (IoU=0.973); 104=1 (IoU=0.773); 105=1 (IoU=0.738),1,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_036.jpg,C1727 | C1730,occluded_level,101=2 (IoU=0.991); 103=3 (IoU=0.653); 104=3 (IoU=0.721),3,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
+img_040.jpg,C1905 | C1914,occluded_level,101=2 (IoU=0.999); 102=0 (IoU=0.986); 104=0 (IoU=0.895),0,Nhóm ghép tự động; kiểm cùng vật và ảnh trước khi áp dụng
