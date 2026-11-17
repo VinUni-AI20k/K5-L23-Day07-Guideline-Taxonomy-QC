@@ -241,7 +241,7 @@ class WorkflowTest(unittest.TestCase):
 
     def test_full_cli_handoff_checks_final_decision_and_rejects_tampering(self):
         (self.root / "guideline").mkdir()
-        (self.root / "guideline" / "guideline_v0_starter.md").write_text("v0", encoding="utf-8")
+        (self.root / "guideline" / "guideline_350.md").write_text("v0", encoding="utf-8")
         (self.root / "TEAM.md").write_text("101, 102", encoding="utf-8")
         (self.sub / "guidelines" / "individual").mkdir()
         (self.sub / "individual_notes").mkdir()
