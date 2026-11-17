@@ -3,7 +3,8 @@
 - Phiên bản: v0
 - Loại nhãn: bounding box (hộp chữ nhật) trên ảnh đường phố
 - Công cụ: CVAT, xuất COCO 1.0
-
+- Ngày: 16/11/2026
+- Người viết: Nguyễn Minh Đức
 ---
 
 ## 1. Mục tiêu
