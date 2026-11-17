@@ -9,7 +9,7 @@
 | `img_017` | Tượng đá danh nhân cưỡi ngựa, đầu có đội nón giao thông. v0 chỉ ghi chung "gán box cho mọi người và phương tiện", không phân biệt giữa người thật tham gia giao thông với tượng đài điêu khắc nghệ thuật (dễ gây lỗi False Positive / phanh ma). | **Tuyệt đối không gán box** (cả người cưỡi lẫn con ngựa). Tượng điêu khắc nghệ thuật, không phải người thật tham gia giao thông; đóng vai trò mẫu âm nền / hard negative (R-04). |
 | `img_019` | Đám đông cổ vũ có nhiều người chen chúc, không xác định được từng object riêng lẻ. v0 chỉ ghi chung chung `ignore_region` là "Vùng không cần gán từng vật", không đưa ra tiêu chí cụ thể khi nào thì gom đám đông vào vùng bỏ qua. | Đánh nhãn là `ignore_region` bao trùm toàn bộ đám đông cổ vũ vì quá nhiều người chen chúc, không thể xác định và tách ranh giới của từng đối tượng riêng biệt (R-01, R-07). |
 
-> *(Ghi chú khảo sát thêm ở Pha 1: Ngoài 3 ca tiêu biểu trên, tôi cũng đã ghi nhận và đề xuất hướng xử lý cho các ca biên khác như xe chở xe `img_002`, xe tuk-tuk chở khách `img_004`, xe che khuất khó phân biệt `img_016`, bãi đỗ xe dày đặc `img_030`, ma-nơ-canh `img_033`, tuk-tuk chở hàng cao trên nóc `img_035`... làm cơ sở thống nhất tại Pha 2).*
+> *(Ghi chú khảo sát thêm ở Pha 1: Ngoài 3 ca tiêu biểu trên, tôi cũng đã ghi nhận và đề xuất hướng xử lý cho các ca biên khác như xe chở xe `img_002`, xe che khuất khó phân biệt `img_016`, bãi đỗ xe dày đặc `img_030`, ma-nơ-canh `img_033`, tuk-tuk chở hàng cao trên nóc `img_035`... làm cơ sở thống nhất tại Pha 2).*
 
 ## 2. Pha 2: chỗ tôi bất đồng với nhóm
 - Chỗ nào bản của tôi khác bản của bạn? Cuối cùng nhóm chốt gì, tôi đồng ý / chưa đồng ý vì sao?
