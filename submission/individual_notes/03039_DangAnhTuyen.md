@@ -14,7 +14,7 @@ Trong bản cá nhân, tôi đề xuất để tuk-tuk và xe buýt ngoài phạ
 
 ## 3. Kết quả gán nhãn cá nhân
 
-File `submission/labels/039.json` hiện chứa 24 ảnh và 202 bbox, gồm 182 box đối tượng và 20 box `ignore_region`. Số lượng dưới đây được tổng hợp trực tiếp từ bản JSON này.
+File `submission/labels/03039_DangAnhTuyen.json` mới nhất chứa 24 ảnh và 202 bbox, gồm 182 box đối tượng và 20 box `ignore_region`.
 
 | Lớp | Số box |
 |---|---:|
@@ -30,18 +30,6 @@ File `submission/labels/039.json` hiện chứa 24 ảnh và 202 bbox, gồm 182
 | `traffic_sign` | 5 |
 | `ignore_region` | 20 |
 | **Tổng** | **202** |
-
-Trong 182 box đối tượng, số box có mức che khuất `0`, `1`, `2`, `3` lần lượt là 127, 27, 19 và 9. Có 20 box được đánh dấu `truncated=yes`. Tại thời điểm xuất file, không có box nào bật `can_review`.
-
-Tôi kiểm tra file bằng lệnh sau.
-
-```powershell
-python -X utf8 scripts/validate_labels.py submission/labels/039.json
-```
-
-Kết quả kiểm tra xác nhận file hợp lệ về cấu trúc và có đủ 24 ảnh theo phân công. Lần kiểm tra ban đầu báo các lớp mới chưa có trong taxonomy. Sau khi bổ sung `bus`, `tuk_tuk`, `bicycle`, `traffic_light` và `traffic_sign` vào taxonomy trên nhánh cá nhân, lỗi lớp ngoài danh mục đã được xử lý.
-
-Script vẫn cảnh báo ba box ở `img_031.jpg`, ID `152`, `162` và `163`, cần rà lại theo quy tắc vật nhỏ dưới 20 px. Các cảnh báo này còn chờ kiểm tra trực tiếp trên ảnh. Khi xem lại, cần xử lý theo guideline và xuất lại COCO nếu có sửa nhãn.
 
 ## 4. Kết quả đối chiếu và calibration
 
