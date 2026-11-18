@@ -1,0 +1,4 @@
+{
+  "kind": "semantic",
+  "summary": "v1.1 cụ thể hóa cách chọn vật trong cụm đông (R-13: chỉ vẽ riêng vật cao từ 40 px và che dưới 40%, còn lại ignore_region), cách đo occluded_level (R-14: mốc 10/40/70 giữ nguyên, lưỡng lự chọn mức cao), ranh giới box (R-15), truncated theo chạm mép (R-16) và xử lý hết can_review (R-17). Đổi cách chọn vật, ranh giới box và thuộc tính nên phải kiểm lại cả 40 ảnh. Taxonomy không đổi."
+}

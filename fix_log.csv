@@ -1,0 +1,41 @@
+﻿image,nguoi_sua,phieu_sua,nguoi_kiem,ket_qua_kiem
+img_001.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,9
+img_002.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,8
+img_003.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,9
+img_004.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,9
+img_005.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,8
+img_006.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,9
+img_007.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-01: Xóa box #81 (truck): box trùng lặp với #80 (cùng thùng xe tải phía sau) và phủ cả xe bán tải phía trước | mục 2.2: Đổi box #78 car -> truck: xe bán tải cabin tách khoang hàng",034,9
+img_008.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-13: Gộp box #105, #106 vào ignore_region mới #472: hai người phía sau dãy xe, cao dưới 55 px, che từ mức 2 trở lên | R-13: Gộp box #110 vào ignore_region mới #473: người ở rìa phải, cao 49 px, che mức 2 trong cụm xe đỗ",034,8
+img_009.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-13: Gộp box #120, #127, #130, #132 vào ignore_region mới #469: cụm xe máy, xe đạp, người ở xa cuối phố, cao dưới 40 px | R-13: Gộp box #122, #124, #126, #128, #129 vào ignore_region mới #468: hành khách nhìn qua cửa kính xe buýt, cụm 5 người cao dưới 40 px",034,8
+img_010.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",034,8
+img_011.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: giữ box motorcycle xe độ (guideline v1.0 mục 6 và R-10: còn nhận diện là xe máy thì motorcycle); bản sửa nháp từng xóa nhầm box này, đã hoàn lại.",048,9
+img_012.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,8
+img_013.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,8
+img_014.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,8
+img_015.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_016.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_017.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_018.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_019.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_020.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",048,9
+img_021.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,8
+img_022.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,8
+img_023.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-13: Gộp box #266, #269, #270 vào ignore_region mới #470: xe và xe máy xa cuối đường trong cụm sát nhau, cao dưới 50 px",344,8
+img_024.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,7
+img_025.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,8
+img_026.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,7
+img_027.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,9
+img_028.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,9
+img_029.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,8
+img_030.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",344,7
+img_031.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-05: Xóa box #342 (person): cao dưới 20 px",354,7
+img_032.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,9
+img_033.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,8
+img_034.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,7
+img_035.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,7
+img_036.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,9
+img_037.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,9
+img_038.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,8
+img_039.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: R-13: Gộp box #439, #447, #455 vào ignore_region mới #471: cụm người và xe máy ở xa, trong đó có box cao dưới 20 px (R-05)",354,9
+img_040.jpg,070,"Chạy prep_consensus.py (tắt can_review, đặt truncated theo R-16); nhận bản sửa nháp do AI soạn; rà lại trong CVAT. Thay đổi: không sửa thêm so với bản nháp",354,9
